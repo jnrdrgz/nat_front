@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import api from "../services/api"
 import {
-    BrowserRouter as Link, useHistory
+    BrowserRouter as Router,  Switch, Route, Link, useHistory, useRouteMatch
   } from "react-router-dom"
+  import ABMProducto from './ABMProducto'
 
-const ConsultaProducto = () => {
+  const ConsultaProducto = () => {
     const [productos, setProductos] = useState([]);
 
     let history = useHistory()
+    let match = useRouteMatch();
 
-    function goToEditClick(p) {
+    const goToEditClick = (p) => {
         history.push({
-            pathname: "/editar",
+            pathname: `${match.path}/editar`,
             state: { producto: p}
         });  
     }
 
-    function goToDeleteClick(p){
+    const goToDeleteClick = (p) => {
         history.push({
-            pathname: "/eliminar",
+            pathname: `${match.path}/eliminar`,
             state: { producto: p}
         });  
     }
@@ -31,7 +33,8 @@ const ConsultaProducto = () => {
                 
         })
     },[])
-    
+
+             
     if(productos !== []){
         return (
             <div>Consulta:
@@ -42,7 +45,23 @@ const ConsultaProducto = () => {
                     <button onClick={() => goToDeleteClick(producto)}>X</button>
                 </div>)}
 
+                
+                <Switch>
+                    
+                    <Route path={`${match.path}/agregar`}>
+                        <ABMProducto tipoOperacion="ALTA"/>
+                    </Route>
+                    <Route path={`${match.path}/eliminar`}>
+                        <ABMProducto tipoOperacion="BAJA"/>
+                    </Route>
+                    <Route path={`${match.path}/editar`}>
+                        <ABMProducto tipoOperacion="MODIFICACION"/>
+                    </Route>
+                </Switch> 
+
             </div>
+
+            
         )
     }else{
         return (<div>loading...</div>)

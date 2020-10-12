@@ -5,7 +5,6 @@ import {
 
 import Home from "./pages/Home"
 import ConsultaProducto from "./components/ConsultaProducto"
-import ABMProducto from './components/ABMProducto'
 
 const App = () => {
     const padding = {
@@ -27,17 +26,7 @@ const App = () => {
                 <Route path="/productos">
                     <ConsultaProducto/>
                 </Route>
-    
-                <Route path="/agregar">
-                    <ABMProducto tipoOperacion="ALTA"/>
-                </Route>
-                <Route path="/eliminar">
-                    <ABMProducto tipoOperacion="BAJA"/>
-                </Route>
-                <Route path="/editar">
-                    <ABMProducto tipoOperacion="MODIFICACION"/>
-                </Route>
-                
+   
                 <Route path="/">
                     <Home/>
                 </Route>
