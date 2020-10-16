@@ -36,32 +36,17 @@ import {
 
              
     if(productos !== []){
+        console.log("PATH", match.path)
         return (
             <div>Consulta:
                 {productos.map(producto =>
-                <div key={producto.descripcion}>
+                <div key={producto.id}>
                     {producto.descripcion}
                     <button onClick={() => goToEditClick(producto)}>E</button>
                     <button onClick={() => goToDeleteClick(producto)}>X</button>
-                </div>)}
-
-                
-                <Switch>
-                    
-                    <Route path={`${match.path}/agregar`}>
-                        <ABMProducto tipoOperacion="ALTA"/>
-                    </Route>
-                    <Route path={`${match.path}/eliminar`}>
-                        <ABMProducto tipoOperacion="BAJA"/>
-                    </Route>
-                    <Route path={`${match.path}/editar`}>
-                        <ABMProducto tipoOperacion="MODIFICACION"/>
-                    </Route>
-                </Switch> 
-
+                </div>)}               
             </div>
-
-            
+   
         )
     }else{
         return (<div>loading...</div>)

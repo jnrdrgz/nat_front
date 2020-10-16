@@ -152,6 +152,5 @@ const ABMProducto = (props) => {
         tipoOperacion={props.tipoOperacion} 
         producto={location.state ? location.state.producto : {}}/>
     )
-
 }
 export default ABMProducto;
