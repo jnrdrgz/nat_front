@@ -154,12 +154,17 @@ const FormComponent = (props) => {
 const ABMPedidoCliente = (props) => {
     const location = useLocation();
     const [inputFields, setInputFields] = useState([]);
+    const [productos, setProductos] = useState([]);
 
     const [nuevo, setNuevo] = useState(false)
     
-
     useEffect(() => {
-        console.log(location.state); // result: 'some_value'
+        console.log(location.state)
+        api.get("/productos").then(r => {
+            console.log(r.data)
+            setProductos(r.data.data)            
+        })
+    
      }, [location]);
 
      const handleAddFields = (nuevo) => {
@@ -170,10 +175,10 @@ const ABMPedidoCliente = (props) => {
             values.push({ 
                 nuevo: nuevo,
                 producto: "",
-                precio: "",
-                codigo: "",
-                puntos: "",
-                stock: "", 
+                precio:   0.0,
+                codigo:   0,
+                puntos:   0,
+                stock:    0.0, 
             });
         } else {
             values.push({ 
@@ -182,15 +187,46 @@ const ABMPedidoCliente = (props) => {
             });
         }
         setInputFields(values);
+    };
+
+    const handleInputChange = (index, event) => {
+        const values = [...inputFields];
+        if (event.target.name === "producto") {
+            values[index].producto = event.target.value;
+        }
+        if (event.target.name === "precio") {
+            values[index].precio = event.target.value;
+        }
+        if (event.target.name === "codigo") {
+            values[index].codigo = event.target.value;
+        }    
+        if (event.target.name === "puntos") {
+            values[index].puntos = event.target.value    
+        } else {
+            values[index].stock = event.target.value;
+        }
+    
+        setInputFields(values);
+        
       };
 
-      const marcameElMarco = {
-        border: "2px solid red"
+    const marcameElMarco = {
+      border: "2px solid red",
+      width: "33%",
+    }
+    const marcameElMarcoEx = {
+        border: "2px solid blue",
+        width: "33%",
       }
-    console.log(props)
+    console.log(inputFields)
+
+    const handleSubmit = () => {
+        
+    }
+
     return (
       <div>
-          <form onSubmit={()=>{}}>
+          <form onSubmit={handleSubmit}>
           
           Pedido:
             <div>
@@ -198,13 +234,52 @@ const ABMPedidoCliente = (props) => {
                     if(inputField.nuevo){
                         return (<Fragment key={`asdf${index}`}>
                          <div style={marcameElMarco}>
+                             Nuevo  <br />
+                            
                             Producto
-                              <input name="producto" value={inputField.Producto} />
+                              <input name="producto" value={inputField.Producto} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                            Cantidad
+                              <input name="cantidad" 
+                              value={inputField.Cantidad} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                            Precio
+                              <input name="precio" value={inputField.Precio} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                            Stock
+                              <input name="stock" 
+                              value={inputField.Stock} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                           Ptos
+                              <input name="puntos" 
+                              value={inputField.Puntos} 
+                              onChange={event => handleInputChange(index, event)}
+                              />
+                             
+ 
                         </div>
                         <br />
                         </Fragment>)
                     } else {
-                        return(<div>existente</div>)
+                        //add onchange to select igual que arriaba
+                        return(<div style={marcameElMarcoEx} key={`asdf${index}`}>
+                            existente <br />
+                            Producto: 
+                                <select name="producto">
+                                    
+                                    {productos.map(
+                                        p => <option key={`${p.id}`} value={p.id}>{p.descripcion}</option>)}
+                                </select>    
+                            Cantidad
+                              <input name="cantidad" 
+                              value={inputField.Cantidad} 
+                              onChange={event => handleInputChange(index, event)}
+                              />
+                        </div>)
                     }
                 })}
             </div>
