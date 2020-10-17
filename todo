@@ -1,0 +1,6 @@
+Pedido cliente
+abm
+-cuando no hay productos no se puede eliminar el creado dinamicamente
+-no anda producto existente cuando hay uno solo
+-cargar nombre cliente por defecto, falta agregar form y etc del cliente
+-luego de cargar pedido falta redireccionamiento o cartel avisando que se cargo exitosamente

@@ -43,114 +43,7 @@ const DetalleProducto = (props) => {
         </div>
     )
 }
-
-
-const FormComponent = (props) => {
-    
-    const producto = useInput("")
-    const inputsReadOnly = useInput(false)
-    //foto
-    
-    const [productos, setProductos] = useState([]);
-  
-
-    //console.log("in form comp", props)
-    
-    let history = useHistory()
-
-    const goToConsulta = () => {
-        history.push({pathname: "/productos"});  
-    }
-
-    useEffect(()=>{
-        console.log("USE EFFECT", "si")
-        const setValuesToProps = () => {
-            producto.setValue(props.producto.descripcion)
-        }
-        switch(props.tipoOperacion){
-            case "ALTA":
-                break;
-            case "MODIFICACION":
-                setValuesToProps()
-                break;
-            case "BAJA":
-                setValuesToProps()
-                inputsReadOnly.setValue(true)
-                //readOnly
-                break;
-            default:
-                break;
-        }
-
-    },[])
-
-    const addPedido = (e) => {
-        e.preventDefault();
-        const payload = {
-            descripcion: producto.value,
-        }
-
-        console.log(payload)
-
-        api.post("/pedidos/cliente/agregar", payload).then(r => {
-            console.log(r.data)
-            goToConsulta();
-        }).catch(e => console.log(e))
-    }
-
-    //fataria cuotas
-    const marcarPagado = (e) => {
-        e.preventDefault();
-        const payload = {
-            //id
-            descripcion: producto.value,
-        }
-
-        console.log("EDITAR", payload)
-
-        //api.put("/productos/editar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
-    }
-
-    const marcarEntregado = (e) => {
-        e.preventDefault();
-        const payload = {
-            //id
-        }
-
-        console.log("EDITAR", payload)
-
-        //api.put("/productos/editar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
-    }
-
-
-    const _onSubmit = (e) => {
-        switch(props.tipoOperacion){
-            case "ALTA":
-                addPedido(e)
-                break;
-            case "MODIFICACION":
-                //marcar como entregado o pagado
-                break;
-        }
-    }
-
-    return (
-        <div>
-            {props.tipoOperacion}
-            <form onSubmit={_onSubmit}>
-            Producto: <input onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br/>
-              <button type="submit">Submit</button>
-            </form>
-        </div>
-
-    )
-
-}
-
+ 
 const ABMPedidoCliente = (props) => {
     const location = useLocation();
     const [inputFields, setInputFields] = useState([]);
@@ -287,7 +180,8 @@ const ABMPedidoCliente = (props) => {
             <div>
                 {inputFields.map((inputField, index) => {
                     if(inputField.nuevo){
-                        return (<Fragment key={`asdf${index}`}>
+                        return (
+                        <Fragment key={`asdf${index}`}>
                          <div style={marcameElMarco}>
                              Nuevo  <br />
                             
@@ -320,7 +214,8 @@ const ABMPedidoCliente = (props) => {
                         </Fragment>)
                     } else {
                         //add onchange to select igual que arriaba
-                        return(<div style={marcameElMarcoEx} key={`asdf${index}`}>
+                        return(
+                        <div style={marcameElMarcoEx} key={`asdf${index}`}>
                             existente <br />
                             Producto: 
                                 <select name="producto"
@@ -342,19 +237,16 @@ const ABMPedidoCliente = (props) => {
                         handleAddFields(false)}}>existente</button>
             <button type="button" onClick={() => {
                         handleAddFields(true)}}>nuevo</button>
-          <br/>
+            <br/>
             nombre cliente<input name="nombreCliente"  
-                onChange={()=>{}}
-                /><br/>
+                onChange={()=>{}}/>
+            <br/>
             numero cliente<input name="numeroCliente"  
-                onChange={()=>{}}
-                />
-                <br/>
+                onChange={()=>{}}/>
+            <br/>
 
             <button type="submit">Agregar </button>
           </form>
-          
-
       </div>
     )
 }
