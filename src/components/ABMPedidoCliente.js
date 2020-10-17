@@ -179,11 +179,13 @@ const ABMPedidoCliente = (props) => {
                 codigo:   0,
                 puntos:   0,
                 stock:    0.0, 
+                cantidad: 0,
             });
         } else {
             values.push({ 
                 nuevo: nuevo,
-                producto: "",
+                productoId: "", 
+                cantidad: 0,
             });
         }
         setInputFields(values);
@@ -191,19 +193,32 @@ const ABMPedidoCliente = (props) => {
 
     const handleInputChange = (index, event) => {
         const values = [...inputFields];
-        if (event.target.name === "producto") {
-            values[index].producto = event.target.value;
-        }
-        if (event.target.name === "precio") {
-            values[index].precio = event.target.value;
-        }
-        if (event.target.name === "codigo") {
-            values[index].codigo = event.target.value;
-        }    
-        if (event.target.name === "puntos") {
-            values[index].puntos = event.target.value    
+        if(values[index].nuevo === true){
+            if (event.target.name === "producto") {
+                values[index].producto = event.target.value;
+            }
+            if (event.target.name === "precio") {
+                values[index].precio = event.target.value;
+            }
+            if (event.target.name === "codigo") {
+                values[index].codigo = event.target.value;
+            }    
+            if (event.target.name === "puntos") {
+                values[index].puntos = event.target.value    
+            }
+            if (event.target.name === "cantidad") {
+                values[index].cantidad = event.target.value    
+            } 
+            else {
+                values[index].stock = event.target.value;
+            }
         } else {
-            values[index].stock = event.target.value;
+            if (event.target.name === "cantidad") {
+                values[index].cantidad = event.target.value    
+            } 
+            else {
+                values[index].productoId = event.target.value;
+            }
         }
     
         setInputFields(values);
@@ -220,8 +235,48 @@ const ABMPedidoCliente = (props) => {
       }
     console.log(inputFields)
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("On form submit", inputFields)
+        const payload = {
+            Pedido:{
+                total: 0.0,
+                DetallePedidos: []
+            },
+            Cliente: {
+                nombre: "mario jrez",
+                numeroTelefono: "3815812095"
+            } 
+        }
+
+        inputFields.forEach(x => {
+            if(!x.nuevo){
+                payload.Pedido.DetallePedidos.push(
+                    {
+                        ProductoId: x.productoId,
+                        cantidad: parseFloat(x.cantidad),
+                    }
+                )
+            }else{
+                payload.Pedido.DetallePedidos.push(
+                    {
+                        Producto:{
+                            descripcion: x.producto,
+                            puntos: parseFloat(x.puntos),
+                            precio: parseFloat(x.precio),
+                            codigo: parseFloat(x.codigo),
+                            stock: parseFloat(x.stock)
+                        },
+                        cantidad: parseFloat(x.cantidad),
+                    }
+                )
+            }
+        });
+
+        api.post("/pedidos/cliente/agregar", payload).then(r => {
+            //console.log(r.data)
+            //goToConsulta();
+        }).catch(e => console.log(e))
     }
 
     return (
@@ -259,8 +314,7 @@ const ABMPedidoCliente = (props) => {
                               value={inputField.Puntos} 
                               onChange={event => handleInputChange(index, event)}
                               />
-                             
- 
+
                         </div>
                         <br />
                         </Fragment>)
@@ -269,7 +323,8 @@ const ABMPedidoCliente = (props) => {
                         return(<div style={marcameElMarcoEx} key={`asdf${index}`}>
                             existente <br />
                             Producto: 
-                                <select name="producto">
+                                <select name="producto"
+                                onChange={event => handleInputChange(index, event)}>
                                     
                                     {productos.map(
                                         p => <option key={`${p.id}`} value={p.id}>{p.descripcion}</option>)}
@@ -283,14 +338,22 @@ const ABMPedidoCliente = (props) => {
                     }
                 })}
             </div>
-          
-          <button type="submit">Agregar </button>
-          </form>
-          <button onClick={() => {
+            <button  type="button" onClick={() => {
                         handleAddFields(false)}}>existente</button>
-            <button onClick={() => {
+            <button type="button" onClick={() => {
                         handleAddFields(true)}}>nuevo</button>
+          <br/>
+            nombre cliente<input name="nombreCliente"  
+                onChange={()=>{}}
+                /><br/>
+            numero cliente<input name="numeroCliente"  
+                onChange={()=>{}}
+                />
+                <br/>
 
+            <button type="submit">Agregar </button>
+          </form>
+          
 
       </div>
     )
