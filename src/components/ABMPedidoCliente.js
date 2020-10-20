@@ -14,42 +14,16 @@ const useInput = (defaultValue) => {
     return { value, setValue, onChange };
 };
 
-const ProductoExistenteComponent = (props) => {
-    return(
-        <div>
-
-        </div>
-    )
-}
-
-const NuevoProductoComponent = (props) => {
-    return(
-        <div>
-            <form>
-                Producto: <input></input><br/>
-                Precio: <input></input><br/>
-                Codigo: <input></input>
-                Puntos: <input></input><br/>
-                Stock: <input ></input>
-            </form>
-        </div>
-    )
-}
-
-const DetalleProducto = (props) => {
-    return (
-        <div>
-
-        </div>
-    )
-}
- 
 const ABMPedidoCliente = (props) => {
     const location = useLocation();
     const [inputFields, setInputFields] = useState([]);
     const [productos, setProductos] = useState([]);
 
     const [nuevo, setNuevo] = useState(false)
+
+    const nombreCliente = useInput("")
+    const numeroCliente = useInput("")
+    
     
     useEffect(() => {
         console.log(location.state)
@@ -137,8 +111,8 @@ const ABMPedidoCliente = (props) => {
                 DetallePedidos: []
             },
             Cliente: {
-                nombre: "mario jrez",
-                numeroTelefono: "3815812095"
+                nombre: nombreCliente.value,
+                numeroTelefono: numeroCliente.value
             } 
         }
 
@@ -169,6 +143,7 @@ const ABMPedidoCliente = (props) => {
         api.post("/pedidos/cliente/agregar", payload).then(r => {
             //console.log(r.data)
             //goToConsulta();
+            alert("Pedido cargado")
         }).catch(e => console.log(e))
     }
 
@@ -239,10 +214,12 @@ const ABMPedidoCliente = (props) => {
                         handleAddFields(true)}}>nuevo</button>
             <br/>
             nombre cliente<input name="nombreCliente"  
-                onChange={()=>{}}/>
+                value={nombreCliente.value}                                
+                onChange={nombreCliente.onChange}/>
             <br/>
-            numero cliente<input name="numeroCliente"  
-                onChange={()=>{}}/>
+            numero cliente<input name="numeroCliente" 
+                value={numeroCliente.value}                                
+                onChange={numeroCliente.onChange}/>
             <br/>
 
             <button type="submit">Agregar </button>

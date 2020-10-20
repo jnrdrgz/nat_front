@@ -6,8 +6,10 @@ import {
 import Home from "./pages/Home"
 import ConsultaProducto from "./components/ConsultaProducto"
 import ConsultaPedidoCliente from "./components/ConsultaPedidoCliente"
+import ConsultaPedidoProveedor from "./components/ConsultaPedidoProveedor"
 import ABMProducto from "./components/ABMProducto"
 import ABMPedidoCliente from './components/ABMPedidoCliente'
+import ABMPedidoProveedor from './components/ABMPedidoProveedor'
 
 const App = () => {
     const padding = {
@@ -23,10 +25,13 @@ const App = () => {
                 <Link style={padding} to="/">Home</Link> 
                 <Link style={padding} to="/productos">Productos</Link>
                 <Link style={padding} to="/pedidos/cliente">Pedidos Clientes</Link>
+                <Link style={padding} to="/pedidos/proveedor">Pedidos Proveedor</Link>
+                <Link style={padding} to="/ciclos">Ciclos</Link>
+                <Link style={padding} to="/balance">Balance</Link>
             </div>
    
             <Switch>
-            
+               {/* PRINCIPALES */}
                 <Route path="/productos" exact={true}>
                     <ConsultaProducto/>
                 </Route>
@@ -37,16 +42,25 @@ const App = () => {
                 </Route>
 
                 <Route path="/pedidos/proveedor" exact={true}>
+                    <ConsultaPedidoProveedor/>
+
+                </Route>
+   
+                <Route path="/ciclos" exact={true}>
                     <Home/>
 
-                    
+                </Route>
+                
+                <Route path="/balance" exact={true}>
+                    <Home/>
+
                 </Route>
    
                 <Route path="/" exact={true}>
                     <Home/>
                 </Route>
 
-                /* PRODUCTO */
+                {/* PRODUCTO */}
                 <Route path="/productos/agregar">
                     <ABMProducto tipoOperacion="ALTA"/>
                 </Route>
@@ -57,9 +71,14 @@ const App = () => {
                     <ABMProducto tipoOperacion="MODIFICACION"/>
                 </Route>
 
-                /* PEDIDO CLIENTE */
+                {/* PEDIDO CLIENTE */}
                 <Route path="/pedidos/cliente/agregar">
                     <ABMPedidoCliente/>
+                </Route>
+
+                {/* PEDIDO PROVEEDOR */}
+                <Route path="/pedidos/proveedor/agregar">
+                    <ABMPedidoProveedor/>
                 </Route>
     
                 
