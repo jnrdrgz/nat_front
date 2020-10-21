@@ -10,6 +10,7 @@ import ConsultaPedidoProveedor from "./components/ConsultaPedidoProveedor"
 import ABMProducto from "./components/ABMProducto"
 import ABMPedidoCliente from './components/ABMPedidoCliente'
 import ABMPedidoProveedor from './components/ABMPedidoProveedor'
+import ConsultaCiclos from './components/ConsultaCiclos'
 
 const App = () => {
     const padding = {
@@ -47,7 +48,7 @@ const App = () => {
                 </Route>
    
                 <Route path="/ciclos" exact={true}>
-                    <Home/>
+                    <ConsultaCiclos/>
 
                 </Route>
                 

@@ -18,6 +18,7 @@ const ABMPedidoCliente = (props) => {
     const location = useLocation();
     const [inputFields, setInputFields] = useState([]);
     const [productos, setProductos] = useState([]);
+    const [cicloActualId, setCicloActualId] = useState("");
 
     const [nuevo, setNuevo] = useState(false)
 
@@ -31,7 +32,15 @@ const ABMPedidoCliente = (props) => {
             console.log(r.data)
             setProductos(r.data.data)            
         })
-    
+
+        //api.get("/ciclos/actual").then(r => {
+        //    console.log(r.data)
+        //    
+        //    setCicloActualId(r.data.idActual)            
+        //})
+        
+        setCicloActualId("63fab5c-549b-4eee-a181-1cc934b284e1")
+
      }, [location]);
 
      const handleAddFields = (nuevo) => {
@@ -43,6 +52,7 @@ const ABMPedidoCliente = (props) => {
                 nuevo: nuevo,
                 producto: "",
                 precio:   0.0,
+                precioCosto:   0.0,
                 codigo:   0,
                 puntos:   0,
                 stock:    0.0, 
@@ -66,6 +76,9 @@ const ABMPedidoCliente = (props) => {
             }
             if (event.target.name === "precio") {
                 values[index].precio = event.target.value;
+            }
+            if (event.target.name === "precioCosto") {
+                values[index].precioCosto = event.target.value;
             }
             if (event.target.name === "codigo") {
                 values[index].codigo = event.target.value;
@@ -106,6 +119,7 @@ const ABMPedidoCliente = (props) => {
         e.preventDefault();
         console.log("On form submit", inputFields)
         const payload = {
+            CicloId: "",
             Pedido:{
                 total: 0.0,
                 DetallePedidos: []
@@ -131,6 +145,7 @@ const ABMPedidoCliente = (props) => {
                             descripcion: x.producto,
                             puntos: parseFloat(x.puntos),
                             precio: parseFloat(x.precio),
+                            precioCosto: parseFloat(x.precioCosto),
                             codigo: parseFloat(x.codigo),
                             stock: parseFloat(x.stock)
                         },
@@ -171,6 +186,10 @@ const ABMPedidoCliente = (props) => {
                               /><br />
                             Precio
                               <input name="precio" value={inputField.Precio} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                            Precio Costo
+                              <input name="precioCosto" value={inputField.precioCosto} 
                               onChange={event => handleInputChange(index, event)}
                               /><br />
                             Stock

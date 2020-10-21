@@ -7,7 +7,8 @@ import {
 const PedidoDisp = (props) => {
     return (
         <div>
-            total: ${props.pedido.total}
+            total: ${props.pedido.total}<br />
+            
             {props.pedido.DetallePedidos.map(detalle =>{
                 if(detalle.Producto){
                     return(
@@ -17,7 +18,6 @@ const PedidoDisp = (props) => {
                             precio unitario: ${detalle.Producto.precio} <br />
                             cantidad{detalle.cantidad}<br /> 
                             Subtotal: ${detalle.subtotal}
-
                         </div>)
                         }else {
                             return(<div>Sin productos</div>)
@@ -51,6 +51,22 @@ const ConsultaPedidoProveedor = () => {
         border: "2px solid red",
         width: "33%",
       }
+
+      const marcarPedidoRecibido = (pId) => {
+        const payload = {
+            id: pId,
+        }
+
+        console.log(payload)
+
+        api.put("/pedidos/proveedor/recibido", payload).then(r => {
+            console.log(r.data)
+            alert("recibido")
+            //setfUpdate(!fUpdate)
+            window.location.reload();
+        }).catch(e => console.log(e))
+    }
+
              
       //faltarian filtros y/o buscador
     if(pedidos !== []){
@@ -61,8 +77,10 @@ const ConsultaPedidoProveedor = () => {
                 {pedidos.map(pedido =>
                 <div style={marcameElMarco} key={pedido.id}>
                     <PedidoDisp pedido={pedido.Pedido}/>
+                    
+                    Recibido: {pedido.recibido ? "SI" : "NO"}
                     <br />
-                    <button>Marcar Recibido</button>
+                    <button onClick={() => {marcarPedidoRecibido(pedido.id)}}>Marcar Recibido</button>
                 </div>)}               
             </div>
    

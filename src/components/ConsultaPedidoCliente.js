@@ -30,6 +30,7 @@ const PedidoDisp = (props) => {
 
 const ConsultaPedidoCliente = () => {
     const [pedidos, setPedidos] = useState([]);
+    const [fUpdate, setfUpdate] = useState(false);
 
     let history = useHistory()
     let match = useRouteMatch();
@@ -62,10 +63,41 @@ const ConsultaPedidoCliente = () => {
             pathname: `${match.path}/agregar`
         });  
     }
+
+    const marcarPedidoEntregado = (pId) => {
+        const payload = {
+            id: pId,
+        }
+
+        console.log(payload)
+
+        api.put("/pedidos/cliente/entregado", payload).then(r => {
+            console.log(r.data)
+            alert("Entregado")
+            //setfUpdate(!fUpdate)
+            window.location.reload();
+        }).catch(e => console.log(e))
+    }
+
+    const marcarPedidoPagado = (pId) => {
+        const payload = {
+            id: pId,
+        }
+
+        console.log(payload)
+
+        api.put("/pedidos/cliente/pagado", payload).then(r => {
+            console.log(r.data)
+            alert("Pagado")
+        }).catch(e => console.log(e))
+    }
+
+
     const marcameElMarco = {
         border: "2px solid red",
         width: "33%",
       }
+      
              
       //faltarian filtros y/o buscador
     if(pedidos !== []){
@@ -77,10 +109,12 @@ const ConsultaPedidoCliente = () => {
                 <div style={marcameElMarco} key={pedido.id}>
                     pedido de {pedido.Cliente.nombre} <br />
                     <PedidoDisp pedido={pedido.Pedido}/>
-                    entregado: {pedido.entregado ? "Si" : "No"} pagado: {pedido.pagado ? "Si" : "No"}
+                    entregado: {pedido.entregado ? "Si" : "No"} - 
+                    pagado: {pedido.pagado ? "Si" : "No"}
                     <br />
-                    <button>Marcar Entregado</button>
-                    <button>Marcar Pagado</button>
+                    
+                    <button onClick={ () => {marcarPedidoEntregado(pedido.id)} } >Marcar Entregado</button>
+                    <button onClick={ () => {marcarPedidoPagado(pedido.id)} }>Marcar Pagado</button>
                     <button>Cancelar</button>
                 </div>)}               
             </div>
