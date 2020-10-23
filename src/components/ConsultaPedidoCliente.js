@@ -89,6 +89,8 @@ const ConsultaPedidoCliente = () => {
         api.put("/pedidos/cliente/pagado", payload).then(r => {
             console.log(r.data)
             alert("Pagado")
+            //setfUpdate(!fUpdate)
+            window.location.reload()
         }).catch(e => console.log(e))
     }
 

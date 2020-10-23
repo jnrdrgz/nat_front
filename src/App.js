@@ -11,6 +11,7 @@ import ABMProducto from "./components/ABMProducto"
 import ABMPedidoCliente from './components/ABMPedidoCliente'
 import ABMPedidoProveedor from './components/ABMPedidoProveedor'
 import ConsultaCiclos from './components/ConsultaCiclos'
+import BalanceCiclo from './components/BalanceCiclo'
 
 const App = () => {
     const padding = {
@@ -81,8 +82,12 @@ const App = () => {
                 <Route path="/pedidos/proveedor/agregar">
                     <ABMPedidoProveedor/>
                 </Route>
-    
-                
+
+                {/* BALANCE CICLO */}
+                <Route path="/ciclos/balance">
+                    <BalanceCiclo />
+                </Route>
+
             </Switch>
         </Router>
     )

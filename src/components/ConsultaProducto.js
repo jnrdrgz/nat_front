@@ -35,11 +35,9 @@ const ConsultaProducto = () => {
         //const res = () => 
         api.get("/productos").then(r => {
             console.log(r.data)
-            setProductos(r.data.data)
-                
+            setProductos(r.data.data)     
         })
     },[])
-
              
     if(productos !== []){
         console.log("PATH", match.path)

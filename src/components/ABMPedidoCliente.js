@@ -33,13 +33,14 @@ const ABMPedidoCliente = (props) => {
             setProductos(r.data.data)            
         })
 
+        //TODO
         //api.get("/ciclos/actual").then(r => {
         //    console.log(r.data)
         //    
         //    setCicloActualId(r.data.idActual)            
         //})
         
-        setCicloActualId("63fab5c-549b-4eee-a181-1cc934b284e1")
+        setCicloActualId("a63fab5c-549b-4eee-a181-1cc934b284e1")
 
      }, [location]);
 
@@ -76,9 +77,11 @@ const ABMPedidoCliente = (props) => {
             }
             if (event.target.name === "precio") {
                 values[index].precio = event.target.value;
+                const p = parseFloat(values[index].precio)
+                const perc = (p*30.0)/100.0
+                values[index].precioCosto = p+perc;
             }
             if (event.target.name === "precioCosto") {
-                values[index].precioCosto = event.target.value;
             }
             if (event.target.name === "codigo") {
                 values[index].codigo = event.target.value;
@@ -118,10 +121,11 @@ const ABMPedidoCliente = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("On form submit", inputFields)
+        
         const payload = {
-            CicloId: "",
             Pedido:{
                 total: 0.0,
+                CicloId: cicloActualId,
                 DetallePedidos: []
             },
             Cliente: {
@@ -191,7 +195,7 @@ const ABMPedidoCliente = (props) => {
                             Precio Costo
                               <input name="precioCosto" value={inputField.precioCosto} 
                               onChange={event => handleInputChange(index, event)}
-                              /><br />
+                              /> coef 30%<br />
                             Stock
                               <input name="stock" 
                               value={inputField.Stock} 
