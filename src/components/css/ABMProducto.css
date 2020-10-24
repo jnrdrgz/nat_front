@@ -1,43 +1,57 @@
-.FormularioAbm{
-    border:1px solid black; 
-    width:50%;
-    padding:16px;
-    border-radius:10px;
+.Fondo{
+    background-color: #fcfcfa;
+}
+.FormularioCompleto{
+    border: 1px solid #14b383;
+    background-color: #edebed;
+
+    border-radius: 10px;
+    height:100%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    margin: 45px auto;
+}
+.Titulo{
+    background-color: #14b383;
+    border-radius: 10px 10px 0px 0px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+}
+.Inputs{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
     margin:0 auto;
-    background-color:gainsboro; 
-    text-align: center;    
+}    
+.Inputs label{
+    font-size: 19px;
+    font-weight: bold;
+    color: hsl(162, 89%, 14%);
 }
-
-.FormularioAbm label{
-    font-size: 35px;
-    font-style: bold;    
+.Inputs input[type=text]{
+    border-radius: 10px;
 }
+.Inputs input[type=text]:focus{
+    border-radius: 10px;
+    border-color: rgba(20, 179, 131,0.5);
 
-.FormularioAbm input[type ="text"]{
-    width:40%;
-    padding:3px 10px;    
-	border:1px solid orangered;
-	border-radius:3px;
-	background-color:white;
-	margin:0 auto;
-    display:block;
-    text-align:center;
-   
 }
-
-.FormularioAbm .input-labels{
+.btn{
     width: 40%;
-}
-.FormularioAbm .btn{
-    border:1px solid orangered;
-    background-color: black;
-    color: white;
-    margin:5px;
-    border-radius: 5px;
-    width: 25%;
     height: 5vh;
+    margin:15px auto;
+    padding:2px;
+    border-radius: 5px;
+    display: flex;  
+    justify-content: center;
+    background-color:#14b383;
+    color:#fff;
+    font-weight: bold;
+    box-shadow: 2px 0px 1px 1px rgba(18, 136, 107, 0.425);
 }
-.FormularioAbm .btn:hover{
-    background-color: white;
-    color: black;
+.btn:hover{
+    background-color:#82f5de;
+   
 }

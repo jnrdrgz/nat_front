@@ -42,12 +42,16 @@ const ConsultaProducto = () => {
         })
     }, [])
 
-   
+
     if (productos !== []) {
-       
-      
+
+
         return (
             <div className="Productos">
+                <div className="Agregar">
+                    
+                    <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo producto</button>
+                </div>
                 {productos.map(producto =>
                     <div className="Producto" key={producto.id}>
                         <img src="https://placekitten.com/g/200/300" width="200" height="250"></img>
