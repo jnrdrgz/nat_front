@@ -1,21 +1,23 @@
 .Productos{
     display: flex;
-    flex-wrap: wrap;
-    
+    flex-wrap: wrap;    
     max-width: 100%;
     max-height: 100%;
     overflow: auto;
-    background-color: #f1f2eb;
+    background-color: #fcfcfa;
+    justify-content: space-around;
+
 }
 .Producto{
     margin: 15px 10px;
     display: flex;
     text-align: center;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #edebed;
+  
     border-radius: 10px;
-    width: 20%;
-    height: 60vh;
+    width: 23%;
+    height: 65vh;
 }
 .Producto:hover{
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
@@ -27,36 +29,51 @@
     max-width: 80%;
     max-height: 50%;
     width: 200px;
-    height: 300px;
+    height: 250px;
 }
 
 p{
     font-weight:bold;
     font-style: italic;
-    font-size:17px;
+    font-size:15px;
+    height: 45vh;
+    overflow: hidden;
+        
 }
 
-.Cuerpo{
-    border:1px dotted fuchsia;
+.Cuerpo{    
     height:20%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;  
+    margin-bottom: 5px; 
 }
 
 .Cuerpo label{
-    margin: 0 auto;    
-    border:1px solid yellow;  
-    overflow: hidden;  
+    margin: 0 auto;  
+    overflow: hidden; 
+    font-size: 15px;
+     
 }
 .Pie{
-    height: 40vh;  
+    height: 50vh;  
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
    
 }
 .Pie .btn{
     width: 40%;
-    height: 70%;
+    height: 5vh;
     margin:5px;
-    padding:4px;
+    padding:2px;
     border-radius: 5px;
-    text-align: center;
+    display: flex;  
+    justify-content: center;
+    background-color:#14b383;
+    color:#fff;
+}
+.Pie .btn:hover{
+    background-color:#82f5de;
+
+    
 }
