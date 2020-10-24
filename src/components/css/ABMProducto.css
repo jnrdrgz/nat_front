@@ -1,0 +1,43 @@
+.FormularioAbm{
+    border:1px solid black; 
+    width:50%;
+    padding:16px;
+    border-radius:10px;
+    margin:0 auto;
+    background-color:gainsboro; 
+    text-align: center;    
+}
+
+.FormularioAbm label{
+    font-size: 35px;
+    font-style: bold;    
+}
+
+.FormularioAbm input[type ="text"]{
+    width:40%;
+    padding:3px 10px;    
+	border:1px solid orangered;
+	border-radius:3px;
+	background-color:white;
+	margin:0 auto;
+    display:block;
+    text-align:center;
+   
+}
+
+.FormularioAbm .input-labels{
+    width: 40%;
+}
+.FormularioAbm .btn{
+    border:1px solid orangered;
+    background-color: black;
+    color: white;
+    margin:5px;
+    border-radius: 5px;
+    width: 25%;
+    height: 5vh;
+}
+.FormularioAbm .btn:hover{
+    background-color: white;
+    color: black;
+}

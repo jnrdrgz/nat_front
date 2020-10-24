@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
+import "./css/ABMProducto.css"
 
 
 const useInput = (defaultValue) => {
@@ -136,18 +137,21 @@ const FormComponent = (props) => {
     }
 
     return (
-        <div>
-            {props.tipoOperacion}
-            <form onSubmit={_onSubmit}>
-            Producto: <input onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br/>
-            Precio: <input onChange={precioOnChange} value={precio} readOnly={inputsReadOnly.value}></input><br/>
-            PrecioCosto: <input onChange={()=>{}} value={precioCosto} readOnly={true}></input><br/>
-            Codigo: <input onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br/>
-            Puntos: <input onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br/>
-            Stock: <input onChange={stock.onChange}   value={stock.value}  readOnly={inputsReadOnly.value}></input><br/>
-              <button type="submit">Submit</button>
-            </form>
-        </div>
+        <div className="FormularioAbm">
+        <h3>{props.tipoOperacion}</h3>
+        <form onSubmit={_onSubmit}>
+            
+                <label>Producto: </label><input type="text" onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br />
+                <label>Precio: </label><input type="text" onChange={precio.onChange} value={precio.value} readOnly={inputsReadOnly.value}></input><br />
+                <label>Codigo: </label><input type="text" onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br />
+                <label>Puntos: </label><input type="text" onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br />
+                <label>Stock: </label><input type="text" onChange={stock.onChange} value={stock.value} readOnly={inputsReadOnly.value}></input><br />
+            
+            <div className="input-boton">
+                <button className="btn" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 
     )
 
