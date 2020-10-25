@@ -49,7 +49,6 @@ const FormComponent = (props) => {
         console.log("USE EFFECT", "si")
         const setValuesToProps = () => {
             producto.setValue(props.producto.descripcion)
-            //precio.setValue(props.producto.precio)
             setPrecio(props.producto.precio)
             codigo.setValue(props.producto.codigo)
             puntos.setValue(props.producto.puntos)
@@ -78,7 +77,7 @@ const FormComponent = (props) => {
             descripcion: producto.value,
             codigo: codigo.value,
             puntos: puntos.value,
-            precio: precio.value,
+            precio: precio,
             stock: stock.value
         }
 
@@ -110,15 +109,17 @@ const FormComponent = (props) => {
 
     const eliminarProducto = (e) => {
         e.preventDefault();
+        console.log("prosp", props.producto.id)
         const payload = {
-            //id
+            id: props.producto.id
         }
 
         console.log("ELIMINAR", payload)
 
-        //api.put("/productos/eliminar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
+        api.put("/productos/eliminar", payload).then(r => {
+            console.log(r.data)
+            alert(`producto ${props.producto.descripcion} eliminado`)
+        }).catch(e => console.log(e))
     }
 
     const _onSubmit = (e) => {
@@ -146,7 +147,7 @@ const FormComponent = (props) => {
             <form onSubmit={_onSubmit}>
                 <div className="Inputs">
                     <label>Producto: </label><input type="text" onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br />
-                    <label>Precio: </label><input type="text" onChange={precio.onChange} value={precio.value} readOnly={inputsReadOnly.value}></input><br />
+                    <label>Precio: </label><input type="text" onChange={precioOnChange} value={precio.value} readOnly={inputsReadOnly.value}></input><br />
                     <label>Codigo: </label><input type="text" onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br />
                     <label>Puntos: </label><input type="text" onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br />
                     <label>Stock: </label><input type="text" onChange={stock.onChange} value={stock.value} readOnly={inputsReadOnly.value}></input><br />
