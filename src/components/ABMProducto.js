@@ -109,15 +109,17 @@ const FormComponent = (props) => {
 
     const eliminarProducto = (e) => {
         e.preventDefault();
+        console.log("prosp", props.producto.id)
         const payload = {
-            //id
+            id: props.producto.id
         }
 
         console.log("ELIMINAR", payload)
 
-        //api.put("/productos/eliminar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
+        api.put("/productos/eliminar", payload).then(r => {
+            console.log(r.data)
+            alert(`producto ${props.producto.descripcion} eliminado`)
+        }).catch(e => console.log(e))
     }
 
     const _onSubmit = (e) => {
