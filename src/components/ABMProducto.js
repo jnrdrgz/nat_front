@@ -49,7 +49,8 @@ const FormComponent = (props) => {
         console.log("USE EFFECT", "si")
         const setValuesToProps = () => {
             producto.setValue(props.producto.descripcion)
-            precio.setValue(props.producto.precio)
+            //precio.setValue(props.producto.precio)
+            setPrecio(props.producto.precio)
             codigo.setValue(props.producto.codigo)
             puntos.setValue(props.producto.puntos)
             stock.setValue(props.producto.stock)
