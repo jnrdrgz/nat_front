@@ -3,12 +3,12 @@ import api from "../services/api"
 import {
     BrowserRouter as Router,  Switch, Route, Link, useHistory, useRouteMatch
   } from "react-router-dom"
-import ABMPedidoCliente from './ABMPedidoCliente'
 
 const PedidoDisp = (props) => {
     return (
         <div>
-            total: ${props.pedido.total}
+            total: ${props.pedido.total}<br />
+            
             {props.pedido.DetallePedidos.map(detalle =>{
                 if(detalle.Producto){
                     return(
@@ -18,7 +18,6 @@ const PedidoDisp = (props) => {
                             precio unitario: ${detalle.Producto.precio} <br />
                             cantidad{detalle.cantidad}<br /> 
                             Subtotal: ${detalle.subtotal}
-
                         </div>)
                         }else {
                             return(<div>Sin productos</div>)
@@ -28,30 +27,15 @@ const PedidoDisp = (props) => {
     )
 }
 
-const ConsultaPedidoCliente = () => {
+const ConsultaPedidoProveedor = () => {
     const [pedidos, setPedidos] = useState([]);
-    const [fUpdate, setfUpdate] = useState(false);
 
     let history = useHistory()
     let match = useRouteMatch();
 
-    //const goToEditClick = (p) => {
-    //    history.push({
-    //        pathname: `${match.path}/editar`,
-    //        state: { pedido: p}
-    //    });  
-    //}
-
-    //const goToDeleteClick = (p) => {
-    //    history.push({
-    //        pathname: `${match.path}/eliminar`,
-    //        state: { pedido: p}
-    //    });  
-    //}
-
     useEffect( () =>{
         //const res = () => 
-        api.get("/pedidos/cliente").then(r => {
+        api.get("/pedidos/proveedor").then(r => {
             console.log(r.data)
             setPedidos(r.data.data)     
         })
@@ -63,43 +47,26 @@ const ConsultaPedidoCliente = () => {
             pathname: `${match.path}/agregar`
         });  
     }
+    const marcameElMarco = {
+        border: "2px solid red",
+        width: "33%",
+      }
 
-    const marcarPedidoEntregado = (pId) => {
+      const marcarPedidoRecibido = (pId) => {
         const payload = {
             id: pId,
         }
 
         console.log(payload)
 
-        api.put("/pedidos/cliente/entregado", payload).then(r => {
+        api.put("/pedidos/proveedor/recibido", payload).then(r => {
             console.log(r.data)
-            alert("Entregado")
+            alert("recibido")
             //setfUpdate(!fUpdate)
             window.location.reload();
         }).catch(e => console.log(e))
     }
 
-    const marcarPedidoPagado = (pId) => {
-        const payload = {
-            id: pId,
-        }
-
-        console.log(payload)
-
-        api.put("/pedidos/cliente/pagado", payload).then(r => {
-            console.log(r.data)
-            alert("Pagado")
-            //setfUpdate(!fUpdate)
-            window.location.reload()
-        }).catch(e => console.log(e))
-    }
-
-
-    const marcameElMarco = {
-        border: "2px solid red",
-        width: "33%",
-      }
-      
              
       //faltarian filtros y/o buscador
     if(pedidos !== []){
@@ -109,15 +76,11 @@ const ConsultaPedidoCliente = () => {
                 Consulta:
                 {pedidos.map(pedido =>
                 <div style={marcameElMarco} key={pedido.id}>
-                    pedido de {pedido.Cliente.nombre} <br />
                     <PedidoDisp pedido={pedido.Pedido}/>
-                    entregado: {pedido.entregado ? "Si" : "No"} - 
-                    pagado: {pedido.pagado ? "Si" : "No"}
-                    <br />
                     
-                    <button onClick={ () => {marcarPedidoEntregado(pedido.id)} } >Marcar Entregado</button>
-                    <button onClick={ () => {marcarPedidoPagado(pedido.id)} }>Marcar Pagado</button>
-                    <button>Cancelar</button>
+                    Recibido: {pedido.recibido ? "SI" : "NO"}
+                    <br />
+                    <button onClick={() => {marcarPedidoRecibido(pedido.id)}}>Marcar Recibido</button>
                 </div>)}               
             </div>
    
@@ -126,4 +89,4 @@ const ConsultaPedidoCliente = () => {
         return (<div>loading...</div>)
     }
 }
-export default ConsultaPedidoCliente;
+export default ConsultaPedidoProveedor;

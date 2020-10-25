@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import api from "../services/api"
 import {
-    BrowserRouter as Router,  Switch, Route, Link, useHistory, useRouteMatch
-  } from "react-router-dom"
-  import ABMProducto from './ABMProducto'
+    BrowserRouter as Router, Switch, Route, Link, useHistory, useRouteMatch
+} from "react-router-dom"
+import "./css/ConsultaProducto.css"
 
-  const ConsultaProducto = () => {
+
+
+const ConsultaProducto = () => {
+
     const [productos, setProductos] = useState([]);
 
     let history = useHistory()
@@ -14,41 +17,60 @@ import {
     const goToEditClick = (p) => {
         history.push({
             pathname: `${match.path}/editar`,
-            state: { producto: p}
-        });  
+            state: { producto: p }
+        });
     }
 
     const goToDeleteClick = (p) => {
         history.push({
             pathname: `${match.path}/eliminar`,
-            state: { producto: p}
-        });  
+            state: { producto: p }
+        });
     }
 
-    useEffect( () =>{
+    const goToAgregarClick = () => {
+        history.push({
+            pathname: `${match.path}/agregar`
+        });
+    }
+
+    useEffect(() => {
         //const res = () => 
         api.get("/productos").then(r => {
             console.log(r.data)
             setProductos(r.data.data)
-                
         })
-    },[])
+    }, [])
 
-             
-    if(productos !== []){
-        console.log("PATH", match.path)
+
+    if (productos !== []) {
+
+
         return (
-            <div>Consulta:
+            <div className="Productos">
+                <div className="Agregar">
+                    
+                    <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo producto</button>
+                </div>
                 {productos.map(producto =>
-                <div key={producto.id}>
-                    {producto.descripcion}
-                    <button onClick={() => goToEditClick(producto)}>E</button>
-                    <button onClick={() => goToDeleteClick(producto)}>X</button>
-                </div>)}               
+                    <div className="Producto" key={producto.id}>
+                        <img src="https://placekitten.com/g/200/300" width="200" height="250"></img>
+                        <p>{producto.descripcion}</p>
+                        <div className="Cuerpo">
+                            <label>Codigo: {producto.codigo}</label>
+                            <label>Precio: ${producto.precio}</label>
+                            <label>Stock: {producto.stock}</label>
+                        </div>
+                        <div className="Pie">
+                            <button className="btn" onClick={() => goToEditClick(producto)}>Editar</button>
+                            <button className="btn" onClick={() => goToDeleteClick(producto)}>Elimnar</button>
+
+                        </div>
+
+                    </div>)}
             </div>
-   
         )
-    }else{
+    } else {
         return (<div>loading...</div>)
     }
 }

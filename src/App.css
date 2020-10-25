@@ -1,0 +1,45 @@
+.RouterContainer{
+    
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.LimiteSuperior{    
+    height:15vh;
+    background-color: #14b383;
+    color:#fff;   
+    padding:10px;
+    text-align: center;
+    font-weight: bold;
+    font-style: oblique;
+    font-size: 35px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}
+.LinksContainer{
+    width: 100%;
+    height:5vh;
+    background-color:#4ed9b6;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;    
+}
+.LinksContainer .Link{
+    text-align:center;    
+    width: 100%;
+    height:100%;
+    border-radius:7px ;
+}
+.Link:hover{
+    
+    background-color:#82f5de;;
+}
+.Link a{
+    font-weight: bold;
+    text-decoration: none;    
+    color:#fff;
+}
