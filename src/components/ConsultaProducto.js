@@ -3,11 +3,11 @@ import api from "../services/api"
 import {
     BrowserRouter as Router,  Switch, Route, Link, useHistory, useRouteMatch
   } from "react-router-dom"
-  import ABMProducto from './ABMProducto'
+import ABMProducto from './ABMProducto'
 
-  const ConsultaProducto = () => {
+const ConsultaProducto = () => {
     const [productos, setProductos] = useState([]);
-
+    
     let history = useHistory()
     let match = useRouteMatch();
 
@@ -25,20 +25,25 @@ import {
         });  
     }
 
+    const goToAgregarClick = () => {
+        history.push({
+            pathname: `${match.path}/agregar`
+        });  
+    }
+
     useEffect( () =>{
         //const res = () => 
         api.get("/productos").then(r => {
             console.log(r.data)
-            setProductos(r.data.data)
-                
+            setProductos(r.data.data)     
         })
     },[])
-
              
     if(productos !== []){
         console.log("PATH", match.path)
         return (
             <div>Consulta:
+                <button onClick={() => goToAgregarClick()}>Agregar</button>
                 {productos.map(producto =>
                 <div key={producto.id}>
                     {producto.descripcion}

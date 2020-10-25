@@ -17,13 +17,25 @@ const useInput = (defaultValue) => {
 const FormComponent = (props) => {
     
     const producto = useInput("")
-    const precio = useInput("")
     const codigo = useInput("")
     const puntos = useInput("")
     const stock = useInput("")
     const inputsReadOnly = useInput(false)
     //foto
     
+    const [precio, setPrecio] = useState(0.0)
+    const [precioCosto, setPrecioCosto] = useState(0.0)
+    const precioOnChange = (e) => {
+        const p = parseFloat(e.target.value)
+        if(!isNaN(p)){
+            setPrecio(p)
+            const perc = (p*30.0)/100.0
+            setPrecioCosto(p+perc)
+        } else {
+            setPrecio(0.0)
+            setPrecioCosto(0.0)
+        }
+    }
     //console.log("in form comp", props)
     
     let history = useHistory()
@@ -128,7 +140,8 @@ const FormComponent = (props) => {
             {props.tipoOperacion}
             <form onSubmit={_onSubmit}>
             Producto: <input onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br/>
-            Precio: <input onChange={precio.onChange} value={precio.value} readOnly={inputsReadOnly.value}></input><br/>
+            Precio: <input onChange={precioOnChange} value={precio} readOnly={inputsReadOnly.value}></input><br/>
+            PrecioCosto: <input onChange={()=>{}} value={precioCosto} readOnly={true}></input><br/>
             Codigo: <input onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br/>
             Puntos: <input onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br/>
             Stock: <input onChange={stock.onChange}   value={stock.value}  readOnly={inputsReadOnly.value}></input><br/>

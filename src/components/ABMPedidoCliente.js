@@ -14,152 +14,34 @@ const useInput = (defaultValue) => {
     return { value, setValue, onChange };
 };
 
-const ProductoExistenteComponent = (props) => {
-    return(
-        <div>
-
-        </div>
-    )
-}
-
-const NuevoProductoComponent = (props) => {
-    return(
-        <div>
-            <form>
-                Producto: <input></input><br/>
-                Precio: <input></input><br/>
-                Codigo: <input></input>
-                Puntos: <input></input><br/>
-                Stock: <input ></input>
-            </form>
-        </div>
-    )
-}
-
-const DetalleProducto = (props) => {
-    return (
-        <div>
-
-        </div>
-    )
-}
-
-
-const FormComponent = (props) => {
-    
-    const producto = useInput("")
-    const inputsReadOnly = useInput(false)
-    //foto
-    
-    const [productos, setProductos] = useState([]);
-  
-
-    //console.log("in form comp", props)
-    
-    let history = useHistory()
-
-    const goToConsulta = () => {
-        history.push({pathname: "/productos"});  
-    }
-
-    useEffect(()=>{
-        console.log("USE EFFECT", "si")
-        const setValuesToProps = () => {
-            producto.setValue(props.producto.descripcion)
-        }
-        switch(props.tipoOperacion){
-            case "ALTA":
-                break;
-            case "MODIFICACION":
-                setValuesToProps()
-                break;
-            case "BAJA":
-                setValuesToProps()
-                inputsReadOnly.setValue(true)
-                //readOnly
-                break;
-            default:
-                break;
-        }
-
-    },[])
-
-    const addPedido = (e) => {
-        e.preventDefault();
-        const payload = {
-            descripcion: producto.value,
-        }
-
-        console.log(payload)
-
-        api.post("/pedidos/cliente/agregar", payload).then(r => {
-            console.log(r.data)
-            goToConsulta();
-        }).catch(e => console.log(e))
-    }
-
-    //fataria cuotas
-    const marcarPagado = (e) => {
-        e.preventDefault();
-        const payload = {
-            //id
-            descripcion: producto.value,
-        }
-
-        console.log("EDITAR", payload)
-
-        //api.put("/productos/editar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
-    }
-
-    const marcarEntregado = (e) => {
-        e.preventDefault();
-        const payload = {
-            //id
-        }
-
-        console.log("EDITAR", payload)
-
-        //api.put("/productos/editar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
-    }
-
-
-    const _onSubmit = (e) => {
-        switch(props.tipoOperacion){
-            case "ALTA":
-                addPedido(e)
-                break;
-            case "MODIFICACION":
-                //marcar como entregado o pagado
-                break;
-        }
-    }
-
-    return (
-        <div>
-            {props.tipoOperacion}
-            <form onSubmit={_onSubmit}>
-            Producto: <input onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br/>
-              <button type="submit">Submit</button>
-            </form>
-        </div>
-
-    )
-
-}
-
 const ABMPedidoCliente = (props) => {
     const location = useLocation();
     const [inputFields, setInputFields] = useState([]);
+    const [productos, setProductos] = useState([]);
+    const [cicloActualId, setCicloActualId] = useState("");
 
     const [nuevo, setNuevo] = useState(false)
-    
 
+    const nombreCliente = useInput("")
+    const numeroCliente = useInput("")
+    
+    
     useEffect(() => {
-        console.log(location.state); // result: 'some_value'
+        console.log(location.state)
+        api.get("/productos").then(r => {
+            console.log(r.data)
+            setProductos(r.data.data)            
+        })
+
+        //TODO
+        //api.get("/ciclos/actual").then(r => {
+        //    console.log(r.data)
+        //    
+        //    setCicloActualId(r.data.idActual)            
+        //})
+        
+        setCicloActualId("a63fab5c-549b-4eee-a181-1cc934b284e1")
+
      }, [location]);
 
      const handleAddFields = (nuevo) => {
@@ -170,53 +52,201 @@ const ABMPedidoCliente = (props) => {
             values.push({ 
                 nuevo: nuevo,
                 producto: "",
-                precio: "",
-                codigo: "",
-                puntos: "",
-                stock: "", 
+                precio:   0.0,
+                precioCosto:   0.0,
+                codigo:   0,
+                puntos:   0,
+                stock:    0.0, 
+                cantidad: 0,
             });
         } else {
             values.push({ 
                 nuevo: nuevo,
-                producto: "",
+                productoId: "", 
+                cantidad: 0,
             });
         }
         setInputFields(values);
+    };
+
+    const handleInputChange = (index, event) => {
+        const values = [...inputFields];
+        if(values[index].nuevo === true){
+            if (event.target.name === "producto") {
+                values[index].producto = event.target.value;
+            }
+            if (event.target.name === "precio") {
+                values[index].precio = event.target.value;
+                const p = parseFloat(values[index].precio)
+                const perc = (p*30.0)/100.0
+                values[index].precioCosto = p+perc;
+            }
+            if (event.target.name === "precioCosto") {
+            }
+            if (event.target.name === "codigo") {
+                values[index].codigo = event.target.value;
+            }    
+            if (event.target.name === "puntos") {
+                values[index].puntos = event.target.value    
+            }
+            if (event.target.name === "cantidad") {
+                values[index].cantidad = event.target.value    
+            } 
+            else {
+                values[index].stock = event.target.value;
+            }
+        } else {
+            if (event.target.name === "cantidad") {
+                values[index].cantidad = event.target.value    
+            } 
+            else {
+                values[index].productoId = event.target.value;
+            }
+        }
+    
+        setInputFields(values);
+        
       };
 
-      const marcameElMarco = {
-        border: "2px solid red"
+    const marcameElMarco = {
+      border: "2px solid red",
+      width: "33%",
+    }
+    const marcameElMarcoEx = {
+        border: "2px solid blue",
+        width: "33%",
       }
-    console.log(props)
+    console.log(inputFields)
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("On form submit", inputFields)
+        
+        const payload = {
+            Pedido:{
+                total: 0.0,
+                CicloId: cicloActualId,
+                DetallePedidos: []
+            },
+            Cliente: {
+                nombre: nombreCliente.value,
+                numeroTelefono: numeroCliente.value
+            } 
+        }
+
+        inputFields.forEach(x => {
+            if(!x.nuevo){
+                payload.Pedido.DetallePedidos.push(
+                    {
+                        ProductoId: x.productoId,
+                        cantidad: parseFloat(x.cantidad),
+                    }
+                )
+            }else{
+                payload.Pedido.DetallePedidos.push(
+                    {
+                        Producto:{
+                            descripcion: x.producto,
+                            puntos: parseFloat(x.puntos),
+                            precio: parseFloat(x.precio),
+                            precioCosto: parseFloat(x.precioCosto),
+                            codigo: parseFloat(x.codigo),
+                            stock: parseFloat(x.stock)
+                        },
+                        cantidad: parseFloat(x.cantidad),
+                    }
+                )
+            }
+        });
+
+        api.post("/pedidos/cliente/agregar", payload).then(r => {
+            //console.log(r.data)
+            //goToConsulta();
+            alert("Pedido cargado")
+        }).catch(e => console.log(e))
+    }
+
     return (
       <div>
-          <form onSubmit={()=>{}}>
+          <form onSubmit={handleSubmit}>
           
           Pedido:
             <div>
                 {inputFields.map((inputField, index) => {
                     if(inputField.nuevo){
-                        return (<Fragment key={`asdf${index}`}>
+                        return (
+                        <Fragment key={`asdf${index}`}>
                          <div style={marcameElMarco}>
+                             Nuevo  <br />
+                            
                             Producto
-                              <input name="producto" value={inputField.Producto} />
+                              <input name="producto" value={inputField.Producto} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                            Cantidad
+                              <input name="cantidad" 
+                              value={inputField.Cantidad} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                            Precio
+                              <input name="precio" value={inputField.Precio} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                            Precio Costo
+                              <input name="precioCosto" value={inputField.precioCosto} 
+                              onChange={event => handleInputChange(index, event)}
+                              /> coef 30%<br />
+                            Stock
+                              <input name="stock" 
+                              value={inputField.Stock} 
+                              onChange={event => handleInputChange(index, event)}
+                              /><br />
+                           Ptos
+                              <input name="puntos" 
+                              value={inputField.Puntos} 
+                              onChange={event => handleInputChange(index, event)}
+                              />
+
                         </div>
                         <br />
                         </Fragment>)
                     } else {
-                        return(<div>existente</div>)
+                        //add onchange to select igual que arriaba
+                        return(
+                        <div style={marcameElMarcoEx} key={`asdf${index}`}>
+                            existente <br />
+                            Producto: 
+                                <select name="producto"
+                                onChange={event => handleInputChange(index, event)}>
+                                    
+                                    {productos.map(
+                                        p => <option key={`${p.id}`} value={p.id}>{p.descripcion}</option>)}
+                                </select>    
+                            Cantidad
+                              <input name="cantidad" 
+                              value={inputField.Cantidad} 
+                              onChange={event => handleInputChange(index, event)}
+                              />
+                        </div>)
                     }
                 })}
             </div>
-          
-          <button type="submit">Agregar </button>
-          </form>
-          <button onClick={() => {
+            <button  type="button" onClick={() => {
                         handleAddFields(false)}}>existente</button>
-            <button onClick={() => {
+            <button type="button" onClick={() => {
                         handleAddFields(true)}}>nuevo</button>
+            <br/>
+            nombre cliente<input name="nombreCliente"  
+                value={nombreCliente.value}                                
+                onChange={nombreCliente.onChange}/>
+            <br/>
+            numero cliente<input name="numeroCliente" 
+                value={numeroCliente.value}                                
+                onChange={numeroCliente.onChange}/>
+            <br/>
 
-
+            <button type="submit">Agregar </button>
+          </form>
       </div>
     )
 }
