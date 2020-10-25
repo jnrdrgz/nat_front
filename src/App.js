@@ -12,6 +12,7 @@ import ABMPedidoCliente from './components/ABMPedidoCliente'
 import ABMPedidoProveedor from './components/ABMPedidoProveedor'
 import ConsultaCiclos from './components/ConsultaCiclos'
 import BalanceCiclo from './components/BalanceCiclo'
+import ConsultaBalance from './components/ConsultaBalance'
 
 const App = () => {
     const padding = {
@@ -54,7 +55,7 @@ const App = () => {
                 </Route>
                 
                 <Route path="/balance" exact={true}>
-                    <Home/>
+                    <ConsultaBalance />
 
                 </Route>
    

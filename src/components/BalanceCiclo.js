@@ -7,7 +7,7 @@ const BalanceCiclo = (props) => {
     
     const location = useLocation();
     useEffect(() => {
-        console.log(location.state); // result: 'some_value'
+        console.log(location.state);
          //const res = () => 
          console.log(location.state.cicloId)
          const cicloId = location.state.cicloId

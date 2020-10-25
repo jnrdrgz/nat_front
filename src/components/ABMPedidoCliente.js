@@ -79,7 +79,7 @@ const ABMPedidoCliente = (props) => {
                 values[index].precio = event.target.value;
                 const p = parseFloat(values[index].precio)
                 const perc = (p*30.0)/100.0
-                values[index].precioCosto = p+perc;
+                values[index].precioCosto = p-perc;
             }
             if (event.target.name === "precioCosto") {
             }
@@ -125,7 +125,7 @@ const ABMPedidoCliente = (props) => {
         const payload = {
             Pedido:{
                 total: 0.0,
-                CicloId: cicloActualId,
+                //CicloId: cicloActualId,
                 DetallePedidos: []
             },
             Cliente: {
