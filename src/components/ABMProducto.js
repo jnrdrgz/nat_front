@@ -141,22 +141,24 @@ const FormComponent = (props) => {
     return (
         <div className="Fondo">
             <div className="FormularioCompleto">
-            <div className="Titulo">
-                <h3>{props.tipoOperacion}</h3>
-            </div>
-            <form onSubmit={_onSubmit}>
-                <div className="Inputs">
-                    <label>Producto: </label><input type="text" onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br />
-                    <label>Precio: </label><input type="text" onChange={precioOnChange} value={precio.value} readOnly={inputsReadOnly.value}></input><br />
-                    <label>Codigo: </label><input type="text" onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br />
-                    <label>Puntos: </label><input type="text" onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br />
-                    <label>Stock: </label><input type="text" onChange={stock.onChange} value={stock.value} readOnly={inputsReadOnly.value}></input><br />
-
-                    <div className="input-boton">
-                        <button className="btn" type="submit">Registrar</button>
-                    </div>
+                <div className="Titulo">
+                    <h3>{props.tipoOperacion}</h3>
                 </div>
-            </form>
+                <form className ="form" onSubmit={_onSubmit}>
+                    <div className="Inputs">
+                       
+                            <label>Producto: </label><input type="text" onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br />
+                            <label>Precio: </label><input type="text" onChange={precioOnChange} value={precio.value} readOnly={inputsReadOnly.value}></input><br />
+                            <label>Codigo: </label><input type="text" onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br />
+                            <label>Puntos: </label><input type="text" onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br />
+                            <label>Stock: </label><input type="text" onChange={stock.onChange} value={stock.value} readOnly={inputsReadOnly.value}></input><br />
+                       
+                        
+                    </div>
+                    <div className="input-boton">
+                            <button className="btn" type="submit">Registrar</button>
+                        </div>
+                </form>
             </div>
         </div>
 
