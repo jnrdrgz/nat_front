@@ -49,8 +49,11 @@ const ConsultaProducto = () => {
         return (
             <div className="Productos">
                 <div className="Agregar">
-                    
                     <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo producto</button>
+                    <div className ="ComponentesBuscador">
+                        <input type="text" name="txtBuscador" id="txtBuscador" />
+                        <button className="btnb">Buscar</button>
+                    </div>
                 </div>
                 {productos.map(producto =>
                     <div className="Producto" key={producto.id}>
