@@ -45,3 +45,63 @@ input[type=text]:focus{
     background-color: #82f5de;
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
 }
+.PedidosClientes{
+    display: flex;
+    flex-wrap: wrap;    
+    max-width: 100%;
+    max-height: 100%;    
+    background-color: #fcfcfa;
+    justify-content: space-around;
+    background-color: #fcfcfa;
+}
+
+.pedidoCliente{
+    margin-top: 40px;
+    margin-right: 10px;    
+    border:2px solid #4ed9b6;
+    width: 20%;
+    height: 42vh;
+    overflow: auto; 
+    border-radius: 10px;
+    background-color: #edebed;  
+}
+.pedidoCliente::-webkit-scrollbar{
+    display: none;
+    border-radius: 10px;
+}
+.pedidoCliente:hover{
+    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
+}
+.cabeceraPedido{
+    background-color:#4ed9b6;
+    padding: 2px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: #fff;
+ }
+
+.btnes{
+    display: flex;
+    height:10vh;    
+    flex-direction: column;
+    align-items: center;
+   
+}
+.btnes .bt{   
+    border-radius: 5px;
+    margin: 5px;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    background-color:#14b383;
+    color:#fff;
+    font-weight: bold;
+}
+.botns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
