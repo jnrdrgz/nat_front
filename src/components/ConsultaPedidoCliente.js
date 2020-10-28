@@ -104,9 +104,14 @@ const ConsultaPedidoCliente = () => {
       //faltarian filtros y/o buscador
     if(pedidos !== []){
         return (
-            <div>
-                <button onClick={() => goToAgregarClick()}>Agregar</button>
-                Consulta:
+            <div className="PedidosClientes">
+                   <div className="Agregar">
+                    <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo pedido</button>
+                    <div className ="ComponentesBuscador">
+                        <input type="text" name="txtBuscador" id="txtBuscador" />
+                        <button className="btnb">Buscar</button>
+                    </div>
+                </div>
                 {pedidos.map(pedido =>
                 <div style={marcameElMarco} key={pedido.id}>
                     pedido de {pedido.Cliente.nombre} <br />
