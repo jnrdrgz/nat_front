@@ -25,6 +25,7 @@ const BalanceIntervalo = () => {
         ingresos: 0.0,
         egresos: 0.0
     });
+    
     const [hasta, setHasta] = useState("");
     const [desde, setDesde] = useState("");
 

@@ -14,6 +14,7 @@ import ConsultaCiclos from './components/ConsultaCiclos'
 import BalanceCiclo from './components/BalanceCiclo'
 import ConsultaBalance from './components/ConsultaBalance'
 import "./App.css"
+import ABMCiclos from './components/ABMCiclos'
 
 const App = () => {
        
@@ -24,7 +25,7 @@ const App = () => {
         <Router>
         <div className="RouterContainer">
             <div className="LimiteSuperior">
-               <label>Cosas de Gloria</label>
+               <label></label>
             </div>
             <div className="LinksContainer">
                 <div className="Link">
@@ -103,6 +104,18 @@ const App = () => {
                 <Route path="/ciclos/balance">
                     <BalanceCiclo />
                 </Route>
+
+                {/* CICLO */}
+                <Route path="/ciclos/agregar">
+                    <ABMCiclos tipoOperacion="ALTA"/>
+                </Route>
+                <Route path="/ciclos/eliminar">
+                    <ABMCiclos tipoOperacion="BAJA"/>
+                </Route>
+                <Route path="/ciclos/editar">
+                    <ABMCiclos tipoOperacion="MODIFICACION"/>
+                </Route>
+
 
             </Switch>
         </Router>
