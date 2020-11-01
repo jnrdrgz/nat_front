@@ -96,14 +96,7 @@ const ConsultaPedidoCliente = () => {
         }).catch(e => console.log(e))
     }
 
-
-    const marcameElMarco = {
-        border: "2px solid red",
-        width: "33%",
-    }
-
-
-    //faltarian filtros y/o buscador
+  //faltarian filtros y/o buscador
     if (pedidos !== []) {
         return (
             <div className="PedidosClientes">

@@ -1,5 +1,5 @@
 .Fondo{
-    background-color: #fcfcfa;
+    background-color: #f5fff4;
 }
 .FormularioCompleto{
     border: 1px solid #14b383;
@@ -38,8 +38,6 @@
 }
 .Inputs input[type=text]{
     border-radius: 10px;
-    
-    
 }
 .Inputs input[type=text]:focus{
     border-radius: 10px;
@@ -66,3 +64,4 @@
     background-color:#82f5de;
    
 }
+

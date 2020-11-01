@@ -1,0 +1,236 @@
+.ABMPedidosClientes{
+    display: flex;
+    flex-direction: column;
+    background-color: #f5fff4;  
+}
+.DatosClientes{
+    margin:20px auto;    
+    background-color:#edebed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    height: 12vh;
+    border-radius: 10px;
+    border:1px solid #4ed9b6;
+}
+.Cabecera{
+    background-color:#4ed9b6;    
+    border-radius: 5px 5px 0px 0px;
+    text-align: center;
+    width: 100%;
+    color:#fff;
+    font-weight: bold;
+    align-content: center;
+
+}
+.DatosClientes .NomTel{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    
+}
+.DatosClientes .NomTel label{
+    margin:0px 10px;
+    padding: 7px;
+    font-weight: bold;
+    color:rgba(18, 136, 107, 1);
+}
+
+.DatosClientes input[type=text]{
+    border-radius: 10px;
+}
+.DatosClientes input[type=text]:focus{
+    border-radius: 10px;
+    border-color: rgba(20, 179, 131,0.5);
+}
+
+.DatosPedidoCliente{
+    margin:2px auto;
+    width: 60%;
+    height: 50vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto;
+    scrollbar-width: none;  
+}
+
+.Agregando{
+    width: 80%;
+    margin: 0px auto;      
+    display: flex;
+    padding: 15px;
+    flex-direction: column;
+    box-shadow: 0px 2px 0px 0px rgba(18, 136, 107, 0.425);
+}
+.BotonesCabecera{
+   font-weight: bold;
+   font-size: large;
+   color:rgba(18, 136, 107, 1);
+    text-align: center;
+}
+.Botones{
+    width: 30%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;    
+    margin:0 auto;
+}
+
+.Botones .bot{  
+    height: 100%;    
+    padding:2px;
+    border-radius: 5px;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    background-color:#14b383;
+    color:#fff;
+    font-weight: bold;
+}
+.bot:hover{
+    background-color: #82f5de;
+    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
+}
+
+.formulario{
+    margin-top: 0;
+}
+.ProductoNuevo{
+    border:1px solid #4ed9b6;
+    background-color:#edebed;   
+    border-radius: 10px;    
+    width: 80%;
+    margin: 10px auto; 
+    display: flex;
+    flex-direction: column; 
+}
+
+.ProductoExistente{
+    border:1px solid #4ed9b6;
+    border-radius: 10px;
+    width:80%;
+    margin: 10px auto;
+    background-color:#edebed; 
+    display: flex;
+    flex-direction: column;      
+}
+.DatosProducto{
+    display: flex;
+    flex-direction: row;
+    align-items: center;  
+     
+}
+.DatosProductoDesc{
+ margin:0 auto;
+}
+.ExistenteCantidad{
+    margin:0 auto;
+}
+.DatosProducto label{
+    margin:0px 10px;
+    padding: 7px;
+    font-weight: bold;
+    color:rgba(18, 136, 107, 1);
+}
+
+.DatosProducto input[type=text]{
+    border-radius: 10px;
+}
+.DatosProducto input[type=text]:focus{
+    border-radius: 10px;
+    border-color: rgba(20, 179, 131,0.5);
+}
+.DatosProducto select{
+    border-radius: 10px;
+}
+.DatosProducto select:focus{
+    border-radius: 10px;
+    border-color: rgba(20, 179, 131,0.5);
+}
+
+.DatosProductoNuevo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    margin:0 auto;
+    width: 100%;
+    
+}
+.DatosProductoNuevo label{
+    margin:0px 10px;    
+    padding: 7px; 
+    font-weight: bold;
+    text-align: center;
+    color:rgba(18, 136, 107, 1);
+}
+
+.DatosPedidoCliente input[type=text]{
+    border-radius: 10px;
+    text-align: center;
+    width: 60%;
+}
+
+.DescProd{
+ display: flex;
+ width: 80%;
+ flex-direction: row;
+ justify-content: space-between;
+ align-items: center;
+}
+.CantProd{
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.PrecProd{
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.PrecCostProd{
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.StocProd{
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.PuntProd{
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.botn{  
+    height: 100%;    
+    padding:2px;
+    width: 40%;
+    margin: 5px auto;
+    border-radius:5px;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    background-color:#14b383;
+    color:#fff;
+    font-weight: bold;
+}
+.botn:hover{
+    background-color: #82f5de;
+    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
+}
