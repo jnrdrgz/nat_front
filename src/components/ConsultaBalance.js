@@ -19,13 +19,13 @@ const VerBalance = (props) => {
     }
 }
 
-
-const ConsultaBalance = (props) => {
+const BalanceIntervalo = () => {
     const today = new Date()
     const [balance, setBalance] = useState({
         ingresos: 0.0,
         egresos: 0.0
     });
+    
     const [hasta, setHasta] = useState("");
     const [desde, setDesde] = useState("");
 
@@ -76,7 +76,33 @@ const ConsultaBalance = (props) => {
             Egresos: ${balance.egresos}<br />
         </div>
     )
+}
 
+const ConsultaBalance = (props) => {
+    const [tipo, setTipo] = useState("ciclo");
+    
+    if(tipo === "ciclo"){
+        return(
+            <div>
+                <button onClick={()=>{}}>Ciclo</button>
+                <button onClick={()=>{setTipo("intervalo")}}>Intervalo</button>
+                
+                por ciclo
+            </div>
+        )
+    } else if(tipo === "intervalo"){
+        return(
+            <div>
+                
+                <button onClick={()=>{setTipo("ciclo")}}>Ciclo</button>
+                <button onClick={()=>{}}>Intervalo</button>
+                <BalanceIntervalo />
+            </div>
+        )
+    } else {
+        return(
+            <div> error</div>)
+    }
 }
 
 
