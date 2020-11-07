@@ -15,6 +15,15 @@ const useInput = (defaultValue) => {
     return { value, setValue, onChange };
 };
 
+const CicloSelect = (props) => {
+    return (
+        <div>
+            <input type="checkbox" id="cicloActual" name="cicloActual"></input>
+            <label for="cicloActual"> Ciclo Actual</label><br />
+        </div>
+    )
+}
+
 const ABMPedidoProveedor = (props) => {
     const location = useLocation();
     const [inputFields, setInputFields] = useState([]);
@@ -22,6 +31,8 @@ const ABMPedidoProveedor = (props) => {
     const [cicloActualId, setCicloActualId] = useState("");
 
     const [nuevo, setNuevo] = useState(false)
+
+    const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
         console.log(location.state)
@@ -31,13 +42,34 @@ const ABMPedidoProveedor = (props) => {
         })
 
         //TODO
-        //api.get("/ciclos/actual").then(r => {
-        //    console.log(r.data)
-        //    
-        //    setCicloActualId(r.data.idActual)            
-        //})
+        api.get("/ciclos/actual").then(r => {
+            setCicloActualId(r.data.data.id)
+        }).catch( e =>{
+            alert("Adevertencia: no hay ciclo actual")
+        })
 
-        setCicloActualId("a63fab5c-549b-4eee-a181-1cc934b284e1")
+        console.log()
+        if(location.state){
+            const values = []
+            let index = 0
+            location.state.carrito.map(ped => {
+                ped.Pedido.DetallePedidos.map(p => {
+                    values.push({
+                        nuevo: false,
+                        productoId: p.Producto.id,
+                        cantidad: p.cantidad,
+                    });
+                    console.log("values; ", values)
+                    index++;
+                })
+            })
+            setInputFields(values);
+            setLoaded(true);
+        } else {
+            setLoaded(true);
+        }
+
+        //setCicloActualId("a63fab5c-549b-4eee-a181-1cc934b284e1")
 
     }, [location]);
 
@@ -105,14 +137,6 @@ const ABMPedidoProveedor = (props) => {
 
     };
 
-    const marcameElMarco = {
-        border: "2px solid red",
-        width: "33%",
-    }
-    const marcameElMarcoEx = {
-        border: "2px solid blue",
-        width: "33%",
-    }
     console.log(inputFields)
 
     const handleSubmit = (e) => {
@@ -159,6 +183,7 @@ const ABMPedidoProveedor = (props) => {
         }).catch(e => console.log(e))
     }
 
+    if(loaded){
     return (
         <div className="ABMPedidosClientes">
             <div className="Agregando">
@@ -172,11 +197,14 @@ const ABMPedidoProveedor = (props) => {
                     <button className="bot" type="button" onClick={() => {
                         handleAddFields(true)
                     }}>Producto Nuevo</button>
+
+
                 </div>
             </div>
 
 
             <form className="formulario" onSubmit={handleSubmit}>
+                <CicloSelect />
                 <div className="DatosPedidoCliente">
                     {inputFields.map((inputField, index) => {
                         if (inputField.nuevo) {
@@ -244,13 +272,17 @@ const ABMPedidoProveedor = (props) => {
                                                 onChange={event => handleInputChange(index, event)}>
 
                                                 {productos.map(
-                                                    p => <option key={`${p.id}`} value={p.id}>{p.descripcion}</option>)}
+                                                    p => <option 
+                                                    selected={p.id===inputField.productoId}
+                                                    key={`${p.id}`} value={p.id}>{p.descripcion}
+                                                    
+                                                    </option>)}
                                             </select>
                                         </div>
                                         <div className="ExistenteCantidad">
                                             <label>Cantidad:</label>
                                             <input type="text" name="cantidad"
-                                                value={inputField.Cantidad}
+                                                value={inputField.cantidad}
                                                 onChange={event => handleInputChange(index, event)}
                                             />
                                         </div>
@@ -262,6 +294,13 @@ const ABMPedidoProveedor = (props) => {
                 <button className ="botn" type="submit">Agregar</button>
             </form>
         </div>
-    )
+    )}else {
+        return (
+            <div className="ABMPedidosClientes">
+                cargando...
+                </div>)
+        
+    }
+
 }
 export default ABMPedidoProveedor;

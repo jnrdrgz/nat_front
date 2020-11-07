@@ -46,6 +46,14 @@ const ConsultaCiclos = () => {
 
     },[])
 
+    const handleSetActual = (idCiclo) => {
+        api.put("/ciclos/setActual", {id:idCiclo}).then(r => {
+            alert(`Ciclo ${idCiclo} ahora es actual`)
+            
+            window.location.reload();
+        }).catch(e => console.log(e))
+    }
+
              
     if(ciclos !== []){
         console.log("PATH", match.path)
@@ -57,6 +65,9 @@ const ConsultaCiclos = () => {
                         {ciclo.numero}
                         <button onClick={() => {}}>E</button>
                         <button onClick={() => {}}>X</button>
+                        actual:{ciclo.actual ? "SI" : "NO"}
+                        <button onClick={() => {handleSetActual(ciclo.id)}}>Set Actual</button>
+                        
                     </div>
                     )}               
             </div>

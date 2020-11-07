@@ -9,13 +9,13 @@ import "./css/ConsultaPedidoProveedor.css"
 const PedidoDisp = (props) => {
     return (
         <div>
-            total: ${props.pedido.total}<br />
+            <b>Total: ${props.pedido.total}</b><br />
             {props.pedido.DetallePedidos.map(detalle => {
                 if (detalle.Producto) {
                     return (
                         <div key={detalle.Producto.descripcion}>
                             {detalle.Producto.descripcion}<br />
-                            codigo: <br />
+                            codigo: {detalle.Producto.codigo} <br />
                             precio unitario: ${detalle.Producto.precio} <br />
                             cantidad{detalle.cantidad}<br />
                             Subtotal: ${detalle.subtotal}
@@ -64,7 +64,6 @@ const ConsultaPedidoProveedor = () => {
             window.location.reload();
         }).catch(e => console.log(e))
     }
-
 
     //faltarian filtros y/o buscador
     if (pedidos !== []) {

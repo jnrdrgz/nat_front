@@ -20,7 +20,7 @@ const ConsultaProducto = () => {
             state: { producto: p }
         });
     }
-
+    
     const goToDeleteClick = (p) => {
         history.push({
             pathname: `${match.path}/eliminar`,

@@ -27,6 +27,7 @@ const ABMPedidoCliente = (props) => {
     const numeroCliente = useInput("")
 
 
+    
     useEffect(() => {
         console.log(location.state)
         api.get("/productos").then(r => {
@@ -35,13 +36,19 @@ const ABMPedidoCliente = (props) => {
         })
 
         //TODO
-        //api.get("/ciclos/actual").then(r => {
-        //    console.log(r.data)
-        //    
-        //    setCicloActualId(r.data.idActual)            
-        //})
+        api.get("/ciclos/actual").then(r => {
+            console.log("ciclo", r.data)
+            
+            if(!r.data.data.id){
+                alert("Adevertencia: no hay ciclo actual")
+                return
+            }
+            setCicloActualId(r.data.data.id)
+            console.log(r.data.data.id)            
+        }).catch( e => {
+            alert("Adevertencia: no hay ciclo actual")
+        })
 
-        setCicloActualId("a63fab5c-549b-4eee-a181-1cc934b284e1")
 
     }, [location]);
 
@@ -159,6 +166,14 @@ const ABMPedidoCliente = (props) => {
         }).catch(e => console.log(e))
     }
 
+
+    const delete_prod_by_index = (index) =>{
+        const values_slice = [...inputFields];
+        values_slice.splice(index,1)
+        setInputFields(values_slice);
+        console.log(inputFields)
+    }
+    
     return (
         <div className="ABMPedidosClientes">
             <div className="DatosClientes">
@@ -202,7 +217,11 @@ const ABMPedidoCliente = (props) => {
                                 <Fragment key={`asdf${index}`}>
                                     <div className="ProductoNuevo">
                                         <div className="Cabecera">
-                                            <label>Producto Nuevo</label>
+                                            <label>Producto Nuevo <button
+                                                type="button"
+                                                onClick={()=>delete_prod_by_index(index)}
+                                            >X</button></label>
+                                            
                                         </div>
                                         <div className="DatosProductoNuevo">
                                             <div className="DescProd">
@@ -253,7 +272,11 @@ const ABMPedidoCliente = (props) => {
                             return (
                                 <div className="ProductoExistente" key={`asdf${index}`}>
                                     <div className="Cabecera">
-                                        <label>Existente</label>
+                                        <label>Existente<label>Producto Nuevo <button
+                                                type="button"
+                                                onClick={()=>delete_prod_by_index(index)}
+                                            >X</button></label>
+                                            </label>
                                     </div>
                                     <div className="DatosProducto">
                                         <div className="DatosProductoDesc">
