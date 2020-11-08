@@ -45,7 +45,7 @@ const ABMPedidoProveedor = (props) => {
         api.get("/ciclos/actual").then(r => {
             setCicloActualId(r.data.data.id)
         }).catch( e =>{
-            alert("Adevertencia: no hay ciclo actual")
+            alert("Advertencia: no hay ciclo actual")
         })
 
         console.log()
@@ -228,6 +228,14 @@ const ABMPedidoProveedor = (props) => {
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
+                                            <div className="CantProd">
+                                                <label>Codigo</label>
+                                                <input type="text" name="codigo"
+                                                    value={inputField.Codigo}
+                                                    onChange={event => handleInputChange(index, event)}
+                                                />
+                                            </div>
+                                          
                                             <div className="PrecProd">
                                                 <label>Precio</label>
                                                 <input type="text" name="precio" value={inputField.Precio}

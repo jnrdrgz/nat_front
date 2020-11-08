@@ -15,6 +15,7 @@ import BalanceCiclo from './components/BalanceCiclo'
 import ConsultaBalance from './components/ConsultaBalance'
 import "./App.css"
 import ABMCiclos from './components/ABMCiclos'
+import ABMCuota from './components/ABMCuota'
 
 const App = () => {
        
@@ -114,6 +115,11 @@ const App = () => {
                 </Route>
                 <Route path="/ciclos/editar">
                     <ABMCiclos tipoOperacion="MODIFICACION"/>
+                </Route>
+
+                {/* CUOTA */}
+                <Route path="/pedidos/cliente/cuota">
+                    <ABMCuota tipoOperacion="ALTA"/>
                 </Route>
 
 

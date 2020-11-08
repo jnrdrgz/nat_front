@@ -10,8 +10,10 @@ import "./css/ConsultaProducto.css"
 const ConsultaProducto = () => {
 
     const [productos, setProductos] = useState([]);
+    const [filteredProductos, setFilteredProductos] = useState([]);
+    const [busquedaQuery, setBusquedaQuery] = useState("");
 
-    let history = useHistory()
+    let history = useHistory();
     let match = useRouteMatch();
 
     const goToEditClick = (p) => {
@@ -20,7 +22,7 @@ const ConsultaProducto = () => {
             state: { producto: p }
         });
     }
-    
+
     const goToDeleteClick = (p) => {
         history.push({
             pathname: `${match.path}/eliminar`,
@@ -39,6 +41,7 @@ const ConsultaProducto = () => {
         api.get("/productos").then(r => {
             console.log(r.data)
             setProductos(r.data.data)
+            setFilteredProductos(r.data.data)
         })
     }, [])
 
@@ -51,13 +54,23 @@ const ConsultaProducto = () => {
                 <div className="Agregar">
                     <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo producto</button>
                     <div className ="ComponentesBuscador">
-                        <input type="text" name="txtBuscador" id="txtBuscador" />
-                        <button className="btnb">Buscar</button>
+                        <input type="text" name="txtBuscador" id="txtBuscador" onChange={
+                            (e)=>{setBusquedaQuery(e.target.value)}
+                        }/>
+                        <button type="button" className="btnb"
+                        onClick={() => {
+                                const filt = (producto) => {
+                                    console.log(producto.descripcion)
+                                  return producto.descripcion.toLowerCase().includes(busquedaQuery)
+                                }
+                                setFilteredProductos(productos.filter(filt))
+                            }}
+                          >Buscar</button>
                     </div>
                 </div>
-                {productos.map(producto =>
+                {filteredProductos.map(producto =>
                     <div className="Producto" key={producto.id}>
-                        <img src="https://placekitten.com/g/200/300" width="200" height="250"></img>
+                        <img src="https://placekitten.com/g/200/250" width="200" height="250"></img>
                         <p>{producto.descripcion}</p>
                         <div className="Cuerpo">
                             <label>Codigo: {producto.codigo}</label>

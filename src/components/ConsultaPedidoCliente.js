@@ -14,9 +14,23 @@ const format_fecha = (f) => {
 
 
 const PedidoDisp = (props) => {
+
+    let history = useHistory();
+    let match = useRouteMatch();
+    
+    console.log("PropsHere", props)
     return (
+        
         <div>
-            <b>Total: ${props.pedido.total}</b>
+            <b>Total: ${props.pedido.total}</b><br/>
+            <b>Monto Saldado: ${props.saldado}</b><button type="button"
+                onClick={()=>{
+                    history.push({
+                        pathname: `${match.path}/cuota`,
+                        state: { pedidoId: props.id }
+                    });
+                }}
+            >C</button><br/>
             {props.pedido.DetallePedidos.map(detalle => {
                 if (detalle.Producto) {
                     return (
@@ -234,9 +248,13 @@ const ConsultaPedidoCliente = () => {
                                 setPedidosCarrito(pedidos_c)
                             }}>+</button>
                         </div>
-                        <PedidoDisp pedido={pedido.Pedido} />
+                        
+                        <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado} id={pedido.id}/>
+                        
+
                             Entregado: {pedido.entregado ? "Si" : "No"} -
                             Pagado: {pedido.pagado ? "Si" : "No"}
+                        
                         <br />
                         <div className="btnes">
                             <div className="bton">

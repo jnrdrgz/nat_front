@@ -100,7 +100,7 @@ const ABMPedidoCliente = (props) => {
             if (event.target.name === "cantidad") {
                 values[index].cantidad = event.target.value
             }
-            else {
+            if (event.target.name === "stock") {
                 values[index].stock = event.target.value;
             }
         } else {
@@ -159,11 +159,31 @@ const ABMPedidoCliente = (props) => {
             }
         });
 
+        payload.actualizarProductos = false
         api.post("/pedidos/cliente/agregar", payload).then(r => {
             //console.log(r.data)
             //goToConsulta();
             alert("Pedido cargado")
-        }).catch(e => console.log(e))
+            
+            
+        }).catch(e =>
+            {
+                console.log(e)
+                if(e.response.status === 300){
+                    //let r = ;
+                    if (window.confirm("Se cargaron productos con codigos ya existentes, ¿Actualizar precio y stock?")) {
+                        payload.actualizarProductos = true
+                        api.post("/pedidos/cliente/agregar", payload)
+                        .then(r_ => {
+                            alert("Pedido cargado")                            
+                        })
+                        .catch(e => {})
+
+                    } else {
+                        alert("Pedido no cargado")
+                    } 
+                } 
+            })
     }
 
 
@@ -234,6 +254,13 @@ const ABMPedidoCliente = (props) => {
                                                 <label>Cantidad</label>
                                                 <input type="text" name="cantidad"
                                                     value={inputField.Cantidad}
+                                                    onChange={event => handleInputChange(index, event)}
+                                                />
+                                            </div>
+                                            <div className="CantProd">
+                                                <label>Codigo</label>
+                                                <input type="text" name="codigo"
+                                                    value={inputField.Codigo}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>

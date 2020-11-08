@@ -42,6 +42,8 @@ const ConsultaCiclos = () => {
         api.get("/ciclos").then(r => {
             console.log("data cicl", r.data)
             setciclos(r.data.data) 
+            console.log("resp", r)
+            
         })
 
     },[])
@@ -49,7 +51,6 @@ const ConsultaCiclos = () => {
     const handleSetActual = (idCiclo) => {
         api.put("/ciclos/setActual", {id:idCiclo}).then(r => {
             alert(`Ciclo ${idCiclo} ahora es actual`)
-            
             window.location.reload();
         }).catch(e => console.log(e))
     }
