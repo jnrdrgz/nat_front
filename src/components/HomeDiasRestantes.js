@@ -16,11 +16,18 @@ const HomeDiasRestantes = (props) => {
     console.log(props)
     return (
         <div>
+            <div style={{
+                    color: "#fff",
+                    backgroundColor: "#4ed9b6",
+                    textAlign:"center",
+                    width:"100%",
+                }}><h2>TIEMPO CICLO</h2></div>
             
-            <h2>TIEMPO CICLO</h2>
+        <div style={{backgroundColor: "#edebed"}}>
             QUEDAN {dias.diasRestantes} DÍAS PARA QUE FINALICE EL CICLO
             <br/>Inicio {dias.fechaInicio}    
             <br/>Fin {dias.fechaFin}
+        </div>
         </div>
     )
 }

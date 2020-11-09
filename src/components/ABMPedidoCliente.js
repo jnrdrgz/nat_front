@@ -15,6 +15,36 @@ const useInput = (defaultValue) => {
     return { value, setValue, onChange };
 };
 
+const PedidoWP = (props) => {
+    const [wpData, setWpData] = useState("")
+
+    const makeApiCallWpPed = () => {
+        const payload = {"pedido": wpData}
+
+        api.post("pedidos/cliente/agregar/porwp", payload).then(r => {
+            console.log("data WPPED", r.data)
+            props.setDataPed(r.data.data.productos)
+
+            //setciclos(r.data.data) 
+            //console.log("resp", r)
+            
+        })
+
+    }
+    if(props.show){
+        return(<div>
+        Msj whatsapp:<br/>
+        <textarea onChange={(e)=>{setWpData(e.target.value)}}></textarea > 
+        <button className="bot" type="button" onClick={() => {
+            makeApiCallWpPed()
+        }}>Cargar Productos</button>
+                    
+        </div>)
+    } else {
+        return (<div></div>)
+    }
+} 
+
 const ABMPedidoCliente = (props) => {
     const location = useLocation();
     const [inputFields, setInputFields] = useState([]);
@@ -22,6 +52,8 @@ const ABMPedidoCliente = (props) => {
     const [cicloActualId, setCicloActualId] = useState("");
 
     const [nuevo, setNuevo] = useState(false)
+    const [showPedidoWP, setShowPedidoWP] = useState(false)
+    const [dataPedidoWP, setDataPedidoWP] = useState([])
 
     const nombreCliente = useInput("")
     const numeroCliente = useInput("")
@@ -74,6 +106,7 @@ const ABMPedidoCliente = (props) => {
                 cantidad: 0,
             });
         }
+        
         setInputFields(values);
     };
 
@@ -193,6 +226,29 @@ const ABMPedidoCliente = (props) => {
         setInputFields(values_slice);
         console.log(inputFields)
     }
+
+    const addWPToProds = (wpDataFromChild) =>{
+        setDataPedidoWP(wpDataFromChild)
+        console.log("FROM CHILD", wpDataFromChild)
+        const values = [...inputFields];
+            
+        wpDataFromChild.map(p => {
+            values.push({
+                nuevo: true,
+                producto: p.descripcion,
+                precio: p.precio,
+                precioCosto: 0.0,
+                codigo: p.codigo,
+                puntos: p.puntos,
+                stock: 0.0,
+                cantidad: p.cantidad,
+            })
+        })
+
+        setInputFields(values);
+
+
+    }
     
     return (
         <div className="ABMPedidosClientes">
@@ -225,10 +281,14 @@ const ABMPedidoCliente = (props) => {
                     <button className="bot" type="button" onClick={() => {
                         handleAddFields(true)
                     }}>Producto Nuevo</button>
+                    <button className="bot" type="button" onClick={() => {
+                        setShowPedidoWP(!showPedidoWP)
+                    }}>Pedido WP</button>
                 </div>
+                <PedidoWP show={showPedidoWP} setDataPed={addWPToProds}/>
+           
             </div>
-
-
+           
             <form className="formulario" onSubmit={handleSubmit}>
                 <div className="DatosPedidoCliente">
                     {inputFields.map((inputField, index) => {
@@ -246,27 +306,28 @@ const ABMPedidoCliente = (props) => {
                                         <div className="DatosProductoNuevo">
                                             <div className="DescProd">
                                                 <label>Producto</label>
-                                                <input type="text" name="producto" value={inputField.Producto}
+                                                <input type="text" name="producto" 
+                                                value={inputField.producto}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="CantProd">
                                                 <label>Cantidad</label>
                                                 <input type="text" name="cantidad"
-                                                    value={inputField.Cantidad}
+                                                    value={inputField.cantidad}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="CantProd">
                                                 <label>Codigo</label>
                                                 <input type="text" name="codigo"
-                                                    value={inputField.Codigo}
+                                                    value={inputField.codigo}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="PrecProd">
                                                 <label>Precio</label>
-                                                <input type="text" name="precio" value={inputField.Precio}
+                                                <input type="text" name="precio" value={inputField.precio}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
@@ -279,14 +340,14 @@ const ABMPedidoCliente = (props) => {
                                             <div className="StocProd">
                                                 <label>Stock</label>
                                                 <input type="text" name="stock"
-                                                    value={inputField.Stock}
+                                                    value={inputField.stock}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="PuntProd">
                                                 <label>Puntos</label>
                                                 <input type="text" name="puntos"
-                                                    value={inputField.Puntos}
+                                                    value={inputField.puntos}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>

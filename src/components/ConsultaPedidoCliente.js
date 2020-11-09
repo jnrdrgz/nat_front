@@ -94,12 +94,13 @@ const ConsultaPedidoCliente = () => {
                     }}>Crear Pedido Proveedor</button>
                 </div>
                 <div>
-                <button style={{
+               
+                <img src="https://i.ibb.co/jyctx8s/Screenshot-2020-11-09-Revista-Natura-1.png" alt="" class="rounded-circle"
+                style={{
                     float: "right",
                     border: "none",
-                    borderRadius: "50%",
-                    fontSize: "32px"
-                }} onClick={()=>{setHiddenCart(!hiddenCart)}}>C</button>
+                }}
+                onClick={()=>{setHiddenCart(!hiddenCart)}}></img>
                 </div>
             </div>
         )
