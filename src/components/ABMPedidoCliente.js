@@ -59,6 +59,7 @@ const ABMPedidoCliente = (props) => {
     const numeroCliente = useInput("")
 
 
+    const [deudores, setDeudores] = useState([])
     
     useEffect(() => {
         console.log(location.state)
@@ -66,7 +67,16 @@ const ABMPedidoCliente = (props) => {
             console.log(r.data)
             setProductos(r.data.data)
         })
+    
+        api.get("/pedidos/cliente?onlyDeudores=1").then(r => {
+            console.log("data deud", r.data)
+            const d = r.data.data.map(p => p.Cliente)
+            setDeudores(d) 
+            console.log("deudores", d)
 
+        })
+
+        
         //TODO
         api.get("/ciclos/actual").then(r => {
             console.log("ciclo", r.data)
@@ -193,6 +203,25 @@ const ABMPedidoCliente = (props) => {
         });
 
         payload.actualizarProductos = false
+        
+        const checkIfDeudor = () => {
+            //const checkTelefono = d => d.numeroTelefono === payload.Cliente.numeroTelefono; 
+            const estaTelefonoEnDeudores = !deudores.filter(d => d.numeroTelefono == payload.Cliente.numeroTelefono).length == 0  
+            const estaNombreEnDeudores = !deudores.filter(d => d.nombre == payload.Cliente.nombre).length == 0
+
+            console.log("nombres", payload.Cliente.nombre,payload.Cliente.numeroTelefono)
+            console.log("bools", estaTelefonoEnDeudores, estaNombreEnDeudores)
+            return estaTelefonoEnDeudores && estaNombreEnDeudores
+        }
+
+        if(checkIfDeudor()){ 
+            console.log("DEDUDOR")
+            if (!window.confirm("Esta por cargarle un pedido a un DEUDOR, ¿desea continuar?")) {
+                alert("Pedido no cargado")
+                return;
+            } 
+        }
+
         api.post("/pedidos/cliente/agregar", payload).then(r => {
             //console.log(r.data)
             //goToConsulta();
@@ -217,6 +246,7 @@ const ABMPedidoCliente = (props) => {
                     } 
                 } 
             })
+        
     }
 
 

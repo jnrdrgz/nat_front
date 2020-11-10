@@ -107,8 +107,6 @@ const ConsultaPedidoCliente = () => {
         )
     }
 
-
-
     //const goToEditClick = (p) => {
     //    history.push({
     //        pathname: `${match.path}/editar`,
