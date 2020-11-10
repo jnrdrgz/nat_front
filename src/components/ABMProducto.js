@@ -92,7 +92,7 @@ const FormComponent = (props) => {
     const editarProducto = (e) => {
         e.preventDefault();
         const payload = {
-            //id
+            id: props.producto.id,
             descripcion: producto.value,
             codigo: codigo.value,
             puntos: puntos.value,
@@ -102,9 +102,11 @@ const FormComponent = (props) => {
 
         console.log("EDITAR", payload)
 
-        //api.put("/productos/editar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
+        api.put("/productos/editar", payload).then(r => {
+            console.log(r.data)
+            goToConsulta();
+        }).catch(e => console.log(e))
+
     }
 
     const eliminarProducto = (e) => {
