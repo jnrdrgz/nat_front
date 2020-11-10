@@ -27,7 +27,8 @@ const PedidoDisp = (props) => {
                 onClick={()=>{
                     history.push({
                         pathname: `${match.path}/cuota`,
-                        state: { pedidoId: props.id }
+                        state: { pedidoId: props.id, 
+                            maximoCuota: props.pedido.total-props.saldado}
                     });
                 }}
             >C</button><br/>
@@ -250,7 +251,11 @@ const ConsultaPedidoCliente = () => {
                             }}>+</button>
                         </div>
                         
-                        <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado} id={pedido.id}/>
+                        <PedidoDisp 
+                        pedido={pedido.Pedido} 
+                        saldado={pedido.montoSaldado} 
+                        id={pedido.id}
+                        />
                         
 
                             Entregado: {pedido.entregado ? "Si" : "No"} -
