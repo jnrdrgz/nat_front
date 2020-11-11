@@ -149,7 +149,12 @@ const ABMPedidoCliente = (props) => {
         } else {
             if (event.target.name === "cantidad") {
                 values[index].cantidad = event.target.value
+                //HACK
+                if(!values[index].productoId){
+                    values[index].productoId = productos[0].id    
+                }
             }
+
             else {
                 values[index].productoId = event.target.value;
             }

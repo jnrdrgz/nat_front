@@ -127,6 +127,11 @@ const ABMPedidoProveedor = (props) => {
         } else {
             if (event.target.name === "cantidad") {
                 values[index].cantidad = event.target.value
+                console.log("ppppp", values[index].productoId)
+                //HACK
+                if(!values[index].productoId){
+                    values[index].productoId = productos[0].id    
+                }
             }
             else {
                 values[index].productoId = event.target.value;
@@ -277,14 +282,16 @@ const ABMPedidoProveedor = (props) => {
                                         <div className="DatosProductoDesc">
                                             <label className="ExistenteProducto">Producto:</label>
                                             <select name="producto"
+                                                
                                                 onChange={event => handleInputChange(index, event)}>
 
                                                 {productos.map(
-                                                    p => <option 
-                                                    selected={p.id===inputField.productoId}
-                                                    key={`${p.id}`} value={p.id}>{p.descripcion}
-                                                    
-                                                    </option>)}
+                                                    p => {
+                                                        return(
+                                                        <option 
+                                                            selected={p.id===inputField.productoId}
+                                                            key={`${p.id}`} value={p.id}>{p.descripcion}
+                                                        </option>)})}
                                             </select>
                                         </div>
                                         <div className="ExistenteCantidad">
