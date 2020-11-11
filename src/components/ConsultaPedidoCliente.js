@@ -20,7 +20,6 @@ const PedidoDisp = (props) => {
 
     console.log("PropsHere", props)
     return (
-
         <div className="DetallePedido">
             <div className="DetallePrincipal">
                 <label>Total: ${props.pedido.total}</label>
@@ -113,8 +112,6 @@ const ConsultaPedidoCliente = () => {
             </div>
         )
     }
-
-
 
     //const goToEditClick = (p) => {
     //    history.push({
@@ -210,83 +207,81 @@ const ConsultaPedidoCliente = () => {
 
     //faltarian filtros y/o buscador
     if (pedidos !== []) {
-        return (
-            <div>
-                <div className="PedidosClientes">
-                    <div className="Agregar">
-                        <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo pedido</button>
-                        <div>
-                            <input onChange={(e) => { onFiltCheckChange(e, "entregados") }}
-                                type="checkbox" id="entregadosCheck" name="entregadosCheck" checked={filtroEntregados}></input>
-                            <label htmlFor="entregadosCheck"> Entregados</label><br />
-                        </div>
-                        <div>
-                            <input onChange={(e) => { onFiltCheckChange(e, "pagados") }}
-                                type="checkbox" id="pagadosCheck" name="pagadosCheck" checked={filtroPagados}></input>
-                            <label htmlFor="pagadosCheck"> Pagados</label><br />
-                        </div>
-                        <div>
-                            <input onChange={(e) => { onFiltCheckChange(e, "cancelados") }}
-                                type="checkbox" id="canceladosCheck" name="canceladosCheck" checked={filtroCancelados}></input>
-                            <label htmlFor="canceladosCheck"> Cancelados</label><br />
-                        </div>
-
-                        <div className="ComponentesBuscador">
-                            <input
-                                type="text"
-                                name="txtBuscador"
-                                id="txtBuscador"
-                                onChange={onBusquedaQueryChange}
-                            />
-
-                            <button
-                                className="btnb"
-                                onClick={() => { onBuscarClick() }}
-                            >Buscar</button>
-                        </div>
+        return (<div>
+            <div className="PedidosClientes">
+                <div className="Agregar">
+                    <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo pedido</button>
+                    <div>
+                        <input onChange={(e) => { onFiltCheckChange(e, "entregados") }}
+                            type="checkbox" id="entregadosCheck" name="entregadosCheck" checked={filtroEntregados}></input>
+                        <label htmlFor="entregadosCheck"> Entregados</label><br />
                     </div>
-                    {filteredPedidos.map(pedido =>
-                        <div className="pedidoCliente" key={pedido.id}>
-                            <div className="cabeceraPedido">
-                                Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}
-                                <button className="btnDiscreto" type="button" onClick={(e) => {
-                                    e.preventDefault()
-                                    const pedidos_c = [...pedidosCarrito, pedido]
-                                    console.log(pedidos_c)
+                    <div>
+                        <input onChange={(e) => { onFiltCheckChange(e, "pagados") }}
+                            type="checkbox" id="pagadosCheck" name="pagadosCheck" checked={filtroPagados}></input>
+                        <label htmlFor="pagadosCheck"> Pagados</label><br />
+                    </div>
+                    <div>
+                        <input onChange={(e) => { onFiltCheckChange(e, "cancelados") }}
+                            type="checkbox" id="canceladosCheck" name="canceladosCheck" checked={filtroCancelados}></input>
+                        <label htmlFor="canceladosCheck"> Cancelados</label><br />
+                    </div>
 
-                                    setPedidosCarrito(pedidos_c)
-                                }}>+</button>
-                            </div>
+                    <div className="ComponentesBuscador">
+                        <input
+                            type="text"
+                            name="txtBuscador"
+                            id="txtBuscador"
+                            onChange={onBusquedaQueryChange}
+                        />
 
-                            <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado} id={pedido.id} />
-                            <div className="EntregadoPagado">
-                                <label>Entregado: {pedido.entregado ? "Si" : "No"} </label>
-                                <label>-</label>                                
-                                <label>Pagado: {pedido.pagado ? "Si" : "No"} </label>
-                            </div>
-                            <div className="BotonesPedidoCliente">
-                                <div className="btnesMarcar">
-                                    <button className="bt"
-                                        onClick={() => { marcarPedidoEntregado(pedido.id) }}
-                                        disabled={pedido.entregado} >
-                                        Entregado</button>
-                                    <button className="bt"
-                                        onClick={() => { marcarPedidoPagado(pedido.id) }}
-                                        disabled={pedido.pagado}
-                                    >Pagado</button>
-                                </div>
-                                <div className="botnCancelar">
-                                    <button className="bt2">Cancelar</button>
-                                </div>
-                            </div>
-                        </div>)}
-
+                        <button
+                            className="btnb"
+                            onClick={() => { onBuscarClick() }}
+                        >Buscar</button>
+                    </div>
                 </div>
-                <div>
-                    <Carrito pedidosCarrito={pedidosCarrito} />
-                </div>
+                {filteredPedidos.map(pedido =>
+                    <div className="pedidoCliente" key={pedido.id}>
+                        <div className="cabeceraPedido">
+                            Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}
+                            <button className="btnDiscreto" type="button" onClick={(e) => {
+                                e.preventDefault()
+                                const pedidos_c = [...pedidosCarrito, pedido]
+                                console.log(pedidos_c)
+
+                                setPedidosCarrito(pedidos_c)
+                            }}>+</button>
+                        </div>
+
+                        <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado} id={pedido.id} />
+                        <div className="EntregadoPagado">
+                            <label>Entregado: {pedido.entregado ? "Si" : "No"} </label>
+                            <label>-</label>                                
+                            <label>Pagado: {pedido.pagado ? "Si" : "No"} </label>
+                        </div>
+                        <div className="BotonesPedidoCliente">
+                            <div className="btnesMarcar">
+                                <button className="bt"
+                                    onClick={() => { marcarPedidoEntregado(pedido.id) }}
+                                    disabled={pedido.entregado} >
+                                    Entregado</button>
+                                <button className="bt"
+                                    onClick={() => { marcarPedidoPagado(pedido.id) }}
+                                    disabled={pedido.pagado}
+                                >Pagado</button>
+                            </div>
+                            <div className="botnCancelar">
+                                <button className="bt2">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>)}
+
             </div>
-        )
+            <div>
+                <Carrito pedidosCarrito={pedidosCarrito} />
+            </div>
+        </div>)
     } else {
         return (<div>loading...</div>)
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
 import "./css/ABMPedidoCliente.css" //usamos lo mismo
+import ErrorMsg from './ErrorMsg';
 
 
 const useInput = (defaultValue) => {
@@ -33,6 +34,9 @@ const ABMPedidoProveedor = (props) => {
     const [nuevo, setNuevo] = useState(false)
 
     const [loaded, setLoaded] = useState(false)
+
+    const [errorMsg, setErrorMsg] = useState("")
+
 
     useEffect(() => {
         console.log(location.state)
@@ -127,6 +131,11 @@ const ABMPedidoProveedor = (props) => {
         } else {
             if (event.target.name === "cantidad") {
                 values[index].cantidad = event.target.value
+                console.log("ppppp", values[index].productoId)
+                //HACK
+                if(!values[index].productoId){
+                    values[index].productoId = productos[0].id    
+                }
             }
             else {
                 values[index].productoId = event.target.value;
@@ -146,13 +155,22 @@ const ABMPedidoProveedor = (props) => {
         const payload = {
             Pedido: {
                 total: 0.0,
-                //CicloId: cicloActualId,
+                CicloId: cicloActualId,
                 DetallePedidos: []
             },
         }
 
+        if(!payload.Pedido.CicloId){
+            setErrorMsg("Error no se selecciono ciclo o no existe uno actual")
+            return;
+        }
+
+        let error = false
         inputFields.forEach(x => {
             if (!x.nuevo) {
+                if(!x.productoId) error = true
+                if(x.cantidad==0) error = true
+ 
                 payload.Pedido.DetallePedidos.push(
                     {
                         ProductoId: x.productoId,
@@ -160,6 +178,9 @@ const ABMPedidoProveedor = (props) => {
                     }
                 )
             } else {
+                if(!x.producto) error = true
+                if(parseInt(x.codigo)==0) error = true
+
                 payload.Pedido.DetallePedidos.push(
                     {
                         Producto: {
@@ -176,6 +197,16 @@ const ABMPedidoProveedor = (props) => {
             }
         });
 
+        if(error){
+            setErrorMsg("Algun campo del pedido no ha sido cargado") 
+            return
+        }
+        if(payload.Pedido.DetallePedidos.length === 0){
+            setErrorMsg("No se han cargado productos")
+            return;
+        }
+
+
         api.post("/pedidos/proveedor/agregar", payload).then(r => {
             //console.log(r.data)
             //goToConsulta();
@@ -183,9 +214,21 @@ const ABMPedidoProveedor = (props) => {
         }).catch(e => console.log(e))
     }
 
+    const delete_prod_by_index = (index) =>{
+        const values_slice = [...inputFields];
+        values_slice.splice(index,1)
+        setInputFields(values_slice);
+        console.log(inputFields)
+    }
+
+
     if(loaded){
     return (
         <div className="ABMPedidosClientes">
+            <div>
+                <ErrorMsg errorMsg={errorMsg}/>
+            </div>
+
             <div className="Agregando">
                 <div className="BotonesCabecera">
                     <label>Añadir producto al pedido</label>
@@ -212,7 +255,11 @@ const ABMPedidoProveedor = (props) => {
                                 <Fragment key={`asdf${index}`}>
                                     <div className="ProductoNuevo">
                                         <div className="Cabecera">
-                                            <label>Producto Nuevo</label>
+                                            <label>Producto Nuevo<button
+                                                type="button"
+                                                onClick={()=>delete_prod_by_index(index)}
+                                            >X</button></label>
+                                            
                                         </div>
                                         <div className="DatosProductoNuevo">
                                             <div className="DescProd">
@@ -271,20 +318,25 @@ const ABMPedidoProveedor = (props) => {
                             return (
                                 <div className="ProductoExistente" key={`asdf${index}`}>
                                     <div className="Cabecera">
-                                        <label>Existente</label>
+                                        <label>Existente<button
+                                                type="button"
+                                                onClick={()=>delete_prod_by_index(index)}
+                                            >X</button></label>
                                     </div>
                                     <div className="DatosProducto">
                                         <div className="DatosProductoDesc">
                                             <label className="ExistenteProducto">Producto:</label>
                                             <select name="producto"
+                                                
                                                 onChange={event => handleInputChange(index, event)}>
 
                                                 {productos.map(
-                                                    p => <option 
-                                                    selected={p.id===inputField.productoId}
-                                                    key={`${p.id}`} value={p.id}>{p.descripcion}
-                                                    
-                                                    </option>)}
+                                                    p => {
+                                                        return(
+                                                        <option 
+                                                            selected={p.id===inputField.productoId}
+                                                            key={`${p.id}`} value={p.id}>{p.descripcion}
+                                                        </option>)})}
                                             </select>
                                         </div>
                                         <div className="ExistenteCantidad">

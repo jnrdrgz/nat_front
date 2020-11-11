@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
 import "./css/ABMProducto.css"
+import ErrorMsg from './ErrorMsg';
+import { uploadImg } from "../utils";
 
 
 const useInput = (defaultValue) => {
@@ -10,6 +12,7 @@ const useInput = (defaultValue) => {
     const onChange = (e) => {
         //console.log(e.target.value)
         setValue(e.target.value);
+        
     }
 
     return { value, setValue, onChange };
@@ -23,15 +26,20 @@ const FormComponent = (props) => {
     const stock = useInput("")
     const inputsReadOnly = useInput(false)
     //foto
+    const [image, setImage] = useState("")
+
+    
+    const [errorMsg, setErrorMsg] = useState("")
 
     const [precio, setPrecio] = useState(0.0)
     const [precioCosto, setPrecioCosto] = useState(0.0)
     const precioOnChange = (e) => {
+        
         const p = parseFloat(e.target.value)
         if (!isNaN(p)) {
             setPrecio(p)
             const perc = (p * 30.0) / 100.0
-            setPrecioCosto(p + perc)
+            setPrecioCosto(p - perc)
         } else {
             setPrecio(0.0)
             setPrecioCosto(0.0)
@@ -50,6 +58,7 @@ const FormComponent = (props) => {
         const setValuesToProps = () => {
             producto.setValue(props.producto.descripcion)
             setPrecio(props.producto.precio)
+            setPrecioCosto(props.producto.precioCosto)
             codigo.setValue(props.producto.codigo)
             puntos.setValue(props.producto.puntos)
             stock.setValue(props.producto.stock)
@@ -72,39 +81,62 @@ const FormComponent = (props) => {
     }, [])
 
     const addProducto = (e) => {
-        e.preventDefault();
+        if(!producto.value){
+            setErrorMsg("Complete el campo descripcion")
+            return;
+        }
+        if(precio == 0 || precio == 0.0){
+            setErrorMsg("El precio no puede ser 0")
+            return;
+        }
+        
         const payload = {
             descripcion: producto.value,
             codigo: codigo.value,
             puntos: puntos.value,
             precio: precio,
-            stock: stock.value
+            precioCosto: precioCosto,
+            stock: stock.value,
+            foto: image
         }
 
         console.log(payload)
 
+        
+
         api.post("/productos/agregar", payload).then(r => {
             console.log(r.data)
             goToConsulta();
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            console.log(e)
+            if(e.response.data.msg){
+                setErrorMsg(e.response.data.msg)                
+            } else {
+                setErrorMsg("Ocurrio un error en el servidor, comuniquese con el administrador")
+            }
+        })
     }
 
     const editarProducto = (e) => {
         e.preventDefault();
         const payload = {
-            //id
+            id: props.producto.id,
             descripcion: producto.value,
             codigo: codigo.value,
             puntos: puntos.value,
-            precio: precio.value,
-            stock: stock.value
+            precio: precio,
+            precioCosto: precioCosto,
+            stock: stock.value,
+            foto: image
         }
 
         console.log("EDITAR", payload)
 
-        //api.put("/productos/editar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
+        api.put("/productos/editar", payload).then(r => {
+            console.log(r.data)
+            goToConsulta();
+        }).catch(e => console.log(e))
+
     }
 
     const eliminarProducto = (e) => {
@@ -123,6 +155,7 @@ const FormComponent = (props) => {
     }
 
     const _onSubmit = (e) => {
+        e.preventDefault();
         switch (props.tipoOperacion) {
             case "ALTA":
                 addProducto(e)
@@ -138,19 +171,43 @@ const FormComponent = (props) => {
         }
     }
 
+    const handleImgUpload = async (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            setImage(await uploadImg(file));
+        }
+
+    }
+
     return (
         <div className="Fondo">
+                
             <div className="FormularioCompleto">
+                <div>
+                    <ErrorMsg errorMsg={errorMsg}/>
+                </div>
+           
                 <div className="Titulo">
                     <h3>{props.tipoOperacion}</h3>
                 </div>
                 <form className="form" onSubmit={_onSubmit}>
                     <div className="Inputs">
                         <label>Producto: </label><input type="text" onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br />
-                        <label>Precio: </label><input type="text" onChange={precioOnChange} value={precio.value} readOnly={inputsReadOnly.value}></input><br />
+                        <label>Precio: </label><input type="text" onChange={precioOnChange} value={precio} readOnly={inputsReadOnly.value}></input><br />
+                        <label>Precio Costo: </label><input type="text" onChange={()=>{}} value={precioCosto} readOnly></input><br />
                         <label>Codigo: </label><input type="text" onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br />
                         <label>Puntos: </label><input type="text" onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br />
                         <label>Stock: </label><input type="text" onChange={stock.onChange} value={stock.value} readOnly={inputsReadOnly.value}></input><br />
+                        <label>Imagen: </label>
+                        <input
+                            id="imgprod-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImgUpload}
+                        />
+
+                        <img src={image} width={image ? "200" : "0"} height={image ? "200" : "0"}></img>
                     </div>
                     <div className="input-boton">
                         <button className="btn" type="submit">Registrar</button>

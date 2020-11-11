@@ -16,6 +16,7 @@ import ConsultaBalance from './components/ConsultaBalance'
 import ABMCiclos from './components/ABMCiclos'
 import ABMCuota from './components/ABMCuota'
 import "./App.css"
+import Finanzas from './components/Finanzas'
 
 const App = () => {
        
@@ -45,7 +46,7 @@ const App = () => {
                     <Link to="/ciclos">Ciclos</Link>
                 </div>
                 <div className="Link">
-                    <Link to="/balance">Balance</Link>
+                    <Link to="/balance">Finanzas</Link>
                 </div>
             </div>
         </div>
@@ -72,7 +73,7 @@ const App = () => {
                 </Route>
                 
                 <Route path="/balance" exact={true}>
-                    <ConsultaBalance />
+                    <Finanzas />
 
                 </Route>
    
