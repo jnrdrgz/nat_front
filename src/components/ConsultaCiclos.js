@@ -3,14 +3,11 @@ import api from "../services/api"
 import {
     BrowserRouter as Router,  Switch, Route, Link, useHistory, useRouteMatch
   } from "react-router-dom"
-
+  import "./css/ConsultaCiclos.css"
 const ConsultaCiclos = () => {
     const [ciclos, setciclos] = useState([]);
-
     let history = useHistory()
     let match = useRouteMatch();
-
-
     const goToBalance = (c) => {
         history.push({
             pathname: `${match.path}/balance`,
@@ -18,55 +15,81 @@ const ConsultaCiclos = () => {
         });  
     }
 
-    useEffect( () =>{
-        //const res = () => 
-        //api.get("/ciclos").then(r => {
-        //    console.log(r.data)
-        //    setciclos(r.data.data) 
-        //})
+    const goToEditClick = (c) => {
+        history.push({
+            pathname: `${match.path}/editar`,
+            state: { ciclo: c }
+        });
+    }
 
-        setciclos(
-            [{
-                "id": "a63fab5c-549b-4eee-a181-1cc934b284e1",
-                "fechaInicio": "2020-10-21T05:04:44.996Z",
-                "fechaFin": "2020-10-21T05:04:44.996Z",
-                "actual": false,
-                "estaEliminado": false,
-                "numero": "14A",
-                "updatedAt": "2020-10-21T05:04:44.999Z",
-                "createdAt": "2020-10-21T05:04:44.999Z"
-            },
-            {
-                "id": "3fb2e242-aeea-448d-af18-95e419f3fdb2",
-                "fechaInicio": "2020-10-21T05:04:44.996Z",
-                "fechaFin": "2020-10-21T05:04:44.996Z",
-                "actual": true,
-                "estaEliminado": false,
-                "numero": "14B",
-                "updatedAt": "2020-10-21T05:04:44.999Z",
-                "createdAt": "2020-10-21T05:04:44.999Z"
-            }]
-        )
+    const goToDeleteClick = (c) => {
+        history.push({
+            pathname: `${match.path}/eliminar`,
+            state: { ciclo: c }
+        });
+    }
+
+    const goToAgregarClick = () => {
+        history.push({
+            pathname: `${match.path}/agregar`
+        });
+    }
+
+    useEffect( () =>{
+        
+        api.get("/ciclos").then(r => {
+            console.log("data cicl", r.data)
+            setciclos(r.data.data) 
+            console.log("resp", r)
+            
+        })
+
     },[])
 
+    const handleSetActual = (idCiclo) => {
+        api.put("/ciclos/setActual", {id:idCiclo}).then(r => {
+            alert(`Ciclo ${idCiclo} ahora es actual`)
+            window.location.reload();
+        }).catch(e => console.log(e))
+    }
+
              
-    if(ciclos !== []){
+    if (ciclos !== []) {
         console.log("PATH", match.path)
         return (
-            <div>Consulta:
-                <button onClick={() => {}}>Agregar</button>
-                {ciclos.map(ciclo =>
-                    <div key={ciclo.id}>
-                        {ciclo.numero}
-                        <button onClick={() => goToBalance(ciclo.id)}>Ver Balance</button>
-                        <button onClick={() => {}}>E</button>
-                        <button onClick={() => {}}>X</button>
+            <div className="Ciclos">
+                <div className="Agregar">
+                    <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo ciclo</button>
+                    <div className="ComponentesBuscador">
+                        <input type="text" name="txtBuscador" id="txtBuscador" />
+                        <button className="btnb">Buscar</button>
                     </div>
-                    )}               
+                </div>
+                {ciclos.map(ciclo =>
+                    <div className="Ciclo" key={ciclo.id}>
+                        <div className="Titulo">
+                            <label className="NumeroCiclo">Ciclo: {ciclo.numero}</label>
+                            <label className="NumeroCiclo">{ciclo.actual ? "Ciclo Actual" : "Ciclo Pasado"}</label>
+                           </div>
+                        <div className="Contenido">
+                            <div className="Fechas">
+                                <label className="FechaInicio">Inicio: {ciclo.fechaInicio}</label>
+                                <label className="FechaFin">Fin: {ciclo.fechaFin}</label>
+                            </div>
+                            
+                            <div className="btnes">
+                                <button className="bt" onClick={() => { }}>Editar</button>
+                                <button className="bt" onClick={() => {handleSetActual(ciclo.id)}}>Actual</button>
+                                <button className="bt" onClick={() => { }}>Eliminar</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
-   
+
         )
-    }else{
+    } else {
         return (<div>loading...</div>)
     }
 }

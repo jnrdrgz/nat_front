@@ -1,0 +1,154 @@
+:root {
+    --primary-color:#14b383;
+    --secondary-color:#4ed9b6;
+    --background-1-color:#edebed;
+    --background-2-color: #f5fff4;    
+}
+  
+.Agregar{
+    width: 100%;
+    height: 10vh;
+    display: flex;      
+    align-items: center;
+    flex-direction: row;
+    background-color:var(--background-1-color);   
+    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);   
+}
+
+.ComponentesBuscador{    
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    align-items: center;
+    margin-right: 15px;
+    height: 7vh;
+    
+}
+input[type=text]{
+  height: 75%;
+  width: 60%;
+  border-radius: 5px;
+}
+input[type=text]:focus{
+    border-radius: 5px;
+    border-color: rgba(20, 179, 131,0.5);
+
+}
+.ComponentesBuscador .btnb{
+    
+    width: 30%;
+    height: 100%;
+    margin-left: auto;
+    padding:2px;
+    border-radius: 5px;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    background-color:#14b383;
+    color:#fff;
+    font-weight: bold;
+}
+.btnb:hover{
+    background-color: #82f5de;
+    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425); 
+}
+
+.Agregar .btn{
+    display: flex;
+    width: 20%;
+    height: 7vh;
+    margin:15px;
+    padding:2px;
+    border-radius: 5px;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    background-color:#14b383;  
+    color:#fff;
+    font-weight: bold;
+}
+.Agregar .btn:hover{
+    background-color:  #82f5de;
+    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
+}
+.Productos{
+    display: flex;
+    flex-wrap: wrap;    
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    background-color: #f5fff4;
+    justify-content: space-around;
+    align-content: flex-start;
+
+}
+.Producto{
+    margin: 50px 10px;
+    border:2px solid #4ed9b6;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    background-color:#edebed;    
+    border-radius: 10px;
+    width: 23%;
+    height: 75vh;
+}
+.Producto:hover{
+    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
+}
+.Producto img{    
+    margin: 5px auto;
+    margin-top: 15px;
+    border-radius: 10px;
+    max-width: 80%;
+    max-height: 50%;
+    width: 200px;
+    height: 250px;
+}
+
+p{
+    font-weight:bold;
+    font-style: italic;
+    font-size:15px;
+    height: 45vh;
+    overflow: hidden;        
+}
+
+.Cuerpo{    
+    height:20%;
+    display: flex;
+    flex-direction: column;  
+    margin-bottom: 5px; 
+}
+
+.Cuerpo label{
+    margin: 0 auto;  
+    overflow: hidden; 
+    font-size: 15px;     
+}
+.Pie{
+    height: 50vh;  
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+   
+}
+.Pie .btn{
+    width: 40%;
+    height: 5vh;
+    margin:5px;
+    padding:2px;
+    border-radius: 5px;
+    display: flex;  
+    justify-content: center;
+    background-color: #14b383;
+    color:#fff;
+    font-weight: bold;
+    box-shadow: 2px 0px 1px 1px rgba(18, 136, 107, 0.425);
+}
+.Pie .btn:hover{
+    background-color:#82f5de;
+   
+   
+}

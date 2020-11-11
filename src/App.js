@@ -12,25 +12,44 @@ import ABMPedidoCliente from './components/ABMPedidoCliente'
 import ABMPedidoProveedor from './components/ABMPedidoProveedor'
 import ConsultaCiclos from './components/ConsultaCiclos'
 import BalanceCiclo from './components/BalanceCiclo'
+import ConsultaBalance from './components/ConsultaBalance'
+import ABMCiclos from './components/ABMCiclos'
+import ABMCuota from './components/ABMCuota'
+import "./App.css"
+import Finanzas from './components/Finanzas'
 
 const App = () => {
-    const padding = {
-        padding: 5
-      }
-    
+       
       //guarda con el router que si le pones el home primero
       //no te renderiza el resto porque funciona como un switch
       //algo asi despues leo
     return (
         <Router>
-            <div>
-                <Link style={padding} to="/">Home</Link> 
-                <Link style={padding} to="/productos">Productos</Link>
-                <Link style={padding} to="/pedidos/cliente">Pedidos Clientes</Link>
-                <Link style={padding} to="/pedidos/proveedor">Pedidos Proveedor</Link>
-                <Link style={padding} to="/ciclos">Ciclos</Link>
-                <Link style={padding} to="/balance">Balance</Link>
+        <div className="RouterContainer">
+            <div className="LimiteSuperior">
+               <label></label>
             </div>
+            <div className="LinksContainer">
+                <div className="Link">
+                    <Link to="/">Home</Link>
+                </div>
+                <div className="Link">
+                    <Link to="/productos">Productos</Link>
+                </div>
+                <div className="Link">
+                    <Link to="/pedidos/cliente">Pedidos Clientes</Link>
+                </div>
+                <div className="Link">
+                    <Link to="/pedidos/proveedor">Pedidos Proveedor</Link>
+                </div>
+                <div className="Link">
+                    <Link to="/ciclos">Ciclos</Link>
+                </div>
+                <div className="Link">
+                    <Link to="/balance">Finanzas</Link>
+                </div>
+            </div>
+        </div>
    
             <Switch>
                {/* PRINCIPALES */}
@@ -54,7 +73,7 @@ const App = () => {
                 </Route>
                 
                 <Route path="/balance" exact={true}>
-                    <Home/>
+                    <Finanzas />
 
                 </Route>
    
@@ -87,6 +106,23 @@ const App = () => {
                 <Route path="/ciclos/balance">
                     <BalanceCiclo />
                 </Route>
+
+                {/* CICLO */}
+                <Route path="/ciclos/agregar">
+                    <ABMCiclos tipoOperacion="ALTA"/>
+                </Route>
+                <Route path="/ciclos/eliminar">
+                    <ABMCiclos tipoOperacion="BAJA"/>
+                </Route>
+                <Route path="/ciclos/editar">
+                    <ABMCiclos tipoOperacion="MODIFICACION"/>
+                </Route>
+
+                {/* CUOTA */}
+                <Route path="/pedidos/cliente/cuota">
+                    <ABMCuota tipoOperacion="ALTA"/>
+                </Route>
+
 
             </Switch>
         </Router>
