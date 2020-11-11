@@ -3,6 +3,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
 import "./css/ABMProducto.css"
 import ErrorMsg from './ErrorMsg';
+import { uploadImg } from "../utils";
 
 
 const useInput = (defaultValue) => {
@@ -11,6 +12,7 @@ const useInput = (defaultValue) => {
     const onChange = (e) => {
         //console.log(e.target.value)
         setValue(e.target.value);
+        
     }
 
     return { value, setValue, onChange };
@@ -24,6 +26,7 @@ const FormComponent = (props) => {
     const stock = useInput("")
     const inputsReadOnly = useInput(false)
     //foto
+    const [image, setImage] = useState("")
 
     
     const [errorMsg, setErrorMsg] = useState("")
@@ -31,6 +34,7 @@ const FormComponent = (props) => {
     const [precio, setPrecio] = useState(0.0)
     const [precioCosto, setPrecioCosto] = useState(0.0)
     const precioOnChange = (e) => {
+        
         const p = parseFloat(e.target.value)
         if (!isNaN(p)) {
             setPrecio(p)
@@ -92,7 +96,8 @@ const FormComponent = (props) => {
             puntos: puntos.value,
             precio: precio,
             precioCosto: precioCosto,
-            stock: stock.value
+            stock: stock.value,
+            foto: image
         }
 
         console.log(payload)
@@ -121,7 +126,8 @@ const FormComponent = (props) => {
             puntos: puntos.value,
             precio: precio,
             precioCosto: precioCosto,
-            stock: stock.value
+            stock: stock.value,
+            foto: image
         }
 
         console.log("EDITAR", payload)
@@ -165,6 +171,15 @@ const FormComponent = (props) => {
         }
     }
 
+    const handleImgUpload = async (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            setImage(await uploadImg(file));
+        }
+
+    }
+
     return (
         <div className="Fondo">
                 
@@ -184,6 +199,15 @@ const FormComponent = (props) => {
                         <label>Codigo: </label><input type="text" onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br />
                         <label>Puntos: </label><input type="text" onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br />
                         <label>Stock: </label><input type="text" onChange={stock.onChange} value={stock.value} readOnly={inputsReadOnly.value}></input><br />
+                        <label>Imagen: </label>
+                        <input
+                            id="imgprod-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImgUpload}
+                        />
+
+                        <img src={image} width={image ? "200" : "0"} height={image ? "200" : "0"}></img>
                     </div>
                     <div className="input-boton">
                         <button className="btn" type="submit">Registrar</button>

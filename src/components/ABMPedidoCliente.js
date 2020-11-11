@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
 import "./css/ABMPedidoCliente.css"
+import ErrorMsg from './ErrorMsg';
 
 
 const useInput = (defaultValue) => {
@@ -58,6 +59,7 @@ const ABMPedidoCliente = (props) => {
     const nombreCliente = useInput("")
     const numeroCliente = useInput("")
 
+    const [errorMsg, setErrorMsg] = useState("")
 
     const [deudores, setDeudores] = useState([])
     
@@ -182,8 +184,22 @@ const ABMPedidoCliente = (props) => {
             }
         }
 
+        if(!payload.Cliente.nombre){
+            setErrorMsg("Complete el campo nombre cliente")
+            return;
+        }
+        if(!payload.Cliente.numeroTelefono){
+            setErrorMsg("Complete el campo numero cliente")
+            return;
+        }
+
+
+        let error = false
         inputFields.forEach(x => {
             if (!x.nuevo) {
+                if(!x.productoId) error = true
+                if(x.cantidad==0) error = true
+ 
                 payload.Pedido.DetallePedidos.push(
                     {
                         ProductoId: x.productoId,
@@ -191,6 +207,9 @@ const ABMPedidoCliente = (props) => {
                     }
                 )
             } else {
+                if(!x.descripcion) error = true
+                if(parseInt(x.codigo)==0) error = true
+
                 payload.Pedido.DetallePedidos.push(
                     {
                         Producto: {
@@ -206,6 +225,14 @@ const ABMPedidoCliente = (props) => {
                 )
             }
         });
+        if(error){
+            setErrorMsg("Algun campo del pedido no ha sido cargado") 
+        }
+        if(payload.Pedido.DetallePedidos.length === 0){
+            setErrorMsg("No se han cargado productos")
+            return;
+        }
+
 
         payload.actualizarProductos = false
         
@@ -287,6 +314,10 @@ const ABMPedidoCliente = (props) => {
     
     return (
         <div className="ABMPedidosClientes">
+            <div>
+                <ErrorMsg errorMsg={errorMsg}/>
+            </div>
+           
             <div className="DatosClientes">
                 <div className="Cabecera">
                     <label>Datos Cliente</label>

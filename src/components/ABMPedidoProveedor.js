@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
 import "./css/ABMPedidoCliente.css" //usamos lo mismo
+import ErrorMsg from './ErrorMsg';
 
 
 const useInput = (defaultValue) => {
@@ -33,6 +34,9 @@ const ABMPedidoProveedor = (props) => {
     const [nuevo, setNuevo] = useState(false)
 
     const [loaded, setLoaded] = useState(false)
+
+    const [errorMsg, setErrorMsg] = useState("")
+
 
     useEffect(() => {
         console.log(location.state)
@@ -156,8 +160,12 @@ const ABMPedidoProveedor = (props) => {
             },
         }
 
+        let error = false
         inputFields.forEach(x => {
             if (!x.nuevo) {
+                if(!x.productoId) error = true
+                if(x.cantidad==0) error = true
+ 
                 payload.Pedido.DetallePedidos.push(
                     {
                         ProductoId: x.productoId,
@@ -165,6 +173,9 @@ const ABMPedidoProveedor = (props) => {
                     }
                 )
             } else {
+                if(!x.producto) error = true
+                if(parseInt(x.codigo)==0) error = true
+
                 payload.Pedido.DetallePedidos.push(
                     {
                         Producto: {
@@ -181,6 +192,16 @@ const ABMPedidoProveedor = (props) => {
             }
         });
 
+        if(error){
+            setErrorMsg("Algun campo del pedido no ha sido cargado") 
+            return
+        }
+        if(payload.Pedido.DetallePedidos.length === 0){
+            setErrorMsg("No se han cargado productos")
+            return;
+        }
+
+
         api.post("/pedidos/proveedor/agregar", payload).then(r => {
             //console.log(r.data)
             //goToConsulta();
@@ -191,6 +212,10 @@ const ABMPedidoProveedor = (props) => {
     if(loaded){
     return (
         <div className="ABMPedidosClientes">
+            <div>
+                <ErrorMsg errorMsg={errorMsg}/>
+            </div>
+
             <div className="Agregando">
                 <div className="BotonesCabecera">
                     <label>Añadir producto al pedido</label>
