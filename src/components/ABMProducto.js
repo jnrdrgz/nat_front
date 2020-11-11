@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
 import "./css/ABMProducto.css"
+import ErrorMsg from './ErrorMsg';
 
 
 const useInput = (defaultValue) => {
@@ -23,6 +24,9 @@ const FormComponent = (props) => {
     const stock = useInput("")
     const inputsReadOnly = useInput(false)
     //foto
+
+    
+    const [errorMsg, setErrorMsg] = useState("")
 
     const [precio, setPrecio] = useState(0.0)
     const [precioCosto, setPrecioCosto] = useState(0.0)
@@ -73,21 +77,39 @@ const FormComponent = (props) => {
     }, [])
 
     const addProducto = (e) => {
-        e.preventDefault();
+        if(!producto.value){
+            setErrorMsg("Complete el campo descripcion")
+            return;
+        }
+        if(precio == 0 || precio == 0.0){
+            setErrorMsg("El precio no puede ser 0")
+            return;
+        }
+        
         const payload = {
             descripcion: producto.value,
             codigo: codigo.value,
             puntos: puntos.value,
             precio: precio,
+            precioCosto: precioCosto,
             stock: stock.value
         }
 
         console.log(payload)
 
+        
+
         api.post("/productos/agregar", payload).then(r => {
             console.log(r.data)
             goToConsulta();
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            console.log(e)
+            if(e.response.data.msg){
+                setErrorMsg(e.response.data.msg)                
+            } else {
+                setErrorMsg("Ocurrio un error en el servidor, comuniquese con el administrador")
+            }
+        })
     }
 
     const editarProducto = (e) => {
@@ -127,6 +149,7 @@ const FormComponent = (props) => {
     }
 
     const _onSubmit = (e) => {
+        e.preventDefault();
         switch (props.tipoOperacion) {
             case "ALTA":
                 addProducto(e)
@@ -144,7 +167,12 @@ const FormComponent = (props) => {
 
     return (
         <div className="Fondo">
+                
             <div className="FormularioCompleto">
+                <div>
+                    <ErrorMsg errorMsg={errorMsg}/>
+                </div>
+           
                 <div className="Titulo">
                     <h3>{props.tipoOperacion}</h3>
                 </div>
