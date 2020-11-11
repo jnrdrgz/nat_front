@@ -70,7 +70,7 @@ const ConsultaProducto = () => {
                 </div>
                 {filteredProductos.map(producto =>
                     <div className="Producto" key={producto.id}>
-                        <img src="https://placekitten.com/g/200/250" width="200" height="250"></img>
+                        <img src={producto.foto} width="200" height="250"></img>
                         <p>{producto.descripcion}</p>
                         <div className="Cuerpo">
                             <label>Codigo: {producto.codigo}</label>

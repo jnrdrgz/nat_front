@@ -24,15 +24,18 @@ const FormComponent = (props) => {
             "pedidoId": props.pedidoId,
             "monto": monto.value
         }
-
   
         console.log(payload)
 
-        api.put("/pedidos/cliente/pagarCuota", payload).then(r => {
-            console.log(r.data)
-            alert("cuota agregada")
-            //goToConsulta();
-        }).catch(e => console.log(e))
+        if(props.maximo > monto.value && props.maximo != -1){
+            api.put("/pedidos/cliente/pagarCuota", payload).then(r => {
+                console.log(r.data)
+                alert("cuota agregada")
+                //goToConsulta();
+            }).catch(e => console.log(e))
+        } else {
+            alert("Error, el monto es mayor al total que falta pagar del pedido")
+        }
   
     } 
 
@@ -88,7 +91,8 @@ const ABMCuota = (props) => {
     return (
         <FormComponent
             tipoOperacion={props.tipoOperacion}
-            pedidoId={location.state ? location.state.pedidoId : {}} />
+            pedidoId={location.state ? location.state.pedidoId : {}}
+            maximo={location.state ? location.state.maximoCuota : -1} />
     )
 }
 

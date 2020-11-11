@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
 import "./css/ABMPedidoCliente.css"
+import ErrorMsg from './ErrorMsg';
 
 
 const useInput = (defaultValue) => {
@@ -58,7 +59,9 @@ const ABMPedidoCliente = (props) => {
     const nombreCliente = useInput("")
     const numeroCliente = useInput("")
 
+    const [errorMsg, setErrorMsg] = useState("")
 
+    const [deudores, setDeudores] = useState([])
     
     useEffect(() => {
         console.log(location.state)
@@ -66,7 +69,16 @@ const ABMPedidoCliente = (props) => {
             console.log(r.data)
             setProductos(r.data.data)
         })
+    
+        api.get("/pedidos/cliente?onlyDeudores=1").then(r => {
+            console.log("data deud", r.data)
+            const d = r.data.data.map(p => p.Cliente)
+            setDeudores(d) 
+            console.log("deudores", d)
 
+        })
+
+        
         //TODO
         api.get("/ciclos/actual").then(r => {
             console.log("ciclo", r.data)
@@ -139,7 +151,12 @@ const ABMPedidoCliente = (props) => {
         } else {
             if (event.target.name === "cantidad") {
                 values[index].cantidad = event.target.value
+                //HACK
+                if(!values[index].productoId){
+                    values[index].productoId = productos[0].id    
+                }
             }
+
             else {
                 values[index].productoId = event.target.value;
             }
@@ -158,7 +175,7 @@ const ABMPedidoCliente = (props) => {
         const payload = {
             Pedido: {
                 total: 0.0,
-                //CicloId: cicloActualId,
+                CicloId: cicloActualId,
                 DetallePedidos: []
             },
             Cliente: {
@@ -167,8 +184,22 @@ const ABMPedidoCliente = (props) => {
             }
         }
 
+        if(!payload.Cliente.nombre){
+            setErrorMsg("Complete el campo nombre cliente")
+            return;
+        }
+        if(!payload.Cliente.numeroTelefono){
+            setErrorMsg("Complete el campo numero cliente")
+            return;
+        }
+
+
+        let error = false
         inputFields.forEach(x => {
             if (!x.nuevo) {
+                if(!x.productoId) error = true
+                if(x.cantidad==0) error = true
+ 
                 payload.Pedido.DetallePedidos.push(
                     {
                         ProductoId: x.productoId,
@@ -176,6 +207,9 @@ const ABMPedidoCliente = (props) => {
                     }
                 )
             } else {
+                if(!x.descripcion) error = true
+                if(parseInt(x.codigo)==0) error = true
+
                 payload.Pedido.DetallePedidos.push(
                     {
                         Producto: {
@@ -191,8 +225,35 @@ const ABMPedidoCliente = (props) => {
                 )
             }
         });
+        if(error){
+            setErrorMsg("Algun campo del pedido no ha sido cargado") 
+        }
+        if(payload.Pedido.DetallePedidos.length === 0){
+            setErrorMsg("No se han cargado productos")
+            return;
+        }
+
 
         payload.actualizarProductos = false
+        
+        const checkIfDeudor = () => {
+            //const checkTelefono = d => d.numeroTelefono === payload.Cliente.numeroTelefono; 
+            const estaTelefonoEnDeudores = !deudores.filter(d => d.numeroTelefono == payload.Cliente.numeroTelefono).length == 0  
+            const estaNombreEnDeudores = !deudores.filter(d => d.nombre == payload.Cliente.nombre).length == 0
+
+            console.log("nombres", payload.Cliente.nombre,payload.Cliente.numeroTelefono)
+            console.log("bools", estaTelefonoEnDeudores, estaNombreEnDeudores)
+            return estaTelefonoEnDeudores && estaNombreEnDeudores
+        }
+
+        if(checkIfDeudor()){ 
+            console.log("DEDUDOR")
+            if (!window.confirm("Esta por cargarle un pedido a un DEUDOR, ¿desea continuar?")) {
+                alert("Pedido no cargado")
+                return;
+            } 
+        }
+
         api.post("/pedidos/cliente/agregar", payload).then(r => {
             //console.log(r.data)
             //goToConsulta();
@@ -217,6 +278,7 @@ const ABMPedidoCliente = (props) => {
                     } 
                 } 
             })
+        
     }
 
 
@@ -252,6 +314,10 @@ const ABMPedidoCliente = (props) => {
     
     return (
         <div className="ABMPedidosClientes">
+            <div>
+                <ErrorMsg errorMsg={errorMsg}/>
+            </div>
+           
             <div className="DatosClientes">
                 <div className="Cabecera">
                     <label>Datos Cliente</label>

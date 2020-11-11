@@ -20,7 +20,6 @@ const PedidoDisp = (props) => {
 
     console.log("PropsHere", props)
     return (
-
         <div className="DetallePedido">
             <div className="DetallePrincipal">
                 <label>Total: ${props.pedido.total}</label>
@@ -113,8 +112,6 @@ const ConsultaPedidoCliente = () => {
             </div>
         )
     }
-
-
 
     //const goToEditClick = (p) => {
     //    history.push({
@@ -255,7 +252,24 @@ const ConsultaPedidoCliente = () => {
                                     console.log(pedidos_c)
 
                                     setPedidosCarrito(pedidos_c)
-                                }}>+</button>
+                                }}>+</button>                        
+                        <PedidoDisp 
+                        pedido={pedido.Pedido} 
+                        saldado={pedido.montoSaldado} 
+                        id={pedido.id}
+                        />
+                        
+
+                            Entregado: {pedido.entregado ? "Si" : "No"} -
+                            Pagado: {pedido.pagado ? "Si" : "No"}
+                        
+                        <br />
+                        <div className="btnes">
+                            <div className="bton">
+                                <button className="bt" 
+                                onClick={() => { marcarPedidoEntregado(pedido.id) }} 
+                                disabled={pedido.entregado} >
+                                    Marcar Entregado</button>
                             </div>
 
                             <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado} id={pedido.id} />
