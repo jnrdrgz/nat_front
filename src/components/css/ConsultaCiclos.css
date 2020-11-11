@@ -120,8 +120,17 @@ input[type=text]:focus{
 
 }
 .bt{
-    width: 45%;
+    
     height: 6vh;
+    border-radius: 5px;    
+    width: 45%;
+    margin: 5px;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    background-color:#14b383;
+    color:#fff;
+    font-weight: bold;
 }
 .bt:hover{
     

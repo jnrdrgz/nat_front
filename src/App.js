@@ -13,9 +13,9 @@ import ABMPedidoProveedor from './components/ABMPedidoProveedor'
 import ConsultaCiclos from './components/ConsultaCiclos'
 import BalanceCiclo from './components/BalanceCiclo'
 import ConsultaBalance from './components/ConsultaBalance'
-import "./App.css"
 import ABMCiclos from './components/ABMCiclos'
 import ABMCuota from './components/ABMCuota'
+import "./App.css"
 
 const App = () => {
        
