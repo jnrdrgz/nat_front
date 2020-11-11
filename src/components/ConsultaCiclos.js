@@ -69,7 +69,7 @@ const ConsultaCiclos = () => {
                     <div className="Ciclo" key={ciclo.id}>
                         <div className="Titulo">
                             <label className="NumeroCiclo">Ciclo: {ciclo.numero}</label>
-                            <label className="NumeroCiclo">{ciclo.actual ? "Ciclo Actual" : "No es el Actual"}</label>
+                            <label className="NumeroCiclo">{ciclo.actual ? "Ciclo Actual" : "Ciclo Pasado"}</label>
                            </div>
                         <div className="Contenido">
                             <div className="Fechas">

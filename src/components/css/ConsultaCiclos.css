@@ -53,7 +53,7 @@ input[type=text]:focus{
     font-weight: bold;
 }
 .btnb:hover{
-    background-color:   background-color: #82f5de;
+    background-color: #82f5de;
     box-shadow: 2px 2px 2px 1px  rgba(18, 136, 107, 0.425);
 }
 .form{
@@ -125,7 +125,7 @@ input[type=text]:focus{
 }
 .bt:hover{
     
-        background-color::#82f5de;
+        background-color:#82f5de;
        
 }
 .Contenido{
