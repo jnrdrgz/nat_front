@@ -132,10 +132,8 @@ input[type=text]:focus{
     color:#fff;
     font-weight: bold;
 }
-.bt:hover{
-    
-        background-color:#82f5de;
-       
+.bt:hover{    
+        background-color:#82f5de;       
 }
 .Contenido{
     display: flex;

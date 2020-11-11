@@ -19,7 +19,7 @@ const PedidoWP = (props) => {
     const [wpData, setWpData] = useState("")
 
     const makeApiCallWpPed = () => {
-        const payload = {"pedido": wpData}
+        const payload = { "pedido": wpData }
 
         api.post("pedidos/cliente/agregar/porwp", payload).then(r => {
             console.log("data WPPED", r.data)
@@ -27,23 +27,37 @@ const PedidoWP = (props) => {
 
             //setciclos(r.data.data) 
             //console.log("resp", r)
-            
+
         })
 
     }
-    if(props.show){
-        return(<div>
-        Msj whatsapp:<br/>
-        <textarea onChange={(e)=>{setWpData(e.target.value)}}></textarea > 
-        <button className="bot" type="button" onClick={() => {
-            makeApiCallWpPed()
-        }}>Cargar Productos</button>
-                    
+    if (props.show) {
+        return (<div className="PedidoWpp">
+            <div className="Area">
+                <textarea 
+                    placeholder="Ingrese el pedido de whatsapp co nel siguiente formato: -> ''¡Hola! Te envío mi pedido de Ciclo 14B:
+
+            3 unidad(es) - Código: 67597 -  Precio: $ 9.195,00  Eau de parfum femenino  viver
+            4 unidad(es) - Código: 69615 -  Precio: $ 12.780,00  Eau de parfum femenino  rubí
+            3 unidad(es) - Código: 93269 -  Precio: $ 7.905,00  Kaiak eau de parfum 
+            1 unidad(es) - Código: 25213 -  Precio: $ 1.135,00  Regalo Naturé 
+            
+            
+            Total = $31.015,00
+            
+            ¡Gracias!'''"
+                    onChange={(e) => { setWpData(e.target.value) }}>
+                </textarea >
+            </div>
+            <button className="bot" type="button" onClick={() => {
+                makeApiCallWpPed()
+            }}>Cargar Productos</button>
+
         </div>)
     } else {
         return (<div></div>)
     }
-} 
+}
 
 const ABMPedidoCliente = (props) => {
     const location = useLocation();
@@ -59,7 +73,7 @@ const ABMPedidoCliente = (props) => {
     const numeroCliente = useInput("")
 
 
-    
+
     useEffect(() => {
         console.log(location.state)
         api.get("/productos").then(r => {
@@ -70,14 +84,14 @@ const ABMPedidoCliente = (props) => {
         //TODO
         api.get("/ciclos/actual").then(r => {
             console.log("ciclo", r.data)
-            
-            if(!r.data.data.id){
+
+            if (!r.data.data.id) {
                 alert("Adevertencia: no hay ciclo actual")
                 return
             }
             setCicloActualId(r.data.data.id)
-            console.log(r.data.data.id)            
-        }).catch( e => {
+            console.log(r.data.data.id)
+        }).catch(e => {
             alert("Adevertencia: no hay ciclo actual")
         })
 
@@ -106,7 +120,7 @@ const ABMPedidoCliente = (props) => {
                 cantidad: 0,
             });
         }
-        
+
         setInputFields(values);
     };
 
@@ -197,41 +211,40 @@ const ABMPedidoCliente = (props) => {
             //console.log(r.data)
             //goToConsulta();
             alert("Pedido cargado")
-            
-            
-        }).catch(e =>
-            {
-                console.log(e)
-                if(e.response.status === 300){
-                    //let r = ;
-                    if (window.confirm("Se cargaron productos con codigos ya existentes, ¿Actualizar precio y stock?")) {
-                        payload.actualizarProductos = true
-                        api.post("/pedidos/cliente/agregar", payload)
-                        .then(r_ => {
-                            alert("Pedido cargado")                            
-                        })
-                        .catch(e => {})
 
-                    } else {
-                        alert("Pedido no cargado")
-                    } 
-                } 
-            })
+
+        }).catch(e => {
+            console.log(e)
+            if (e.response.status === 300) {
+                //let r = ;
+                if (window.confirm("Se cargaron productos con codigos ya existentes, ¿Actualizar precio y stock?")) {
+                    payload.actualizarProductos = true
+                    api.post("/pedidos/cliente/agregar", payload)
+                        .then(r_ => {
+                            alert("Pedido cargado")
+                        })
+                        .catch(e => { })
+
+                } else {
+                    alert("Pedido no cargado")
+                }
+            }
+        })
     }
 
 
-    const delete_prod_by_index = (index) =>{
+    const delete_prod_by_index = (index) => {
         const values_slice = [...inputFields];
-        values_slice.splice(index,1)
+        values_slice.splice(index, 1)
         setInputFields(values_slice);
         console.log(inputFields)
     }
 
-    const addWPToProds = (wpDataFromChild) =>{
+    const addWPToProds = (wpDataFromChild) => {
         setDataPedidoWP(wpDataFromChild)
         console.log("FROM CHILD", wpDataFromChild)
         const values = [...inputFields];
-            
+
         wpDataFromChild.map(p => {
             values.push({
                 nuevo: true,
@@ -249,7 +262,7 @@ const ABMPedidoCliente = (props) => {
 
 
     }
-    
+
     return (
         <div className="ABMPedidosClientes">
             <div className="DatosClientes">
@@ -279,16 +292,17 @@ const ABMPedidoCliente = (props) => {
                         handleAddFields(false)
                     }}>Producto Existente</button>
                     <button className="bot" type="button" onClick={() => {
+                        setShowPedidoWP(!showPedidoWP)
+                    }}>Pedido WPP</button>
+                    <button className="bot" type="button" onClick={() => {
                         handleAddFields(true)
                     }}>Producto Nuevo</button>
-                    <button className="bot" type="button" onClick={() => {
-                        setShowPedidoWP(!showPedidoWP)
-                    }}>Pedido WP</button>
+
                 </div>
-                <PedidoWP show={showPedidoWP} setDataPed={addWPToProds}/>
-           
+                <PedidoWP show={showPedidoWP} setDataPed={addWPToProds} />
+
             </div>
-           
+
             <form className="formulario" onSubmit={handleSubmit}>
                 <div className="DatosPedidoCliente">
                     {inputFields.map((inputField, index) => {
@@ -297,17 +311,18 @@ const ABMPedidoCliente = (props) => {
                                 <Fragment key={`asdf${index}`}>
                                     <div className="ProductoNuevo">
                                         <div className="Cabecera">
-                                            <label>Producto Nuevo <button
+                                            <label>Producto Nuevo</label>
+                                            <button className="btnDiscreto"
                                                 type="button"
-                                                onClick={()=>delete_prod_by_index(index)}
-                                            >X</button></label>
-                                            
+                                                onClick={() => delete_prod_by_index(index)}
+                                            >X</button>
+
                                         </div>
                                         <div className="DatosProductoNuevo">
                                             <div className="DescProd">
                                                 <label>Producto</label>
-                                                <input type="text" name="producto" 
-                                                value={inputField.producto}
+                                                <input type="text" name="producto"
+                                                    value={inputField.producto}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
@@ -360,11 +375,11 @@ const ABMPedidoCliente = (props) => {
                             return (
                                 <div className="ProductoExistente" key={`asdf${index}`}>
                                     <div className="Cabecera">
-                                        <label>Existente<label>Producto Nuevo <button
-                                                type="button"
-                                                onClick={()=>delete_prod_by_index(index)}
-                                            >X</button></label>
-                                            </label>
+                                        <label> Producto Existente</label>
+                                        <button className="btnDiscreto"
+                                            type="button"
+                                            onClick={() => delete_prod_by_index(index)}
+                                        >X</button>
                                     </div>
                                     <div className="DatosProducto">
                                         <div className="DatosProductoDesc">
