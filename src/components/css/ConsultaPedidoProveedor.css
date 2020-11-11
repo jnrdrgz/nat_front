@@ -1,3 +1,10 @@
+:root {
+    --primary-color:#14b383;
+    --secondary-color:#4ed9b6;
+    --background-1-color:#edebed;
+    --background-2-color: #f5fff4;    
+}
+
 .PedidosProveedor{
     display: flex;
     flex-wrap: wrap;    
@@ -37,7 +44,7 @@
     display: flex;  
     justify-content: center;
     align-items: center;
-    background-color:#14b383;
+    background-color: #14b383;
     color:#fff;
     font-weight: bold;
 }

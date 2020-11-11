@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
-import "./css/ABMProducto.css"
+import "./css/ABMCIclos.css"
 
 
 const useInput = (defaultValue) => {

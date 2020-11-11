@@ -3,7 +3,7 @@ import api from "../services/api"
 import {
     BrowserRouter as Router,  Switch, Route, Link, useHistory, useRouteMatch
   } from "react-router-dom"
-
+  import "./css/ConsultaCiclos.css"
 const ConsultaCiclos = () => {
     const [ciclos, setciclos] = useState([]);
     let history = useHistory()
@@ -14,8 +14,6 @@ const ConsultaCiclos = () => {
             state: { cicloId: c}
         });  
     }
-
-
 
     const goToEditClick = (c) => {
         history.push({
@@ -56,25 +54,42 @@ const ConsultaCiclos = () => {
     }
 
              
-    if(ciclos !== []){
+    if (ciclos !== []) {
         console.log("PATH", match.path)
         return (
-            <div>Consulta:
-                <button onClick={() => goToAgregarClick()}>Agregar</button>
-                {ciclos.map(ciclo =>
-                    <div key={ciclo.id}>
-                        {ciclo.numero}
-                        <button onClick={() => {}}>E</button>
-                        <button onClick={() => {}}>X</button>
-                        actual:{ciclo.actual ? "SI" : "NO"}
-                        <button onClick={() => {handleSetActual(ciclo.id)}}>Set Actual</button>
-                        
+            <div className="Ciclos">
+                <div className="Agregar">
+                    <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo ciclo</button>
+                    <div className="ComponentesBuscador">
+                        <input type="text" name="txtBuscador" id="txtBuscador" />
+                        <button className="btnb">Buscar</button>
                     </div>
-                    )}               
+                </div>
+                {ciclos.map(ciclo =>
+                    <div className="Ciclo" key={ciclo.id}>
+                        <div className="Titulo">
+                            <label className="NumeroCiclo">Ciclo: {ciclo.numero}</label>
+                            <label className="NumeroCiclo">{ciclo.actual ? "Ciclo Actual" : "Ciclo Pasado"}</label>
+                           </div>
+                        <div className="Contenido">
+                            <div className="Fechas">
+                                <label className="FechaInicio">Inicio: {ciclo.fechaInicio}</label>
+                                <label className="FechaFin">Fin: {ciclo.fechaFin}</label>
+                            </div>
+                            
+                            <div className="btnes">
+                                <button className="bt" onClick={() => { }}>Editar</button>
+                                <button className="bt" onClick={() => {handleSetActual(ciclo.id)}}>Actual</button>
+                                <button className="bt" onClick={() => { }}>Eliminar</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
-   
+
         )
-    }else{
+    } else {
         return (<div>loading...</div>)
     }
 }

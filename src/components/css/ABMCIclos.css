@@ -1,50 +1,32 @@
-:root {
-    --primary-color:#14b383;
-    --secondary-color:#4ed9b6;
-    --alternative-color:#0e4b38;
-    --background-1-color:#edebed;
-    --background-2-color: #f5fff4;    
-}
 .Fondo{
     background-color: #f5fff4;
 }
-.FormularioCompleto{
-    border: 1px solid rgb(20, 179, 131);
-    background-color: #edebed;
-    border-radius: 10px;
-    height:100%;
-    width: 85%;
-    display: flex;
-    flex-direction: column;
-    margin: 45px auto;
-}
-
-.Titulo{
-    background-color:#14b383;
-    border-radius: 10px 10px 0px 0px;
-    text-align: center;
-    color: #fff;
-    font-weight: bold;
+.FormularioCompletoCiclos{
+  margin: 50px 15px;
+  
 }
 .form{
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 1px solid rgb(20, 179, 131);    
+    
 }
 .Inputs{
     display: flex;
     flex-direction: column;    
-    width: 80%;
+    width: 60%;
     align-items: center;
 }    
 
 .Inputs label{
     font-size: 19px;
     font-weight: bold;  
-    color: rgba(18, 136, 107, 0.425);
+    color: hsl(162, 89%, 14%);
 }
 .Inputs input[type=text]{
     border-radius: 10px;
+    height: 5vh;
 }
 .Inputs input[type=text]:focus{
     border-radius: 10px;

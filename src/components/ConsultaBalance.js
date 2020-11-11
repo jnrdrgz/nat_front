@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
+import "./css/ConsultaBalanceCiclo.css"
 
 const VerBalance = (props) => {
     const onMesChange = (props) = {
@@ -67,14 +68,19 @@ const BalanceIntervalo = () => {
 
         }   
 
-    return(<div>
-        
-            desde: <input onChange={onDesdeChange} type="date"  name="desde"></input>
-            hast: <input onChange={onHastaChange} type="date" name="hasta"></input>
-            <br />
-            Ingresos: ${balance.ingresos}<br />
-            Egresos: ${balance.egresos}<br />
+        return (<div className="BalanceIntervalo">
+        <div className="Intervalos">
+            <label className="IntervaloD">Desde:</label> <input onChange={onDesdeChange} type="date" name="desde"></input>
+            <label className="IntervaloH">Hasta:</label><input onChange={onHastaChange} type="date" name="hasta"></input>
         </div>
+        <div className="DatosBalance">
+            <label className="LabelIngresos">Ingresos: ${balance.ingresos}</label>
+            <label className="LabelEgresos">Egresos: ${balance.egresos}</label>
+        </div>
+        <div className ="Total">
+        <label className="LabelTotal">Total: ${balance.ingresos - balance.egresos}</label>
+        </div>
+    </div>
     )
 }
 
@@ -82,20 +88,21 @@ const ConsultaBalance = (props) => {
     const [tipo, setTipo] = useState("ciclo");
     
     if(tipo === "ciclo"){
-        return(
-            <div>
-                <button onClick={()=>{}}>Ciclo</button>
-                <button onClick={()=>{setTipo("intervalo")}}>Intervalo</button>
-                
-                por ciclo
+        return (
+            <div className="Ciclos-Intervalo">
+                <button className="btnc" onClick={() => { }}>Ciclo</button>
+                <button className="btnc" onClick={() => { setTipo("intervalo") }}>Intervalo</button>
             </div>
+
+
         )
     } else if(tipo === "intervalo"){
-        return(
+        return (
             <div>
-                
-                <button onClick={()=>{setTipo("ciclo")}}>Ciclo</button>
-                <button onClick={()=>{}}>Intervalo</button>
+                <div className="Ciclos-Intervalo">
+                    <button className="btnc" onClick={() => { }}>Ciclo</button>
+                    <button className="btnc" onClick={() => { setTipo("intervalo") }}>Intervalo</button>
+                </div>
                 <BalanceIntervalo />
             </div>
         )

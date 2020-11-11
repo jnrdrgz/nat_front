@@ -1,0 +1,81 @@
+:root {
+    --primary-color:#14b383;
+    --secondary-color:#4ed9b6;
+    --alternative-color:#0e4b38;
+    --background-1-color:#edebed;
+    --background-2-color: #f5fff4;    
+}
+.Ciclos-Intervalo{
+  
+    height: 10vh;
+    display: flex;      
+    align-items: center;
+    flex-direction: row;
+    background-color:#edebed;
+    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);   
+}
+.btnc{
+    width: 35%;
+    height: 5vh;
+    margin:15px auto;
+    padding:2px;
+    border-radius: 5px;
+    display: flex;  
+    justify-content: center;
+    background-color:#14b383; 
+    color:#fff;
+    font-weight: bold;
+    box-shadow: 2px 0px 1px 1px rgba(18, 136, 107, 0.425);
+}
+.btnc:hover{
+    background-color:#82f5de;
+ 
+}
+.Intervalos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    
+}
+.Intervalos label{
+    margin-top: 25px;
+    font-size: 19px;
+    font-weight: bold;  
+    color: rgba(18, 136, 107, 0.425);
+    align-items: center;    
+}
+
+input[type=date]{
+    height: 75%;
+    width: 30%;
+    border-radius: 5px;
+    text-align: center;
+    border-color:  rgba(20, 179, 131,0.5);
+  }
+.DatosBalance{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-around;
+     
+}
+.DatosBalance label{
+    margin-top: 25px;
+    font-size: 25px;
+    font-weight: bold;  
+    color:rgba(18, 136, 107, 0.425);  
+    align-items: center;
+}
+.Total label{
+    display: flex;
+    justify-content: center;    
+    margin-top: 25px;
+    font-size: 45px;
+    font-weight: bold;
+    border: 1px solid rgba(18, 136, 107, 0.425);
+    color: rgba(18, 136, 107, 0.425);
+    align-items: center;
+    
+}

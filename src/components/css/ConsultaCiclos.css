@@ -4,14 +4,17 @@
     --background-1-color:#edebed;
     --background-2-color: #f5fff4;    
 }
-  
+.Fondo{
+    display: flex;
+    justify-content: center;
+}
 .Agregar{
     width: 100%;
     height: 10vh;
     display: flex;      
     align-items: center;
     flex-direction: row;
-    background-color:var(--background-1-color);   
+    background-color:var(--background-1-color);
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);   
 }
 
@@ -26,9 +29,9 @@
     
 }
 input[type=text]{
-  height: 75%;
-  width: 60%;
-  border-radius: 5px;
+    height: 75%;
+    width: 60%;
+    border-radius: 5px;
 }
 input[type=text]:focus{
     border-radius: 5px;
@@ -51,9 +54,16 @@ input[type=text]:focus{
 }
 .btnb:hover{
     background-color: #82f5de;
-    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425); 
+    box-shadow: 2px 2px 2px 1px  rgba(18, 136, 107, 0.425);
 }
-
+.form{
+    background-color:#edebed;  
+    
+}
+.FormularioCompletoCiclos{
+    width: 80%;
+    margin: 0 auto;
+}
 .Agregar .btn{
     display: flex;
     width: 20%;
@@ -64,91 +74,74 @@ input[type=text]:focus{
     display: flex;  
     justify-content: center;
     align-items: center;
-    background-color:#14b383;  
+    background-color:#14b383;
     color:#fff;
     font-weight: bold;
 }
 .Agregar .btn:hover{
-    background-color:  #82f5de;
+    background-color:#82f5de;
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
 }
-.Productos{
+.Ciclos{
     display: flex;
     flex-wrap: wrap;    
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100vh;
     overflow: auto;
     background-color: #f5fff4;
     justify-content: space-around;
     align-content: flex-start;
 
 }
-.Producto{
-    margin: 50px 10px;
-    border:2px solid #4ed9b6;
+.Ciclo{  
+    margin: 50px 15px;
+    border: 1px solid rgba(20, 179, 131,0.5);
     display: flex;
     text-align: center;
     flex-direction: column;
-    background-color:#edebed;    
+    background-color:#edebed;  
     border-radius: 10px;
-    width: 23%;
-    height: 75vh;
+    width: 20%;
+    height: 31vh;
 }
-.Producto:hover{
+.Ciclo:hover{
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
 }
-.Producto img{    
-    margin: 5px auto;
-    margin-top: 15px;
-    border-radius: 10px;
-    max-width: 80%;
-    max-height: 50%;
-    width: 200px;
-    height: 250px;
-}
-
-p{
-    font-weight:bold;
-    font-style: italic;
-    font-size:15px;
-    height: 45vh;
-    overflow: hidden;        
-}
-
-.Cuerpo{    
-    height:20%;
+.Titulo{
+    height: 10vh;
     display: flex;
-    flex-direction: column;  
-    margin-bottom: 5px; 
+    flex-direction: column;
 }
 
-.Cuerpo label{
-    margin: 0 auto;  
-    overflow: hidden; 
-    font-size: 15px;     
-}
-.Pie{
-    height: 50vh;  
+.btnes{
     display: flex;
     flex-direction: row;
     justify-content: center;
-   
+
 }
-.Pie .btn{
-    width: 40%;
-    height: 5vh;
-    margin:5px;
-    padding:2px;
-    border-radius: 5px;
+.bt{
+    
+    height: 6vh;
+    border-radius: 5px;    
+    width: 45%;
+    margin: 5px;
     display: flex;  
     justify-content: center;
-    background-color: #14b383;
+    align-items: center;
+    background-color:#14b383;
     color:#fff;
     font-weight: bold;
-    box-shadow: 2px 0px 1px 1px rgba(18, 136, 107, 0.425);
 }
-.Pie .btn:hover{
-    background-color:#82f5de;
-   
-   
+.bt:hover{
+    
+        background-color:#82f5de;
+       
+}
+.Contenido{
+    display: flex;
+    flex-direction: column;
+}
+.Fechas{
+    display: flex;
+    flex-direction: column;
 }
