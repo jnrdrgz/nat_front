@@ -175,7 +175,7 @@ const ABMPedidoCliente = (props) => {
         const payload = {
             Pedido: {
                 total: 0.0,
-                //CicloId: cicloActualId,
+                CicloId: cicloActualId,
                 DetallePedidos: []
             },
             Cliente: {

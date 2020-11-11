@@ -155,9 +155,14 @@ const ABMPedidoProveedor = (props) => {
         const payload = {
             Pedido: {
                 total: 0.0,
-                //CicloId: cicloActualId,
+                CicloId: cicloActualId,
                 DetallePedidos: []
             },
+        }
+
+        if(!payload.Pedido.CicloId){
+            setErrorMsg("Error no se selecciono ciclo o no existe uno actual")
+            return;
         }
 
         let error = false
@@ -209,6 +214,14 @@ const ABMPedidoProveedor = (props) => {
         }).catch(e => console.log(e))
     }
 
+    const delete_prod_by_index = (index) =>{
+        const values_slice = [...inputFields];
+        values_slice.splice(index,1)
+        setInputFields(values_slice);
+        console.log(inputFields)
+    }
+
+
     if(loaded){
     return (
         <div className="ABMPedidosClientes">
@@ -242,7 +255,11 @@ const ABMPedidoProveedor = (props) => {
                                 <Fragment key={`asdf${index}`}>
                                     <div className="ProductoNuevo">
                                         <div className="Cabecera">
-                                            <label>Producto Nuevo</label>
+                                            <label>Producto Nuevo<button
+                                                type="button"
+                                                onClick={()=>delete_prod_by_index(index)}
+                                            >X</button></label>
+                                            
                                         </div>
                                         <div className="DatosProductoNuevo">
                                             <div className="DescProd">
@@ -301,7 +318,10 @@ const ABMPedidoProveedor = (props) => {
                             return (
                                 <div className="ProductoExistente" key={`asdf${index}`}>
                                     <div className="Cabecera">
-                                        <label>Existente</label>
+                                        <label>Existente<button
+                                                type="button"
+                                                onClick={()=>delete_prod_by_index(index)}
+                                            >X</button></label>
                                     </div>
                                     <div className="DatosProducto">
                                         <div className="DatosProductoDesc">
