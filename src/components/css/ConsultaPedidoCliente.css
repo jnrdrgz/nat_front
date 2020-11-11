@@ -1,10 +1,17 @@
+:root {
+    --primary-color:#14b383;
+    --secondary-color:#4ed9b6;
+    --background-1-color:#edebed;
+    --background-2-color: #f5fff4;    
+}
+
 .Agregar{
     width: 100%;
     height: 10vh;
     display: flex;      
     align-items: center;
     flex-direction: row;
-    background-color:#edebed;
+    background-color:var(--background-1-color);
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
 }
 
@@ -24,7 +31,7 @@ input[type=text]{
 }
 input[type=text]:focus{
     border-radius: 5px;
-    border-color: rgba(20, 179, 131,0.5);
+    border-color: rgba(20, 179, 131,0.5)
 
 }
 .ComponentesBuscador .btnb{
@@ -42,8 +49,8 @@ input[type=text]:focus{
     font-weight: bold;
 }
 .btnb:hover{
-    background-color: #82f5de;
-    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
+    background-color: var(--secondary-color);
+    box-shadow: 2px 2px 2px 1px  rgba(18, 136, 107, 0.425);
 }
 .PedidosClientes{
     display: flex;
@@ -64,7 +71,7 @@ input[type=text]:focus{
     overflow: auto; 
     border-radius: 10px;
     background-color: #edebed;
-    scrollbar-width: none;  
+        scrollbar-width: none;  
 }
 .pedidoCliente::-webkit-scrollbar{
     display: none;

@@ -1,8 +1,15 @@
+:root {
+    --primary-color:#14b383;
+    --secondary-color:#4ed9b6;
+    --alternative-color:#0e4b38;
+    --background-1-color:#edebed;
+    --background-2-color: #f5fff4;    
+}
 .Fondo{
     background-color: #f5fff4;
 }
 .FormularioCompleto{
-    border: 1px solid #14b383;
+    border: 1px solid rgb(20, 179, 131);
     background-color: #edebed;
     border-radius: 10px;
     height:100%;
@@ -13,7 +20,7 @@
 }
 
 .Titulo{
-    background-color: #14b383;
+    background-color:#14b383;
     border-radius: 10px 10px 0px 0px;
     text-align: center;
     color: #fff;
@@ -34,7 +41,7 @@
 .Inputs label{
     font-size: 19px;
     font-weight: bold;  
-    color: hsl(162, 89%, 14%);
+    color: rgba(18, 136, 107, 0.425);
 }
 .Inputs input[type=text]{
     border-radius: 10px;

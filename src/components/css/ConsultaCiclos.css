@@ -1,3 +1,9 @@
+:root {
+    --primary-color:#14b383;
+    --secondary-color:#4ed9b6;
+    --background-1-color:#edebed;
+    --background-2-color: #f5fff4;    
+}
 .Fondo{
     display: flex;
     justify-content: center;
@@ -8,7 +14,7 @@
     display: flex;      
     align-items: center;
     flex-direction: row;
-    background-color:#edebed;
+    background-color:var(--background-1-color);
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);   
 }
 
@@ -47,11 +53,11 @@ input[type=text]:focus{
     font-weight: bold;
 }
 .btnb:hover{
-    background-color: #82f5de;
-    box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
+    background-color:   background-color: #82f5de;
+    box-shadow: 2px 2px 2px 1px  rgba(18, 136, 107, 0.425);
 }
 .form{
-    background-color: #edebed;  
+    background-color:#edebed;  
     
 }
 .FormularioCompletoCiclos{
@@ -73,7 +79,7 @@ input[type=text]:focus{
     font-weight: bold;
 }
 .Agregar .btn:hover{
-    background-color: #82f5de;
+    background-color:#82f5de;
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
 }
 .Ciclos{
@@ -93,7 +99,7 @@ input[type=text]:focus{
     display: flex;
     text-align: center;
     flex-direction: column;
-    background-color: #edebed;  
+    background-color:#edebed;  
     border-radius: 10px;
     width: 20%;
     height: 31vh;
@@ -119,7 +125,7 @@ input[type=text]:focus{
 }
 .bt:hover{
     
-        background-color:#82f5de;
+        background-color::#82f5de;
        
 }
 .Contenido{
