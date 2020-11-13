@@ -62,6 +62,7 @@ const FormComponent = (props) => {
             codigo.setValue(props.producto.codigo)
             puntos.setValue(props.producto.puntos)
             stock.setValue(props.producto.stock)
+            setImage(props.producto.foto)
         }
         switch (props.tipoOperacion) {
             case "ALTA":
