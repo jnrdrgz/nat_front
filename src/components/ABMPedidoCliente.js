@@ -90,7 +90,7 @@ const ABMPedidoCliente = (props) => {
             setCicloActualId(r.data.data.id)
             console.log(r.data.data.id)            
         }).catch( e => {
-            alert("Adevertencia: no hay ciclo actual")
+            setErrorMsg("Advertencia: no hay ciclos cargados")
         })
 
 
@@ -175,13 +175,16 @@ const ABMPedidoCliente = (props) => {
         const payload = {
             Pedido: {
                 total: 0.0,
-                CicloId: cicloActualId,
                 DetallePedidos: []
             },
             Cliente: {
                 nombre: nombreCliente.value,
                 numeroTelefono: numeroCliente.value
             }
+        }
+
+        if(cicloActualId){
+            payload.CicloId = cicloActualId
         }
 
         if(!payload.Cliente.nombre){

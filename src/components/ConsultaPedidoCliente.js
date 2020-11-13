@@ -42,7 +42,7 @@ const PedidoDisp = (props) => {
                         return (
                             <div className="DetalleProducto" key={detalle.Producto.descripcion}>
                                 <label>{detalle.Producto.descripcion}</label>
-                                <label>Precio unitario: ${detalle.Producto.precio.toFixed(2)}</label>
+                                <label>Precio unitario: ${detalle.precioUnitario.toFixed(2)}</label>
                                 <label>Cantidad: {detalle.cantidad}</label>
                                 <label>Subtotal: ${detalle.subtotal.toFixed(2)}</label>
 
@@ -272,7 +272,7 @@ const ConsultaPedidoCliente = () => {
                             }}>+</button>
                         </div>
 
-                        <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado} id={pedido.id} />
+                        <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado.toFixed(2)} id={pedido.id} />
                         <div className="EntregadoPagado">
                             <label>Entregado: {pedido.entregado ? "Si" : "No"} </label>
                             <label>-</label>                                

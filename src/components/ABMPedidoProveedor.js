@@ -49,7 +49,8 @@ const ABMPedidoProveedor = (props) => {
         api.get("/ciclos/actual").then(r => {
             setCicloActualId(r.data.data.id)
         }).catch( e =>{
-            alert("Advertencia: no hay ciclo actual")
+            //alert("Advertencia: no hay ciclo actual")
+            setErrorMsg("Advertencia: no hay ciclo actual")
         })
 
         console.log()
@@ -155,15 +156,18 @@ const ABMPedidoProveedor = (props) => {
         const payload = {
             Pedido: {
                 total: 0.0,
-                CicloId: cicloActualId,
                 DetallePedidos: []
             },
         }
 
-        if(!payload.Pedido.CicloId){
-            setErrorMsg("Error no se selecciono ciclo o no existe uno actual")
-            return;
+        if(cicloActualId){
+            payload.CicloId = cicloActualId
         }
+
+        //if(!payload.Pedido.CicloId){
+        //    setErrorMsg("Error no se selecciono ciclo o no existe uno actual")
+        //    return;
+        //}
 
         let error = false
         inputFields.forEach(x => {
