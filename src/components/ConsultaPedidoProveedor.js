@@ -9,16 +9,16 @@ import "./css/ConsultaPedidoProveedor.css"
 const PedidoDisp = (props) => {
     return (
         <div>
-            <b>Total: ${props.pedido.total}</b><br />
+            <b>Total: ${props.pedido.total.toFixed(2)}</b><br />
             {props.pedido.DetallePedidos.map(detalle => {
                 if (detalle.Producto) {
                     return (
                         <div key={detalle.Producto.descripcion}>
                             {detalle.Producto.descripcion}<br />
                             codigo: {detalle.Producto.codigo} <br />
-                            precio unitario: ${detalle.Producto.precio} <br />
+                            precio unitario: ${detalle.Producto.precio.toFixed(2)} <br />
                             cantidad{detalle.cantidad}<br />
-                            Subtotal: ${detalle.subtotal}
+                            Subtotal: ${detalle.subtotal.toFixed(2)}
                         </div>)
                 } else {
                     return (<div>Sin productos</div>)

@@ -84,7 +84,7 @@ const FormComponent = (props) => {
 const ABMCuota = (props) => {
     const location = useLocation();
     useEffect(() => {
-        console.log(location.state);
+        console.log("state", location.state);
     }, [location]);
 
     console.log(props)

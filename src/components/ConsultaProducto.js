@@ -74,7 +74,7 @@ const ConsultaProducto = () => {
                         <p>{producto.descripcion}</p>
                         <div className="Cuerpo">
                             <label>Codigo: {producto.codigo}</label>
-                            <label>Precio: ${producto.precio}</label>
+                            <label>Precio: ${producto.precio.toFixed(2)}</label>
                             <label>Stock: {producto.stock}</label>
                         </div>
                         <div className="Pie">

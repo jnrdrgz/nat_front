@@ -22,7 +22,7 @@ const PedidoDisp = (props) => {
     return (
         <div className="DetallePedido">
             <div className="DetallePrincipal">
-                <label>Total: ${props.pedido.total}</label>
+                <label>Total: ${props.pedido.total.toFixed(2)}</label>
                 <label>Monto Saldado: ${props.saldado}</label>
             </div>
             <div className="BotonCuotaDetalle">
@@ -30,7 +30,8 @@ const PedidoDisp = (props) => {
                     onClick={() => {
                         history.push({
                             pathname: `${match.path}/cuota`,
-                            state: { pedidoId: props.id }
+                            state: { pedidoId: props.id, 
+                                maximoCuota: props.pedido.total-props.saldado}
                         });
                     }}
                 >Agregar Cuota</button>
@@ -41,9 +42,9 @@ const PedidoDisp = (props) => {
                         return (
                             <div className="DetalleProducto" key={detalle.Producto.descripcion}>
                                 <label>{detalle.Producto.descripcion}</label>
-                                <label>Precio unitario: ${detalle.Producto.precio}</label>
+                                <label>Precio unitario: ${detalle.Producto.precio.toFixed(2)}</label>
                                 <label>Cantidad: {detalle.cantidad}</label>
-                                <label>Subtotal: ${detalle.subtotal}</label>
+                                <label>Subtotal: ${detalle.subtotal.toFixed(2)}</label>
 
                             </div>)
 
