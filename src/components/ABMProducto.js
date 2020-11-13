@@ -26,7 +26,7 @@ const FormComponent = (props) => {
     const stock = useInput("")
     const inputsReadOnly = useInput(false)
     //foto
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState("https://res.cloudinary.com/dy5tuirk1/image/upload/v1605068028/j9z0pfqs8zros1kh23do.jpg")
 
     
     const [errorMsg, setErrorMsg] = useState("")
