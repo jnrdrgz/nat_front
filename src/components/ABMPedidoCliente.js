@@ -293,13 +293,13 @@ const ABMPedidoCliente = (props) => {
         setDataPedidoWP(wpDataFromChild)
         console.log("FROM CHILD", wpDataFromChild)
         const values = [...inputFields];
-            
+        
         wpDataFromChild.map(p => {
             values.push({
                 nuevo: true,
                 producto: p.descripcion,
-                precio: p.precio,
-                precioCosto: 0.0,
+                precio: p.precio.toFixed(2),
+                precioCosto: (p.precio-(p.precio * 30.0) / 100.0).toFixed(2),
                 codigo: p.codigo,
                 puntos: p.puntos,
                 stock: 0.0,
@@ -307,6 +307,7 @@ const ABMPedidoCliente = (props) => {
             })
         })
 
+   
         setInputFields(values);
 
 
