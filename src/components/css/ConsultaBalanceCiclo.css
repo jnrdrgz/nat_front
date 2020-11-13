@@ -43,7 +43,7 @@
     margin-top: 25px;
     font-size: 19px;
     font-weight: bold;  
-    color: rgba(18, 136, 107, 0.425);
+    color: rgba(18, 136, 107);
     align-items: center;    
 }
 
@@ -52,7 +52,7 @@ input[type=date]{
     width: 30%;
     border-radius: 5px;
     text-align: center;
-    border-color:  rgba(20, 179, 131,0.5);
+    border-color:  rgba(20, 179, 131);
   }
 .DatosBalance{
     display: flex;
@@ -65,7 +65,7 @@ input[type=date]{
     margin-top: 25px;
     font-size: 25px;
     font-weight: bold;  
-    color:rgba(18, 136, 107, 0.425);  
+    color:rgba(18, 136, 107);  
     align-items: center;
 }
 .Total label{
@@ -74,8 +74,17 @@ input[type=date]{
     margin-top: 25px;
     font-size: 45px;
     font-weight: bold;
-    border: 1px solid rgba(18, 136, 107, 0.425);
-    color: rgba(18, 136, 107, 0.425);
+    border: 1px solid rgba(18, 136, 107);
+    color: rgba(18, 136, 107);
     align-items: center;
     
+}
+.Balance-Cuotas{
+    display: flex;
+    flex-direction: column;
+    
+}
+.botonesBC{
+    display: flex;
+    flex-direction: row;
 }

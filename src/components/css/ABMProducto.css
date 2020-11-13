@@ -45,6 +45,7 @@
 }
 .Inputs input[type=text]{
     border-radius: 10px;
+    text-align:center;
 }
 .Inputs input[type=text]:focus{
     border-radius: 10px;
