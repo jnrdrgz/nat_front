@@ -1,0 +1,50 @@
+.Home{
+    margin-top: 25px;    
+    display: flex;
+    flex-direction: row;    
+    width: 100%;
+    text-align: center;
+}
+.HomeDeudores{
+    width: 100%;
+    
+}
+.HomeDiasRestantes{
+    width: 100%;
+   
+}
+.Deudores{  
+    padding: 10px;  
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border:2px solid #4ed9b6; 
+    background-color: #edebed;
+    border-radius: 10px;
+    
+}
+.Deudores .Deudor{
+      width: 100%;
+      
+}
+.Deudor .ElDeudor{
+    border-bottom:2px solid #4ed9b6; 
+}
+
+.Dias{
+    padding: 10px;
+    width: 60%;
+    margin: 0 auto;
+    border:2px solid #4ed9b6; 
+    background-color: #edebed;
+    border-radius: 10px;
+}
+h2{
+    text-align: center;
+    color: rgba(18, 136, 107);
+}
+label{
+    font-weight: bold;
+}
