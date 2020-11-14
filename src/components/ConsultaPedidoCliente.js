@@ -99,12 +99,12 @@ const ConsultaPedidoCliente = () => {
                     <div className="DivBoton">
                         <button className="btCarrito" onClick={() => {
                             goToABMPedidoProveedor(pedidosCarrito)
-                        }}>Crear Pedido Proveedor</button>
+                        }}>Agregar a Pedido Proveedor</button>
                     </div>
                 </div>
                 <div>
                     <img width="80px" height="80px"
-                        src="https://lh3.googleusercontent.com/proxy/Dm4EBiHkzmuz3rM1jMFHDs14DsRra-QPpl-SkeQDtJ5iGpzEmjtHoENw5xH9JQgFFOMH2kbbdA8kQNMjx8rIGCy7Ea_mHexRvLsF" alt="" class="rounded-circle"
+                        src="https://lh3.googleusercontent.com/proxy/A7BwcNfhky9kN0stNfXJ53RqfHBuv7kZ9Fa_2PyntPKILoxU8ZoLzVozQMH5b3zx2eCVvDLxs-3emJBiZt_SgiyzAqXLNaO_32Rm" alt="" class="rounded-circle"
                         style={{
                             float: "right",
                             border: "none",
