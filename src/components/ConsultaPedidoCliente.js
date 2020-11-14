@@ -104,7 +104,7 @@ const ConsultaPedidoCliente = () => {
                 </div>
                 <div>
                     <img width="80px" height="80px"
-                        src="https://lh3.googleusercontent.com/proxy/A7BwcNfhky9kN0stNfXJ53RqfHBuv7kZ9Fa_2PyntPKILoxU8ZoLzVozQMH5b3zx2eCVvDLxs-3emJBiZt_SgiyzAqXLNaO_32Rm" alt="" class="rounded-circle"
+                        src="https://us.123rf.com/450wm/asmati/asmati1703/asmati170300659/73250614-a%C3%B1adir-al-carrito-de-compras-signo-vector-icono-blanco-en-c%C3%ADrculo-azulado-sobre-fondo-blanco-aislado-.jpg?ver=6" alt="" class="rounded-circle"
                         style={{
                             float: "right",
                             border: "none",
