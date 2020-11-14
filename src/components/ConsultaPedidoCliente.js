@@ -86,23 +86,25 @@ const ConsultaPedidoCliente = () => {
 
         return (
             <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
-                <div style={{
-                    backgroundColor: "#4ed9b6",
-                }} hidden={hiddenCart}>
+                <div className="Carrito" hidden={hiddenCart}>
+                    <div className ="PedidosCarrito"> 
                     {props.pedidosCarrito.map(pedido =>
-                        <div key={pedido.id}>
+                        <div className="PedidoCarrito" key={pedido.id}>
                             <div >
-                                Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}
+                                <label> Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}</label>
                             </div>
                         </div>
                     )}
-                    <button onClick={() => {
-                        goToABMPedidoProveedor(pedidosCarrito)
-                    }}>Crear Pedido Proveedor</button>
+                    </div>
+                    <div className="DivBoton">
+                        <button className="btCarrito" onClick={() => {
+                            goToABMPedidoProveedor(pedidosCarrito)
+                        }}>Crear Pedido Proveedor</button>
+                    </div>
                 </div>
                 <div>
-
-                    <img src="https://i.ibb.co/jyctx8s/Screenshot-2020-11-09-Revista-Natura-1.png" alt="" class="rounded-circle"
+                    <img width="80px" height="80px"
+                        src="https://lh3.googleusercontent.com/proxy/Dm4EBiHkzmuz3rM1jMFHDs14DsRra-QPpl-SkeQDtJ5iGpzEmjtHoENw5xH9JQgFFOMH2kbbdA8kQNMjx8rIGCy7Ea_mHexRvLsF" alt="" class="rounded-circle"
                         style={{
                             float: "right",
                             border: "none",
@@ -240,6 +242,9 @@ const ConsultaPedidoCliente = () => {
                             onClick={() => { onBuscarClick() }}
                         >Buscar</button>
                     </div>
+                    <div>
+                        <Carrito pedidosCarrito={pedidosCarrito} />
+                    </div>
                 </div>
                 {filteredPedidos.map(pedido =>
                     <div className="pedidoCliente" key={pedido.id}>
@@ -257,7 +262,7 @@ const ConsultaPedidoCliente = () => {
                         <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado} id={pedido.id} />
                         <div className="EntregadoPagado">
                             <label>Entregado: {pedido.entregado ? "Si" : "No"} </label>
-                            <label>-</label>                                
+                            <label>-</label>
                             <label>Pagado: {pedido.pagado ? "Si" : "No"} </label>
                         </div>
                         <div className="BotonesPedidoCliente">
@@ -278,9 +283,7 @@ const ConsultaPedidoCliente = () => {
                     </div>)}
 
             </div>
-            <div>
-                <Carrito pedidosCarrito={pedidosCarrito} />
-            </div>
+
         </div>)
     } else {
         return (<div>loading...</div>)
