@@ -73,8 +73,8 @@ const ConsultaCiclos = () => {
                            </div>
                         <div className="Contenido">
                             <div className="Fechas">
-                                <label className="FechaInicio">Inicio: {ciclo.fechaInicio}</label>
-                                <label className="FechaFin">Fin: {ciclo.fechaFin}</label>
+                                <label className="FechaInicio">Inicio: {ciclo.fechaInicio.split("T")[0]}</label>
+                                <label className="FechaFin">Fin: {ciclo.fechaFin.split("T")[0]}</label>
                             </div>
                             
                             <div className="btnes">
