@@ -1,0 +1,49 @@
+
+.cuotas{
+
+width: 60%;
+height: 100%;
+margin:0 auto;
+border-radius: 10px;
+overflow: auto;
+scrollbar-width: none;
+
+}
+.Cuota{    
+   
+   margin-bottom: 5px;
+}
+.CuotaCabecera{
+    background-color:rgba(20, 179, 131); 
+    border-top:1px solid black; 
+    border-left:1px solid black; 
+    border-right:1px solid black;  
+    color:#fff;
+    margin:0 auto;
+    font-weight: bold;
+    text-align: center;
+}
+.ContenidoGrilla{
+display: flex;
+flex-direction: row;
+width: 100%;
+
+}
+.TituloGrilla{
+    display: flex;
+    flex-direction: row;
+    border-top:1px solid black;
+}
+.TituloGrilla label{
+    font-weight: bold;
+    
+}
+.ComponenteGrilla{ 
+ border-bottom:1px solid black;
+ border-left:1px solid black;
+ padding: 2px;
+ width: 100%;
+}
+.ComponenteGrilla:last-child{
+    border-right:1px solid black;
+}

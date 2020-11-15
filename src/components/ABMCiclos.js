@@ -1,8 +1,8 @@
-
 import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
 import "./css/ABMCIclos.css"
+import ErrorMsg from './ErrorMsg';
 
 
 const useInput = (defaultValue) => {
@@ -23,9 +23,10 @@ const FormComponent = (props) => {
     const fechaInicio = useInput("")
     const fechaFin = useInput(false)
     const inputsReadOnly = useInput(false)
-    //foto
 
-   
+    const [errorMsg, setErrorMsg] = useState("")
+
+
     let history = useHistory()
 
     const goToConsulta = () => {
@@ -60,6 +61,7 @@ const FormComponent = (props) => {
     const addCiclo = (e) => {
         e.preventDefault();
   
+        
         const payload = {
             Ciclo: {
                 numero: numero.value,
@@ -69,13 +71,30 @@ const FormComponent = (props) => {
             }
         }
         
+        if(!payload.Ciclo.numero){
+            setErrorMsg("Error algun campo no cargado")
+            return
+        }
+
+        if(!payload.Ciclo.fechaInicio){
+            setErrorMsg("Error algun campo no cargado")
+            return
+        }
+
+        if(!payload.Ciclo.fechaFin){
+            setErrorMsg("Error algun campo no cargado")
+            return
+        }
 
         console.log(payload)
 
         api.post("/ciclos/agregar", payload).then(r => {
             console.log(r.data)
             goToConsulta();
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            console.log(e)
+            setErrorMsg("Error en el servidor comuniquese con administrador")
+        })
     }
 
     const editarCiclo = (e) => {
@@ -109,7 +128,10 @@ const FormComponent = (props) => {
         api.put("/ciclos/eliminar", payload).then(r => {
             console.log(r.data)
             alert(`ciclo ${props.ciclos.numero} eliminado`)
-        }).catch(e => console.log(e))
+        }).catch(e => {
+            console.log(e)
+            setErrorMsg("Error en el servidor comuniquese con administrador")
+        })
     }
 
     const _onSubmit = (e) => {
@@ -134,6 +156,7 @@ const FormComponent = (props) => {
             <div className="Titulo">
                 <h3>{props.tipoOperacion}</h3>
             </div>
+            <ErrorMsg errorMsg={errorMsg}/>
             <form onSubmit={_onSubmit}>
                 <div className="Inputs">
                     <label>Numero: </label><input type="text" onChange={numero.onChange} value={numero.value} readOnly={inputsReadOnly.value}></input><br />

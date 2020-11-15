@@ -11,7 +11,7 @@ const PedidoDisp = (props) => {
         <div className="PedidosProveedorh">
             <div className="TituloContenedor">
                 {console.log(props.pedido)}
-                <label>Total: ${props.pedido.total}</label>
+                <label>Total: ${props.pedido.total.toFixed(2)}</label>
             </div>
             <div className="PedidosProveedorhh" >
                 {props.pedido.DetallePedidos.map(detalle => {
@@ -20,9 +20,9 @@ const PedidoDisp = (props) => {
                             <div className="PedidoProveedorh" key={detalle.Producto.descripcion}>
                                 <label className="TituloProd">{detalle.Producto.descripcion}</label>
                                 <label>Codigo: {detalle.Producto.codigo} </label>
-                                <label>Precio unitario: ${detalle.Producto.precio} </label>
+                                <label>Precio unitario: ${detalle.Producto.precio.toFixed(2)} </label>
                                 <label>Cantidad{detalle.cantidad}</label>
-                                <label>Subtotal: ${detalle.subtotal}</label>
+                                <label>Subtotal: ${detalle.subtotal.toFixed(2)}</label>
                             </div>)
                     } else {
                         return (<div>Sin productos</div>)

@@ -22,7 +22,7 @@ const PedidoDisp = (props) => {
     return (
         <div className="DetallePedido">
             <div className="DetallePrincipal">
-                <label>Total: ${props.pedido.total}</label>
+                <label>Total: ${props.pedido.total.toFixed(2)}</label>
                 <label>Monto Saldado: ${props.saldado}</label>
             </div>
             <div className="BotonCuotaDetalle">
@@ -30,7 +30,8 @@ const PedidoDisp = (props) => {
                     onClick={() => {
                         history.push({
                             pathname: `${match.path}/cuota`,
-                            state: { pedidoId: props.id }
+                            state: { pedidoId: props.id, 
+                                maximoCuota: props.pedido.total-props.saldado}
                         });
                     }}
                 >Agregar Cuota</button>
@@ -41,9 +42,9 @@ const PedidoDisp = (props) => {
                         return (
                             <div className="DetalleProducto" key={detalle.Producto.descripcion}>
                                 <label>{detalle.Producto.descripcion}</label>
-                                <label>Precio unitario: ${detalle.Producto.precio}</label>
+                                <label>Precio unitario: ${detalle.precioUnitario.toFixed(2)}</label>
                                 <label>Cantidad: {detalle.cantidad}</label>
-                                <label>Subtotal: ${detalle.subtotal}</label>
+                                <label>Subtotal: ${detalle.subtotal.toFixed(2)}</label>
 
                             </div>)
 
@@ -68,7 +69,7 @@ const ConsultaPedidoCliente = () => {
 
 
     const [filtroPagados, setFiltroPagados] = useState(true);
-    const [filtroCancelados, setFiltroCancelados] = useState(true);
+    const [filtroCancelados, setFiltroCancelados] = useState(false);
     const [filtroEntregados, setFiltroEntregados] = useState(true);
 
     let history = useHistory()
@@ -175,6 +176,23 @@ const ConsultaPedidoCliente = () => {
         }).catch(e => console.log(e))
     }
 
+    const cancelarPedido = (pId) => {
+        const payload = {
+            id: pId,
+        }
+
+        console.log(payload)
+
+        api.put("/pedidos/cliente/cancelar", payload).then(r => {
+            console.log(r.data)
+            alert("Pedido Cancelado")
+
+            window.location.reload()
+        }).catch(e => console.log(e))
+
+        
+    }
+
     const onBuscarClick = () => {
         const filt = (pedido) => {
             //console.log(pedido)
@@ -183,7 +201,7 @@ const ConsultaPedidoCliente = () => {
             //console.log("entregados", filtroPagados)
             return pedido.Cliente.nombre.toLowerCase().includes(busquedaQuery)
                 && pedido.entregado === filtroEntregados && pedido.pagado === filtroPagados
-            //&& pedido.cancelado === filtroCancelados
+            && pedido.Pedido.cancelado === filtroCancelados
         }
         setFilteredPedidos(pedidos.filter(filt))
     }
@@ -263,7 +281,7 @@ const ConsultaPedidoCliente = () => {
                             }}>+</button>
                         </div>
 
-                        <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado} id={pedido.id} />
+                        <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado.toFixed(2)} id={pedido.id} />
                         <div className="EntregadoPagado">
                             <label>Entregado: {pedido.entregado ? "Si" : "No"} </label>
                             <label>-</label>
@@ -272,15 +290,29 @@ const ConsultaPedidoCliente = () => {
                         <div className="BotonesPedidoCliente">
                             <div className="btnesMarcar">
                                 <button className="bt"
-                                    onClick={() => { marcarPedidoEntregado(pedido.id) }}
+                                    onClick={() => {
+                                        if (window.confirm("Marcar pedido como entregado?")) {
+                                            marcarPedidoEntregado(pedido.id) 
+                                        }
+                                    }}
                                     disabled={pedido.entregado} >
                                     Entregado</button>
                                 <button className="bt"
-                                    onClick={() => { marcarPedidoPagado(pedido.id) }}
+                                    onClick={() => { 
+                                        if (window.confirm("Marcar pedido como pagado?")) {
+                                            marcarPedidoPagado(pedido.id) 
+                                        }
+
+                                    }}
                                     disabled={pedido.pagado}
                                 >Pagado</button>
                             </div>
-                            <div className="botnCancelar">
+                            <div className="botnCancelar" onClick={()=>{
+                                if (window.confirm("Cancelar pedido?")) {
+                                    cancelarPedido(pedido.id) 
+                                }
+                                
+                            }}>
                                 <button className="bt2">Cancelar</button>
                             </div>
                         </div>
