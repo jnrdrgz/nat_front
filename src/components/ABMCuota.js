@@ -18,6 +18,13 @@ const FormComponent = (props) => {
     const monto = useInput(0.0)
     const [errorMsg, setErrorMsg] = useState("")
 
+    
+    let history = useHistory()
+
+    const goToConsulta = () => {
+        history.push({ pathname: "/pedidos/cliente" });
+    }
+
 
     const addCuota = (e) => {
         e.preventDefault();
@@ -38,7 +45,7 @@ const FormComponent = (props) => {
             api.put("/pedidos/cliente/pagarCuota", payload).then(r => {
                 console.log(r.data)
                 alert("cuota agregada")
-                //goToConsulta();
+                goToConsulta();
             }).catch(e => {
                 console.log(e)
                 setErrorMsg("Error en el servidor comuniquese con administrador")
