@@ -16,31 +16,77 @@
 .pedidoProveedor{
     margin-top: 40px;
     margin-right: 10px;    
-    border:2px solid #4ed9b6;
+    border:2px solid  #14b383;
     width: 20%;
-    height: 42vh;
-    overflow: auto; 
+    height: 60vh;    
     border-radius: 10px;
-    background-color: #edebed;
-    scrollbar-width: none;  
+    background-color: #edebed;  
+    overflow: hidden;
+    
+
 }
-.btones{
-    display: flex;
-    height:10vh;    
-    flex-direction: column;
-    align-items: center;
-}
-.bton{
-    display: flex;
-    height:10vh;    
-    flex-direction: column;
-    align-items: center;
+.PedidosProveedorh{
    
+display: flex;
+flex-direction: column;
+}
+.PedidosProveedorhh{
+    padding: 5px;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    scrollbar-width: none; 
+    text-align: center;  
+    
+   
+}
+.PedidoProveedorh{
+    
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid  #14b383;
+    margin-bottom: 5px;
+}
+.PedidoProveedorh label{
+   
+    font-weight: bold;
+}
+.TituloContenedor{
+   background-color: #14b383;
+   display: flex;  
+   justify-content: center;
+   align-items: center;
+   color: #fff;
+   font-size: 20px;
+}
+
+.Bajo{    
+    height: 13vh;
+    border-top: 1px solid  #14b383;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Bajo label{
+    height: 3vh;
+    width: 100%;
+    text-align: center;
+
+}
+
+.Bajo .bton{
+    display: flex;
+    height:s10vh; 
+    width: 100%;   
+    flex-direction: column;
+    align-items: center;
+      
 }
 
 .bton .bt{   
-    border-radius: 5px;
-    margin: 5px;
+    border-radius: 5px;    
     display: flex;  
     justify-content: center;
     align-items: center;
@@ -48,3 +94,4 @@
     color:#fff;
     font-weight: bold;
 }
+

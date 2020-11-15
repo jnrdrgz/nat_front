@@ -8,23 +8,29 @@ import "./css/ConsultaPedidoProveedor.css"
 
 const PedidoDisp = (props) => {
     return (
-        <div>
-            <b>Total: ${props.pedido.total}</b><br />
-            {props.pedido.DetallePedidos.map(detalle => {
-                if (detalle.Producto) {
-                    return (
-                        <div key={detalle.Producto.descripcion}>
-                            {detalle.Producto.descripcion}<br />
-                            codigo: {detalle.Producto.codigo} <br />
-                            precio unitario: ${detalle.Producto.precio} <br />
-                            cantidad{detalle.cantidad}<br />
-                            Subtotal: ${detalle.subtotal}
-                        </div>)
-                } else {
-                    return (<div>Sin productos</div>)
+        <div className="PedidosProveedorh">
+            <div className="TituloContenedor">
+                {console.log(props.pedido)}
+                <label>Total: ${props.pedido.total}</label>
+            </div>
+            <div className="PedidosProveedorhh" >
+                {props.pedido.DetallePedidos.map(detalle => {
+                    if (detalle.Producto) {
+                        return (
+                            <div className="PedidoProveedorh" key={detalle.Producto.descripcion}>
+                                <label className="TituloProd">{detalle.Producto.descripcion}</label>
+                                <label>Codigo: {detalle.Producto.codigo} </label>
+                                <label>Precio unitario: ${detalle.Producto.precio} </label>
+                                <label>Cantidad{detalle.cantidad}</label>
+                                <label>Subtotal: ${detalle.subtotal}</label>
+                            </div>)
+                    } else {
+                        return (<div>Sin productos</div>)
+                    }
+                })
+
                 }
-            })
-            }
+            </div>
         </div>
     )
 }
@@ -79,9 +85,11 @@ const ConsultaPedidoProveedor = () => {
                 {pedidos.map(pedido =>
                     <div className="pedidoProveedor" key={pedido.id}>
                         <PedidoDisp pedido={pedido.Pedido} />
-                    Recibido: {pedido.recibido ? "SI" : "NO"}
-                        <div className="bton">
-                            <button className="bt" onClick={() => { marcarPedidoRecibido(pedido.id) }}>Marcar Recibido</button>
+                        <div className="Bajo">                           
+                            <div className="bton">
+                                <button className="bt" onClick={() => { marcarPedidoRecibido(pedido.id) }}>Recibido</button>
+                            </div>
+                            <label>Recibido: {pedido.recibido ? "SI" : "NO"}</label>
                         </div>
                     </div>)}
             </div>

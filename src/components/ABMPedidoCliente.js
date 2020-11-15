@@ -36,13 +36,10 @@ const PedidoWP = (props) => {
         return (<div className="PedidoWpp">
             <div className="Area">
                 <textarea 
-                    placeholder="Ingrese el pedido de whatsapp co nel siguiente formato: -> ''¡Hola! Te envío mi pedido de Ciclo 14B:
+                    placeholder="Ingrese el pedido de whatsapp con el siguiente formato: -> ''¡Hola! Te envío mi pedido de Ciclo 14B:
 
             3 unidad(es) - Código: 67597 -  Precio: $ 9.195,00  Eau de parfum femenino  viver
-            4 unidad(es) - Código: 69615 -  Precio: $ 12.780,00  Eau de parfum femenino  rubí
-            3 unidad(es) - Código: 93269 -  Precio: $ 7.905,00  Kaiak eau de parfum 
-            1 unidad(es) - Código: 25213 -  Precio: $ 1.135,00  Regalo Naturé 
-            
+            4 unidad(es) - Código: 69615 -  Precio: $ 12.780,00  Eau de parfum femenino  rubí                
             
             Total = $31.015,00
             
