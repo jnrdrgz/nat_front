@@ -11,7 +11,7 @@
     display: flex;      
     align-items: center;
     flex-direction: row;
-    background-color:var(--background-1-color);
+    background-color:#edebed;
     box-shadow: 2px 2px 2px 1px rgba(18, 136, 107, 0.425);
 }
 
@@ -23,6 +23,21 @@
     align-items: center;
     margin-right: 15px;
     height: 7vh;
+}
+.Cheks{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 40%;
+    height: 100%;
+}
+.Cheks label{
+   color: rgba(18, 136, 107);
+}
+.Chek{
+display: flex;
+flex-direction: column;
 }
 input[type=text]{
   height: 75%;
@@ -49,7 +64,7 @@ input[type=text]:focus{
     font-weight: bold;
 }
 .btnb:hover{
-    background-color: var(--secondary-color);
+    background-color: #4ed9b6;
     box-shadow: 2px 2px 2px 1px  rgba(18, 136, 107, 0.425);
 }
 .PedidosClientes{

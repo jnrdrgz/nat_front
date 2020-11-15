@@ -87,14 +87,14 @@ const ConsultaPedidoCliente = () => {
         return (
             <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
                 <div className="Carrito" hidden={hiddenCart}>
-                    <div className ="PedidosCarrito"> 
-                    {props.pedidosCarrito.map(pedido =>
-                        <div className="PedidoCarrito" key={pedido.id}>
-                            <div >
-                                <label> Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}</label>
+                    <div className="PedidosCarrito">
+                        {props.pedidosCarrito.map(pedido =>
+                            <div className="PedidoCarrito" key={pedido.id}>
+                                <div >
+                                    <label> Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}</label>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
                     </div>
                     <div className="DivBoton">
                         <button className="btCarrito" onClick={() => {
@@ -213,20 +213,24 @@ const ConsultaPedidoCliente = () => {
             <div className="PedidosClientes">
                 <div className="Agregar">
                     <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo pedido</button>
-                    <div>
-                        <input onChange={(e) => { onFiltCheckChange(e, "entregados") }}
-                            type="checkbox" id="entregadosCheck" name="entregadosCheck" checked={filtroEntregados}></input>
-                        <label htmlFor="entregadosCheck"> Entregados</label><br />
-                    </div>
-                    <div>
-                        <input onChange={(e) => { onFiltCheckChange(e, "pagados") }}
-                            type="checkbox" id="pagadosCheck" name="pagadosCheck" checked={filtroPagados}></input>
-                        <label htmlFor="pagadosCheck"> Pagados</label><br />
-                    </div>
-                    <div>
-                        <input onChange={(e) => { onFiltCheckChange(e, "cancelados") }}
-                            type="checkbox" id="canceladosCheck" name="canceladosCheck" checked={filtroCancelados}></input>
-                        <label htmlFor="canceladosCheck"> Cancelados</label><br />
+                    <div className="Cheks">
+                        <div className="Chek">
+                            <label htmlFor="entregadosCheck"> Entregados</label>
+                            <input onChange={(e) => { onFiltCheckChange(e, "entregados") }}
+                                type="checkbox" id="entregadosCheck" name="entregadosCheck" checked={filtroEntregados}></input>
+
+                        </div>
+                        <div className="Chek">
+                            <label htmlFor="pagadosCheck"> Pagados</label>
+                            <input onChange={(e) => { onFiltCheckChange(e, "pagados") }}
+                                type="checkbox" id="pagadosCheck" name="pagadosCheck" checked={filtroPagados}></input>
+
+                        </div>
+                        <div className="Chek">
+                            <label htmlFor="canceladosCheck"> Cancelados</label>
+                            <input onChange={(e) => { onFiltCheckChange(e, "cancelados") }}
+                                type="checkbox" id="canceladosCheck" name="canceladosCheck" checked={filtroCancelados}></input>
+                        </div>
                     </div>
 
                     <div className="ComponentesBuscador">
