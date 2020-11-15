@@ -151,7 +151,14 @@ const FormComponent = (props) => {
 
         api.put("/productos/eliminar", payload).then(r => {
             console.log(r.data)
-            alert(`producto ${props.producto.descripcion} eliminado`)
+            if (window.confirm(`producto ${props.producto.descripcion} eliminado`)) {    
+                goToConsulta();
+            } else {
+                goToConsulta();
+            }
+            
+            
+
         }).catch(e => console.log(e))
     }
 
