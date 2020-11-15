@@ -12,7 +12,7 @@ const useInput = (defaultValue) => {
     const onChange = (e) => {
         //console.log(e.target.value)
         setValue(e.target.value);
-        
+
     }
 
     return { value, setValue, onChange };
@@ -28,13 +28,13 @@ const FormComponent = (props) => {
     //foto
     const [image, setImage] = useState("https://res.cloudinary.com/dy5tuirk1/image/upload/v1605068028/j9z0pfqs8zros1kh23do.jpg")
 
-    
+
     const [errorMsg, setErrorMsg] = useState("")
 
     const [precio, setPrecio] = useState(0.0)
     const [precioCosto, setPrecioCosto] = useState(0.0)
     const precioOnChange = (e) => {
-        
+
         const p = parseFloat(e.target.value)
         if (!isNaN(p)) {
             setPrecio(p)
@@ -82,15 +82,15 @@ const FormComponent = (props) => {
     }, [])
 
     const addProducto = (e) => {
-        if(!producto.value){
+        if (!producto.value) {
             setErrorMsg("Complete el campo descripcion")
             return;
         }
-        if(precio == 0 || precio == 0.0){
+        if (precio == 0 || precio == 0.0) {
             setErrorMsg("El precio no puede ser 0")
             return;
         }
-        
+
         const payload = {
             descripcion: producto.value,
             codigo: codigo.value,
@@ -103,15 +103,15 @@ const FormComponent = (props) => {
 
         console.log(payload)
 
-        
+
 
         api.post("/productos/agregar", payload).then(r => {
             console.log(r.data)
             goToConsulta();
         }).catch(e => {
             console.log(e)
-            if(e.response.data.msg){
-                setErrorMsg(e.response.data.msg)                
+            if (e.response.data.msg) {
+                setErrorMsg(e.response.data.msg)
             } else {
                 setErrorMsg("Ocurrio un error en el servidor, comuniquese con el administrador")
             }
@@ -183,32 +183,38 @@ const FormComponent = (props) => {
 
     return (
         <div className="Fondo">
-                
+
             <div className="FormularioCompleto">
                 <div>
-                    <ErrorMsg errorMsg={errorMsg}/>
+                    <ErrorMsg errorMsg={errorMsg} />
                 </div>
-           
+
                 <div className="Titulo">
                     <h3>{props.tipoOperacion}</h3>
                 </div>
                 <form className="form" onSubmit={_onSubmit}>
-                    <div className="Inputs">
-                        <label>Producto: </label><input type="text" onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br />
-                        <label>Precio: </label><input type="text" onChange={precioOnChange} value={precio} readOnly={inputsReadOnly.value}></input><br />
-                        <label>Precio Costo: </label><input type="text" onChange={()=>{}} value={precioCosto} readOnly></input><br />
-                        <label>Codigo: </label><input type="text" onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br />
-                        <label>Puntos: </label><input type="text" onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br />
-                        <label>Stock: </label><input type="text" onChange={stock.onChange} value={stock.value} readOnly={inputsReadOnly.value}></input><br />
-                        <label>Imagen: </label>
-                        <input
-                            id="imgprod-upload"
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImgUpload}
-                        />
-
-                        <img src={image} width={image ? "200" : "0"} height={image ? "200" : "0"}></img>
+                    <div className="Inputs">                  
+                        <div className="InputsIz">
+                            <label>Producto: </label><input type="text" onChange={producto.onChange} value={producto.value} readOnly={inputsReadOnly.value}></input><br />
+                            <label>Precio: </label><input type="text" onChange={precioOnChange} value={precio} readOnly={inputsReadOnly.value}></input><br />
+                            <label>Precio Costo: </label><input type="text" onChange={() => { }} value={precioCosto} readOnly></input><br />
+                            <label>Codigo: </label><input type="text" onChange={codigo.onChange} value={codigo.value} readOnly={inputsReadOnly.value}></input><br />
+                            <label>Puntos: </label><input type="text" onChange={puntos.onChange} value={puntos.value} readOnly={inputsReadOnly.value}></input><br />
+                            <label>Stock: </label><input type="text" onChange={stock.onChange} value={stock.value} readOnly={inputsReadOnly.value}></input><br />
+                        </div>
+                        <div className="InputsDe">
+                            <label>Imagen: </label>
+                            <input
+                                id="imgprod-upload"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImgUpload}
+                            />
+                            <div className ="InputsDeImg">
+                            <img src={image} width={image ? "200" : "0"} height={image ? "200" : "0"}></img>
+                             </div>
+                        </div>
+                     
                     </div>
                     <div className="input-boton">
                         <button className="btn" type="submit">Registrar</button>

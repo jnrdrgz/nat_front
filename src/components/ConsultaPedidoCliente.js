@@ -87,23 +87,25 @@ const ConsultaPedidoCliente = () => {
 
         return (
             <div style={{ position: "fixed", bottom: "20px", right: "20px" }}>
-                <div style={{
-                    backgroundColor: "#4ed9b6",
-                }} hidden={hiddenCart}>
-                    {props.pedidosCarrito.map(pedido =>
-                        <div key={pedido.id}>
-                            <div >
-                                Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}
+                <div className="Carrito" hidden={hiddenCart}>
+                    <div className="PedidosCarrito">
+                        {props.pedidosCarrito.map(pedido =>
+                            <div className="PedidoCarrito" key={pedido.id}>
+                                <div >
+                                    <label> Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}</label>
+                                </div>
                             </div>
-                        </div>
-                    )}
-                    <button onClick={() => {
-                        goToABMPedidoProveedor(pedidosCarrito)
-                    }}>Crear Pedido Proveedor</button>
+                        )}
+                    </div>
+                    <div className="DivBoton">
+                        <button className="btCarrito" onClick={() => {
+                            goToABMPedidoProveedor(pedidosCarrito)
+                        }}>Agregar a Pedido Proveedor</button>
+                    </div>
                 </div>
                 <div>
-
-                    <img src="https://i.ibb.co/jyctx8s/Screenshot-2020-11-09-Revista-Natura-1.png" alt="" class="rounded-circle"
+                    <img width="80px" height="80px"
+                        src="https://us.123rf.com/450wm/asmati/asmati1703/asmati170300659/73250614-a%C3%B1adir-al-carrito-de-compras-signo-vector-icono-blanco-en-c%C3%ADrculo-azulado-sobre-fondo-blanco-aislado-.jpg?ver=6" alt="" class="rounded-circle"
                         style={{
                             float: "right",
                             border: "none",
@@ -229,20 +231,24 @@ const ConsultaPedidoCliente = () => {
             <div className="PedidosClientes">
                 <div className="Agregar">
                     <button className="btn" onClick={() => goToAgregarClick()}>Agregar nuevo pedido</button>
-                    <div>
-                        <input onChange={(e) => { onFiltCheckChange(e, "entregados") }}
-                            type="checkbox" id="entregadosCheck" name="entregadosCheck" checked={filtroEntregados}></input>
-                        <label htmlFor="entregadosCheck"> Entregados</label><br />
-                    </div>
-                    <div>
-                        <input onChange={(e) => { onFiltCheckChange(e, "pagados") }}
-                            type="checkbox" id="pagadosCheck" name="pagadosCheck" checked={filtroPagados}></input>
-                        <label htmlFor="pagadosCheck"> Pagados</label><br />
-                    </div>
-                    <div>
-                        <input onChange={(e) => { onFiltCheckChange(e, "cancelados") }}
-                            type="checkbox" id="canceladosCheck" name="canceladosCheck" checked={filtroCancelados}></input>
-                        <label htmlFor="canceladosCheck"> Cancelados</label><br />
+                    <div className="Cheks">
+                        <div className="Chek">
+                            <label htmlFor="entregadosCheck"> Entregados</label>
+                            <input onChange={(e) => { onFiltCheckChange(e, "entregados") }}
+                                type="checkbox" id="entregadosCheck" name="entregadosCheck" checked={filtroEntregados}></input>
+
+                        </div>
+                        <div className="Chek">
+                            <label htmlFor="pagadosCheck"> Pagados</label>
+                            <input onChange={(e) => { onFiltCheckChange(e, "pagados") }}
+                                type="checkbox" id="pagadosCheck" name="pagadosCheck" checked={filtroPagados}></input>
+
+                        </div>
+                        <div className="Chek">
+                            <label htmlFor="canceladosCheck"> Cancelados</label>
+                            <input onChange={(e) => { onFiltCheckChange(e, "cancelados") }}
+                                type="checkbox" id="canceladosCheck" name="canceladosCheck" checked={filtroCancelados}></input>
+                        </div>
                     </div>
 
                     <div className="ComponentesBuscador">
@@ -257,6 +263,9 @@ const ConsultaPedidoCliente = () => {
                             className="btnb"
                             onClick={() => { onBuscarClick() }}
                         >Buscar</button>
+                    </div>
+                    <div>
+                        <Carrito pedidosCarrito={pedidosCarrito} />
                     </div>
                 </div>
                 {filteredPedidos.map(pedido =>
@@ -275,7 +284,7 @@ const ConsultaPedidoCliente = () => {
                         <PedidoDisp pedido={pedido.Pedido} saldado={pedido.montoSaldado.toFixed(2)} id={pedido.id} />
                         <div className="EntregadoPagado">
                             <label>Entregado: {pedido.entregado ? "Si" : "No"} </label>
-                            <label>-</label>                                
+                            <label>-</label>
                             <label>Pagado: {pedido.pagado ? "Si" : "No"} </label>
                         </div>
                         <div className="BotonesPedidoCliente">
@@ -310,9 +319,7 @@ const ConsultaPedidoCliente = () => {
                     </div>)}
 
             </div>
-            <div>
-                <Carrito pedidosCarrito={pedidosCarrito} />
-            </div>
+
         </div>)
     } else {
         return (<div>loading...</div>)

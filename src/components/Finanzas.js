@@ -65,22 +65,23 @@ const HistorialCuotas = (props) => {
 
 const Finanzas = (props) => {
     const [tipo, setTipo] = useState("balances");
-
-    if (tipo === "balances") {
-        return (
-            <div>
-                <button onClick={() => { }}>Balance</button>
-                <button onClick={() => { setTipo("historial") }}>Cuotas</button>
-
+    if(tipo === "balances"){
+        return(
+            <div className="Balance-Cuotas">
+                <div className =" botonesBC">
+                <button  className="btnc" onClick={()=>{}}>Balance</button>
+                <button  className="btnc" onClick={()=>{setTipo("historial")}}>Cuotas</button>
+                </div>
                 <ConsultaBalance />
             </div>
         )
-    } else if (tipo === "historial") {
-        return (
-            <div>
-
-                <button onClick={() => { setTipo("balances") }}>Balance</button>
-                <button onClick={() => { }}>Cuotas</button>
+    } else if(tipo === "historial"){
+        return(
+            <div className="Balance-Cuotas">
+                <div className =" botonesBC">
+                <button  className="btnc" onClick={()=>{setTipo("balances")}}>Balance</button>
+                <button  className="btnc" onClick={()=>{}}>Cuotas</button>
+               </div>
                 <HistorialCuotas />
             </div>
         )
