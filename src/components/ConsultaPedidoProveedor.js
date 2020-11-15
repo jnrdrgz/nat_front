@@ -20,7 +20,7 @@ const PedidoDisp = (props) => {
                             <div className="PedidoProveedorh" key={detalle.Producto.descripcion}>
                                 <label className="TituloProd">{detalle.Producto.descripcion}</label>
                                 <label>Codigo: {detalle.Producto.codigo} </label>
-                                <label>Precio unitario: ${detalle.Producto.precio.toFixed(2)} </label>
+                                <label>Precio unitario: ${detalle.Producto.precioCosto.toFixed(2)} </label>
                                 <label>Cantidad{detalle.cantidad}</label>
                                 <label>Subtotal: ${detalle.subtotal.toFixed(2)}</label>
                             </div>)
