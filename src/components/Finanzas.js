@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import api from '../services/api';
 import ConsultaBalance from './ConsultaBalance';
+import "./css/FinanzaCuotas.css"
 
 const HistorialCuotas = (props) => {
-    
+
     const [cuotas, setCuotas] = useState([]);
     const [filteredcuotas, setFilteredCuotas] = useState([]);
     useEffect(() => {
@@ -14,19 +15,42 @@ const HistorialCuotas = (props) => {
         })
     }, [])
 
-    return (<div>
-        {cuotas.map(c =>{
+    return (<div className ="cuotas">
+        {cuotas.map(c => {
             console.log(c)
-            if(c.PedidoCliente){
-                return(
-                    <div>
-                        Cuota de {c.PedidoCliente.Cliente.nombre}<br />
-                        Fecha {c.fecha.split("T")[0]}<br />
-                        ${c.monto}<br />
+            if (c.PedidoCliente) {
+                return (
+                    <div className="Cuota">
+                        <div className="CuotaCabecera">
+                            <label>Cuota de {c.PedidoCliente.Cliente.nombre}</label>
                         </div>
+                        <div className="TituloGrilla">
+                            <div className="ComponenteGrilla">
+                                <label>Fecha</label>
+                            </div>
+                            <div className="ComponenteGrilla">
+                                <label>Cuota</label>
+                            </div>
+                            <div className="ComponenteGrilla">
+                                <label>Saldo Faltante</label>
+                            </div>
+                        </div>
+                        <div className="ContenidoGrilla">
+                            <div className="ComponenteGrilla">
+                                <label>{c.fecha.split("T")[0]}</label>
+                            </div>
+                            <div className="ComponenteGrilla">
+                                <label>${c.monto}</label>
+                            </div>
+                            <div className="ComponenteGrilla">
+                                <label>${c.PedidoCliente.Pedido.total - c.monto}</label>
+                            </div>
+                           
+                        </div>
+                    </div>
                 )
             } else {
-                return(
+                return (
                     <div>
                         Cuota de -- <br />
                         Fecha {c.fecha.split("T")[0]}<br />
@@ -41,27 +65,27 @@ const HistorialCuotas = (props) => {
 
 const Finanzas = (props) => {
     const [tipo, setTipo] = useState("balances");
-    
-    if(tipo === "balances"){
-        return(
+
+    if (tipo === "balances") {
+        return (
             <div>
-                <button onClick={()=>{}}>Balance</button>
-                <button onClick={()=>{setTipo("historial")}}>Cuotas</button>
-                
+                <button onClick={() => { }}>Balance</button>
+                <button onClick={() => { setTipo("historial") }}>Cuotas</button>
+
                 <ConsultaBalance />
             </div>
         )
-    } else if(tipo === "historial"){
-        return(
+    } else if (tipo === "historial") {
+        return (
             <div>
-                
-                <button onClick={()=>{setTipo("balances")}}>Balance</button>
-                <button onClick={()=>{}}>Cuotas</button>
+
+                <button onClick={() => { setTipo("balances") }}>Balance</button>
+                <button onClick={() => { }}>Cuotas</button>
                 <HistorialCuotas />
             </div>
         )
     } else {
-        return(
+        return (
             <div> error</div>)
     }
 }
