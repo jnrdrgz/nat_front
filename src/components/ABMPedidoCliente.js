@@ -99,9 +99,10 @@ const ABMPedidoCliente = (props) => {
                 return
             }
             setCicloActualId(r.data.data.id)
-            console.log(r.data.data.id)            
-        }).catch( e => {
-            setErrorMsg("Advertencia: no hay ciclos cargados")
+            console.log(r.data.data.id)
+        }).catch(e => {
+            alert("Adevertencia: no hay ciclo actual")
+        })
 
 
     }, [location]);
@@ -185,16 +186,13 @@ const ABMPedidoCliente = (props) => {
         const payload = {
             Pedido: {
                 total: 0.0,
+                CicloId: cicloActualId,
                 DetallePedidos: []
             },
             Cliente: {
                 nombre: nombreCliente.value,
                 numeroTelefono: numeroCliente.value
             }
-        }
-
-        if(cicloActualId){
-            payload.CicloId = cicloActualId
         }
 
         if(!payload.Cliente.nombre){
@@ -310,8 +308,8 @@ const ABMPedidoCliente = (props) => {
             values.push({
                 nuevo: true,
                 producto: p.descripcion,
-                precio: p.precio.toFixed(2),
-                precioCosto: (p.precio-(p.precio * 30.0) / 100.0).toFixed(2),
+                precio: p.precio,
+                precioCosto: 0.0,
                 codigo: p.codigo,
                 puntos: p.puntos,
                 stock: 0.0,
@@ -319,7 +317,6 @@ const ABMPedidoCliente = (props) => {
             })
         })
 
-   
         setInputFields(values);
 
 
