@@ -78,9 +78,9 @@ const ConsultaCiclos = () => {
                             </div>
                             
                             <div className="btnes">
-                                <button className="bt" onClick={() => { }}>Editar</button>
+                                <button className="bt" onClick={() => {goToEditClick(ciclo) }}>Editar</button>
                                 <button className="bt" onClick={() => {handleSetActual(ciclo.id)}}>Actual</button>
-                                <button className="bt" onClick={() => { }}>Eliminar</button>
+                                <button className="bt" onClick={() => { goToDeleteClick(ciclo)}}>Eliminar</button>
                                 
                             </div>
                         </div>

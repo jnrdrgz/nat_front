@@ -36,7 +36,12 @@ const ABMPedidoProveedor = (props) => {
     const [loaded, setLoaded] = useState(false)
 
     const [errorMsg, setErrorMsg] = useState("")
-
+    const [submitDisabled, setSubmitDisabled] = useState(false)
+    
+    const setErrorSetSubmit = (errorM, subm) => {
+        setErrorMsg(errorM)
+        setSubmitDisabled(subm)    
+    }
 
     useEffect(() => {
         console.log(location.state)
@@ -50,7 +55,7 @@ const ABMPedidoProveedor = (props) => {
             setCicloActualId(r.data.data.id)
         }).catch( e =>{
             //alert("Advertencia: no hay ciclo actual")
-            setErrorMsg("Advertencia: no hay ciclo actual")
+            setErrorSetSubmit("Advertencia: no hay ciclo actual", false)
         })
 
         console.log()
@@ -151,6 +156,7 @@ const ABMPedidoProveedor = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setSubmitDisabled(true)
         console.log("On form submit", inputFields)
 
         const payload = {
@@ -202,12 +208,12 @@ const ABMPedidoProveedor = (props) => {
         });
 
         if(error){
-            setErrorMsg("Algun campo del pedido no ha sido cargado") 
-            return
+            //setErrorMsg("Algun campo del pedido no ha sido cargado") 
+            //return
         }
         if(payload.Pedido.DetallePedidos.length === 0){
-            setErrorMsg("No se han cargado productos")
-            return;
+            //setErrorMsg("No se han cargado productos")
+            //return;
         }
 
 
@@ -355,7 +361,7 @@ const ABMPedidoProveedor = (props) => {
                         }
                     })}
                 </div>
-                <button className ="botn" type="submit">Agregar</button>
+                <button className ="botn" type="submit" disabled={submitDisabled}>Agregar</button>
             </form>
         </div>
     )}else {

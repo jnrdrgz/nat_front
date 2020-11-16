@@ -25,6 +25,12 @@ const FormComponent = (props) => {
     const inputsReadOnly = useInput(false)
 
     const [errorMsg, setErrorMsg] = useState("")
+    const [submitDisabled, setSubmitDisabled] = useState(false)
+    
+    const setErrorSetSubmit = (errorM, subm) => {
+        setErrorMsg(errorM)
+        setSubmitDisabled(subm)    
+    }
 
 
     let history = useHistory()
@@ -72,17 +78,17 @@ const FormComponent = (props) => {
         }
         
         if(!payload.Ciclo.numero){
-            setErrorMsg("Error algun campo no cargado")
+            setErrorSetSubmit("Error algun campo no cargado", true)
             return
         }
 
         if(!payload.Ciclo.fechaInicio){
-            setErrorMsg("Error algun campo no cargado")
+            setErrorSetSubmit("Error algun campo no cargado", true)
             return
         }
 
         if(!payload.Ciclo.fechaFin){
-            setErrorMsg("Error algun campo no cargado")
+            setErrorSetSubmit("Error algun campo no cargado", true)
             return
         }
 
@@ -93,27 +99,31 @@ const FormComponent = (props) => {
             goToConsulta();
         }).catch(e => {
             console.log(e)
-            setErrorMsg("Error en el servidor comuniquese con administrador")
+            setErrorSetSubmit("Error en el servidor comuniquese con administrador",true)
         })
     }
 
     const editarCiclo = (e) => {
         e.preventDefault();
+
         const payload = {
-            Ciclo: {
-                numero: numero.value,
-                actual: actual.value,
-                fechaInicio: fechaInicio.value,
-                fechaFin: fechaFin.value,
-            }
+            id: props.ciclo.id,
+            numero: numero.value,
+            actual: actual.value,
+            fechaInicio: fechaInicio.value,
+            fechaFin: fechaFin.value,
         }
         
 
         console.log("EDITAR", payload)
 
-        //api.put("/productos/editar", payload).then(r => {
-        //    console.log(r.data)
-        //}).catch(e => console.log(e))
+        api.put("/ciclos/editar", payload).then(r => {
+            console.log(r.data)
+            goToConsulta()
+        }).catch(e => {
+            console.log(e)
+            setErrorSetSubmit("Error en el servidor comuniquese con administrador")
+        })
     }
 
     const eliminarCiclo = (e) => {
@@ -127,14 +137,16 @@ const FormComponent = (props) => {
 
         api.put("/ciclos/eliminar", payload).then(r => {
             console.log(r.data)
-            alert(`ciclo ${props.ciclos.numero} eliminado`)
+            alert(`ciclo ${props.ciclo.numero} eliminado`)
+            goToConsulta()
         }).catch(e => {
             console.log(e)
-            setErrorMsg("Error en el servidor comuniquese con administrador")
+            setErrorSetSubmit("Error en el servidor comuniquese con administrador")
         })
     }
 
     const _onSubmit = (e) => {
+        setSubmitDisabled(true)
         switch (props.tipoOperacion) {
             case "ALTA":
                 addCiclo(e)
@@ -165,7 +177,7 @@ const FormComponent = (props) => {
                     Inicio: <input onChange={ fechaInicio.onChange} type="date"  name="fechaInicio" value={ fechaInicio.value}></input>
                     Fin: <input onChange={fechaFin.onChange} type="date" name="fechaFin" value={ fechaFin.value}></input>
                     <div className="input-boton">
-                        <button className="btn" type="submit">Registrar</button>
+                        <button className="btn" type="submit" disabled={submitDisabled}>Registrar</button>
                     </div>
                 </div>
             </form>

@@ -30,6 +30,12 @@ const FormComponent = (props) => {
 
 
     const [errorMsg, setErrorMsg] = useState("")
+    const [submitDisabled, setSubmitDisabled] = useState(false)
+    
+    const setErrorSetSubmit = (errorM, subm) => {
+        setErrorMsg(errorM)
+        setSubmitDisabled(subm)    
+    }
 
     const [precio, setPrecio] = useState(0.0)
     const [precioCosto, setPrecioCosto] = useState(0.0)
@@ -83,11 +89,11 @@ const FormComponent = (props) => {
 
     const addProducto = (e) => {
         if (!producto.value) {
-            setErrorMsg("Complete el campo descripcion")
+            setErrorSetSubmit("Complete el campo descripcion", false)
             return;
         }
         if (precio == 0 || precio == 0.0) {
-            setErrorMsg("El precio no puede ser 0")
+            setErrorSetSubmit("El precio no puede ser 0",false)
             return;
         }
 
@@ -114,6 +120,7 @@ const FormComponent = (props) => {
                 setErrorMsg(e.response.data.msg)
             } else {
                 setErrorMsg("Ocurrio un error en el servidor, comuniquese con el administrador")
+                setSubmitDisabled(false)
             }
         })
     }
@@ -164,6 +171,7 @@ const FormComponent = (props) => {
 
     const _onSubmit = (e) => {
         e.preventDefault();
+        setSubmitDisabled(true)
         switch (props.tipoOperacion) {
             case "ALTA":
                 addProducto(e)
@@ -224,7 +232,7 @@ const FormComponent = (props) => {
                      
                     </div>
                     <div className="input-boton">
-                        <button className="btn" type="submit">Registrar</button>
+                        <button  type="submit" disabled={submitDisabled}>Registrar</button>
                     </div>
                 </form>
             </div>

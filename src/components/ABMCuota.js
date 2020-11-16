@@ -18,6 +18,13 @@ const FormComponent = (props) => {
     const monto = useInput(0.0)
     const [errorMsg, setErrorMsg] = useState("")
 
+    const [submitDisabled, setSubmitDisabled] = useState(false)
+    
+    const setErrorSetSubmit = (errorM, subm) => {
+        setErrorMsg(errorM)
+        setSubmitDisabled(subm)    
+    }
+
     
     let history = useHistory()
 
@@ -58,6 +65,7 @@ const FormComponent = (props) => {
     } 
 
     const _onSubmit = (e) => {
+        setSubmitDisabled(true)
         switch (props.tipoOperacion) {
             case "ALTA":
                 addCuota(e)

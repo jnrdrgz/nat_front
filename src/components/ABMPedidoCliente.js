@@ -71,6 +71,12 @@ const ABMPedidoCliente = (props) => {
     const numeroCliente = useInput("")
 
     const [errorMsg, setErrorMsg] = useState("")
+    const [submitDisabled, setSubmitDisabled] = useState(false)
+    
+    const setErrorSetSubmit = (errorM, subm) => {
+        setErrorMsg(errorM)
+        setSubmitDisabled(subm)    
+    }
 
     const [deudores, setDeudores] = useState([])
     
@@ -181,6 +187,7 @@ const ABMPedidoCliente = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setSubmitDisabled(true)
         console.log("On form submit", inputFields)
 
         const payload = {
@@ -196,11 +203,12 @@ const ABMPedidoCliente = (props) => {
         }
 
         if(!payload.Cliente.nombre){
-            setErrorMsg("Complete el campo nombre cliente")
+            setErrorSetSubmit("Complete el campo nombre cliente", false)
             return;
         }
         if(!payload.Cliente.numeroTelefono){
-            setErrorMsg("Complete el campo numero cliente")
+            
+            setErrorSetSubmit("Complete el campo numero cliente", false)
             return;
         }
 
@@ -236,11 +244,11 @@ const ABMPedidoCliente = (props) => {
                 )
             }
         });
-        if(error){
-            setErrorMsg("Algun campo del pedido no ha sido cargado") 
-        }
+        //if(error){
+        //    setSubmitDisabled("Algun campo del pedido no ha sido cargado", false) 
+        //}
         if(payload.Pedido.DetallePedidos.length === 0){
-            setErrorMsg("No se han cargado productos")
+            setErrorSetSubmit("No se han cargado productos", false)
             return;
         }
 
@@ -466,7 +474,7 @@ const ABMPedidoCliente = (props) => {
                         }
                     })}
                 </div>
-                <button className="botn" type="submit">Agregar</button>
+                <button className="botn" type="submit" disabled={submitDisabled}>Agregar</button>
             </form>
         </div>
     )
