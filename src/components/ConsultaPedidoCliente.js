@@ -289,22 +289,23 @@ const ConsultaPedidoCliente = () => {
                         </div>
                         <div className="BotonesPedidoCliente">
                             <div className="btnesMarcar">
-                                <button className="bt"
+                                <button 
                                     onClick={() => {
                                         if (window.confirm("Marcar pedido como entregado?")) {
                                             marcarPedidoEntregado(pedido.id) 
                                         }
                                     }}
-                                    disabled={pedido.entregado} >
+                                    disabled={pedido.entregado}
+                                    className= {pedido.pagado ? "BtDeshabilitado" : "bt"} >
                                     Entregado</button>
-                                <button className="bt"
+                                <button 
                                     onClick={() => { 
                                         if (window.confirm("Marcar pedido como pagado?")) {
                                             marcarPedidoPagado(pedido.id) 
                                         }
-
                                     }}
                                     disabled={pedido.pagado}
+                                    className= {pedido.pagado ? "BtDeshabilitado" : "bt"} 
                                 >Pagado</button>
                             </div>
                             <div className="botnCancelar" onClick={()=>{

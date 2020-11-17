@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory } from 'react-router-dom';
 import api from "../services/api"
-import "./css/ABMProducto.css"
+import "./css/ABMCuota.css"
 import ErrorMsg from './ErrorMsg';
 
 const useInput = (defaultValue) => {

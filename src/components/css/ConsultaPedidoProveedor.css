@@ -95,3 +95,14 @@ flex-direction: column;
     font-weight: bold;
 }
 
+.BtDeshabilitado{
+    border-radius: 5px;    
+    width: 100%;
+    margin: 5px;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(121, 117, 117);
+    color: rgb(196, 191, 191);
+    font-weight: bold;
+}
