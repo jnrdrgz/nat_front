@@ -97,6 +97,10 @@ const App = () => {
                     <ABMPedidoCliente/>
                 </Route>
 
+                <Route path="/pedidos/cliente/editar">
+                    <ABMPedidoCliente/>
+                </Route>
+
                 {/* PEDIDO PROVEEDOR */}
                 <Route path="/pedidos/proveedor/agregar">
                     <ABMPedidoProveedor/>

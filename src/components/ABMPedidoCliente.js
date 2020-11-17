@@ -73,12 +73,14 @@ const ABMPedidoCliente = (props) => {
     const [errorMsg, setErrorMsg] = useState("")
     const [submitDisabled, setSubmitDisabled] = useState(false)
     
+    
     const setErrorSetSubmit = (errorM, subm) => {
         setErrorMsg(errorM)
         setSubmitDisabled(subm)    
     }
 
     const [deudores, setDeudores] = useState([])
+    const [editarPed, setEditarPed] = useState(false)
     
     useEffect(() => {
         console.log(location.state)
@@ -109,6 +111,26 @@ const ABMPedidoCliente = (props) => {
         }).catch(e => {
             alert("Adevertencia: no hay ciclo actual")
         })
+
+        console.log("thistateeeeeee",location.state)
+        if(location.state){
+            nombreCliente.setValue(location.state.pedido.Cliente.nombre)
+            numeroCliente.setValue(location.state.pedido.Cliente.numeroTelefono)
+            const values = []
+            let index = 0
+            location.state.pedido.Pedido.DetallePedidos.map(p => {
+                values.push({
+                    nuevo: false,
+                    productoId: p.Producto.id,
+                    cantidad: p.cantidad,
+                });
+                console.log("values; ", values)
+                index++;
+            })
+            setInputFields(values);
+            //setLoaded(true);
+            setEditarPed(true)
+        }
 
 
     }, [location]);
@@ -273,29 +295,43 @@ const ABMPedidoCliente = (props) => {
             } 
         }
 
-        api.post("/pedidos/cliente/agregar", payload).then(r => {
-            //console.log(r.data)
-            //goToConsulta();
-            alert("Pedido cargado")
+        //if(editarPed){
+        //    payload.id = location.state.pedido.id
+        //    api.put("/pedidos/cliente/editar", payload).then(r => {
+        //        //console.log(r.data)
+        //        //goToConsulta();
+        //        alert("Pedido editado")
+    //
+    //
+        //    }).catch(e => {
+        //        console.log(e)
+        //    })    
+        //} else {
+
+            api.post("/pedidos/cliente/agregar", payload).then(r => {
+                //console.log(r.data)
+                //goToConsulta();
+                alert("Pedido cargado")
 
 
-        }).catch(e => {
-            console.log(e)
-            if (e.response.status === 300) {
-                //let r = ;
-                if (window.confirm("Se cargaron productos con codigos ya existentes, ¿Actualizar precio y stock?")) {
-                    payload.actualizarProductos = true
-                    api.post("/pedidos/cliente/agregar", payload)
-                        .then(r_ => {
-                            alert("Pedido cargado")
-                        })
-                        .catch(e => { })
+            }).catch(e => {
+                console.log(e)
+                if (e.response.status === 300) {
+                    //let r = ;
+                    if (window.confirm("Se cargaron productos con codigos ya existentes, ¿Actualizar precio y stock?")) {
+                        payload.actualizarProductos = true
 
-                    } else {
-                        alert("Pedido no cargado")
+                        api.post("/pedidos/cliente/agregar", payload)
+                            .then(r_ => {
+                                alert("Pedido cargado")
+                            })
+                            .catch(e => { })
+
+                        } else {
+                            alert("Pedido no cargado")
+                        } 
                     } 
-                } 
-            })
+                })
         
     }
 
@@ -456,16 +492,21 @@ const ABMPedidoCliente = (props) => {
                                         <div className="DatosProductoDesc">
                                             <label className="ExistenteProducto">Producto:</label>
                                             <select name="producto"
-                                                onChange={event => handleInputChange(index, event)}>
+                                               onChange={event => handleInputChange(index, event)}>
 
-                                                {productos.map(
-                                                    p => <option key={`${p.id}`} value={p.id}>{p.descripcion}</option>)}
+                                               {productos.map(
+                                                   p => {
+                                                       return(
+                                                       <option 
+                                                           selected={p.id===inputField.productoId}
+                                                           key={`${p.id}`} value={p.id}>{p.descripcion}
+                                                       </option>)})}
                                             </select>
                                         </div>
                                         <div className="ExistenteCantidad">
                                             <label>Cantidad:</label>
                                             <input type="text" name="cantidad"
-                                                value={inputField.Cantidad}
+                                                value={inputField.cantidad}
                                                 onChange={event => handleInputChange(index, event)}
                                             />
                                         </div>

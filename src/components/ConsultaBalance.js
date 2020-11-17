@@ -74,11 +74,11 @@ const BalanceIntervalo = () => {
             <label className="IntervaloH">Hasta:</label><input onChange={onHastaChange} type="date" name="hasta"></input>
         </div>
         <div className="DatosBalance">
-            <label className="LabelIngresos">Ingresos: ${balance.ingresos}</label>
-            <label className="LabelEgresos">Egresos: ${balance.egresos}</label>
+            <label className="LabelIngresos">Ingresos: ${balance.ingresos.toFixed(2)}</label>
+            <label className="LabelEgresos">Egresos: ${balance.egresos.toFixed(2)}</label>
         </div>
         <div className ="Total">
-        <label className="LabelTotal">Total: ${balance.ingresos - balance.egresos}</label>
+        <label className="LabelTotal">Total: ${(balance.ingresos - balance.egresos).toFixed(2)}</label>
         </div>
     </div>
     )
