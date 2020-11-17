@@ -314,7 +314,8 @@ const ConsultaPedidoCliente = () => {
                                 }
                                 
                             }}>
-                                <button className="bt2">Cancelar</button>
+                                <button  className= {pedido.cancelado ? "BtDeshabilitado" : "bt2"} 
+                                >Cancelar</button>
                             </div>
                         </div>
                     </div>)}
