@@ -87,7 +87,9 @@ const ConsultaPedidoProveedor = () => {
                         <PedidoDisp pedido={pedido.Pedido} />
                         <div className="Bajo">                           
                             <div className="bton">
-                                <button className="bt" onClick={() => { marcarPedidoRecibido(pedido.id) }}>Recibido</button>
+                                <button 
+                                onClick={() => { marcarPedidoRecibido(pedido.id) }}
+                                className= {pedido.pagado ? "BtDeshabilitado" : "bt"} >Recibido</button>
                             </div>
                             <label>Recibido: {pedido.recibido ? "SI" : "NO"}</label>
                         </div>
