@@ -68,9 +68,9 @@ const ConsultaPedidoCliente = () => {
     const [busquedaQuery, setBusquedaQuery] = useState("");
 
 
-    const [filtroPagados, setFiltroPagados] = useState(true);
+    const [filtroPagados, setFiltroPagados] = useState(false);
     const [filtroCancelados, setFiltroCancelados] = useState(false);
-    const [filtroEntregados, setFiltroEntregados] = useState(true);
+    const [filtroEntregados, setFiltroEntregados] = useState(false);
 
     let history = useHistory()
     let match = useRouteMatch();
@@ -79,6 +79,13 @@ const ConsultaPedidoCliente = () => {
         history.push({
             pathname: "/pedidos/proveedor/agregar",
             state: { carrito: p }
+        });
+    }
+
+    const goToEditarPedido = (pId, pedido) => {
+        history.push({
+            pathname: "/pedidos/cliente/editar",
+            state: { pedidoId: pId, pedido: pedido}
         });
     }
 
@@ -131,13 +138,23 @@ const ConsultaPedidoCliente = () => {
     //}
 
     useEffect(() => {
-        //const res = () => 
+        
+      
         api.get("/pedidos/cliente").then(r => {
             console.log(r.data)
             setPedidos(r.data.data)
-            setFilteredPedidos(r.data.data)
-        })
 
+            const filt = (pedido) => {
+                //console.log(pedido)
+                //console.log("pagados", filtroPagados)
+                //console.log("canclacdo", filtroCancelados)
+                //console.log("entregados", filtroPagados)
+                //return pedido.Cliente.nombre.toLowerCase().includes(busquedaQuery) && 
+                 return   pedido.entregado === filtroEntregados && pedido.pagado === filtroPagados
+                && pedido.Pedido.cancelado === filtroCancelados
+            }
+            setFilteredPedidos(r.data.data.filter(filt))
+        })
     }, [])
 
     const goToAgregarClick = () => {
@@ -194,6 +211,7 @@ const ConsultaPedidoCliente = () => {
     }
 
     const onBuscarClick = () => {
+        console.log("ONBUSCARRRRRRRRRRR")
         const filt = (pedido) => {
             //console.log(pedido)
             //console.log("pagados", filtroPagados)
@@ -272,6 +290,9 @@ const ConsultaPedidoCliente = () => {
                     <div className="pedidoCliente" key={pedido.id}>
                         <div className="cabeceraPedido">
                             Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}
+                            <button className="btnDiscreto" type="button" onClick={(e) => {
+                                goToEditarPedido(pedido.id, pedido)
+                            }}>E</button>
                             <button className="btnDiscreto" type="button" onClick={(e) => {
                                 e.preventDefault()
                                 const pedidos_c = [...pedidosCarrito, pedido]
