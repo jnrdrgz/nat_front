@@ -21,7 +21,7 @@ const PedidoDisp = (props) => {
                                 <label className="TituloProd">{detalle.Producto.descripcion}</label>
                                 <label>Codigo: {detalle.Producto.codigo} </label>
                                 <label>Precio unitario: ${detalle.Producto.precioCosto.toFixed(2)} </label>
-                                <label>Cantidad{detalle.cantidad}</label>
+                                <label>Cantidad: {detalle.cantidad}</label>
                                 <label>Subtotal: ${detalle.subtotal.toFixed(2)}</label>
                             </div>)
                     } else {
@@ -86,8 +86,8 @@ const ConsultaPedidoProveedor = () => {
                     <div className="pedidoProveedor" key={pedido.id}>
                         <PedidoDisp pedido={pedido.Pedido} />
                         <div style={{ textAlign:"center"}}>
-                            <label > Ptos: {pedido.puntosTotales} </label>
-                            <label > Ciclo: {pedido.Pedido.Ciclo.numero}</label>
+                            <label > Ptos: {pedido.puntosTotales} Ciclo: {pedido.Pedido.Ciclo.numero}</label>
+                            
                         </div>
                     
                         <div className="Bajo">                           
