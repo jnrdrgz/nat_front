@@ -85,7 +85,10 @@ const ConsultaPedidoProveedor = () => {
                 {pedidos.map(pedido =>
                     <div className="pedidoProveedor" key={pedido.id}>
                         <PedidoDisp pedido={pedido.Pedido} />
-                        <label>Ptos: {pedido.puntosTotales}</label>
+                        <div style={{ textAlign:"center"}}>
+                            <label > Ptos: {pedido.puntosTotales} </label>
+                            <label > Ciclo: {pedido.Pedido.Ciclo.numero}</label>
+                        </div>
                     
                         <div className="Bajo">                           
                             <div className="bton">
