@@ -353,7 +353,7 @@ const ABMPedidoCliente = (props) => {
                 nuevo: true,
                 producto: p.descripcion,
                 precio: p.precio,
-                precioCosto: 0.0,
+                precioCosto: (p.precio * 30.0) / 100.0,
                 codigo: p.codigo,
                 puntos: p.puntos,
                 stock: 0.0,

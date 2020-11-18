@@ -89,14 +89,18 @@ const ConsultaPedidoProveedor = () => {
                             <label > Ptos: {pedido.puntosTotales} Ciclo: {pedido.Pedido.Ciclo.numero}</label>
                             
                         </div>
-                    
+                        <div style={{ textAlign:"center"}}>
+                        <label>Recibido: {pedido.recibido ? "SI" : "NO"}</label>
+                        </div>
                         <div className="Bajo">                           
                             <div className="bton">
                                 <button 
-                                onClick={() => { marcarPedidoRecibido(pedido.id) }}
-                                className= {pedido.pagado ? "BtDeshabilitado" : "bt"} >Recibido</button>
+                                onClick={() => {
+                                    if(!pedido.recibido){ 
+                                        marcarPedidoRecibido(pedido.id) }}
+                                    }
+                                className= {pedido.recibido ? "BtDeshabilitado" : "bt"} >Recibido</button>
                             </div>
-                            <label>Recibido: {pedido.recibido ? "SI" : "NO"}</label>
                         </div>
                     </div>)}
             </div>
