@@ -232,7 +232,7 @@ const FormComponent = (props) => {
                      
                     </div>
                     <div className="input-boton">
-                        <button  type="submit" disabled={submitDisabled}>Registrar</button>
+                        <button className="btn" type="submit" disabled={submitDisabled}>Registrar</button>
                     </div>
                 </form>
             </div>
