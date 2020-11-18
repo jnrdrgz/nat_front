@@ -383,7 +383,7 @@ const ABMPedidoCliente = (props) => {
                             onChange={nombreCliente.onChange} />
                     </div>
                     <div className="Telefono">
-                        <label>Telefono:</label><input type="text" name="numeroCliente"
+                        <label>Telefono:</label><input type="number" name="numeroCliente"
                             value={numeroCliente.value}
                             onChange={numeroCliente.onChange} />
                     </div>
@@ -435,40 +435,40 @@ const ABMPedidoCliente = (props) => {
                                             </div>
                                             <div className="CantProd">
                                                 <label>Cantidad</label>
-                                                <input type="text" name="cantidad"
+                                                <input type="number" name="cantidad"
                                                     value={inputField.cantidad}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="CantProd">
                                                 <label>Codigo</label>
-                                                <input type="text" name="codigo"
+                                                <input type="number" name="codigo"
                                                     value={inputField.codigo}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="PrecProd">
                                                 <label>Precio</label>
-                                                <input type="text" name="precio" value={inputField.precio}
+                                                <input type="number" name="precio" value={inputField.precio}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="PrecCostProd">
                                                 <label>Precio Costo (30%)</label>
-                                                <input type="text" name="precioCosto" value={inputField.precioCosto}
+                                                <input type="number" name="precioCosto" value={inputField.precioCosto}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="StocProd">
                                                 <label>Stock</label>
-                                                <input type="text" name="stock"
+                                                <input type="number" name="stock"
                                                     value={inputField.stock}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />
                                             </div>
                                             <div className="PuntProd">
                                                 <label>Puntos</label>
-                                                <input type="text" name="puntos"
+                                                <input type="number" name="puntos"
                                                     value={inputField.puntos}
                                                     onChange={event => handleInputChange(index, event)}
                                                 />

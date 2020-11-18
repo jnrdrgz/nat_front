@@ -59,6 +59,14 @@
     border-color:rgba(20, 179, 131,0.5);
 }
 
+.DatosClientes input[type=number]{
+    border-radius: 10px;
+}
+.DatosClientes input[type=number]:focus{
+    border-radius: 10px;
+    border-color:rgba(20, 179, 131,0.5);
+}
+
 .DatosPedidoCliente{
     margin:2px auto;
     width: 60%;
@@ -156,6 +164,26 @@
     border-radius: 10px;
     border-color:rgba(18, 136, 107, 1);
 }
+.DatosPedidoCliente input[type=text]{
+    border-radius: 10px;
+    text-align: center;
+    width: 60%;
+}
+
+.DatosProducto input[type=number]{
+    border-radius: 10px;
+}
+.DatosProducto input[type=number]:focus{
+    border-radius: 10px;
+    border-color:rgba(18, 136, 107, 1);
+}
+.DatosPedidoCliente input[type=number]{
+    border-radius: 10px;
+    text-align: center;
+    width: 60%;
+}
+
+
 .DatosProducto select{
     border-radius: 10px;
 }
@@ -181,11 +209,6 @@
     color:rgba(18, 136, 107, 1);
 }
 
-.DatosPedidoCliente input[type=text]{
-    border-radius: 10px;
-    text-align: center;
-    width: 60%;
-}
 
 .DescProd{
  display: flex;
@@ -259,8 +282,19 @@
     font-style: italic;
     margin-left:auto;    
     align-content: center;
-        
 }
+
+.btnEditarDiscreto{
+    display: flex;    
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    font-weight: bolder;
+    font-style: italic;
+    margin-left:auto;    
+    align-content: center;
+}
+
 .btnDiscreto:hover{
     
     color:rgba(18, 136, 107);

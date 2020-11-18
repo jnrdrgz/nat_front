@@ -289,10 +289,11 @@ const ConsultaPedidoCliente = () => {
                 {filteredPedidos.map(pedido =>
                     <div className="pedidoCliente" key={pedido.id}>
                         <div className="cabeceraPedido">
-                            Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}
-                            <button className="btnDiscreto" type="button" onClick={(e) => {
+                        <button className="btnEditarDiscreto" type="button" onClick={(e) => {
                                 goToEditarPedido(pedido.id, pedido)
-                            }}>E</button>
+                            }}>✏️</button>
+                            
+                            Pedido de {pedido.Cliente.nombre} {format_fecha(pedido.Pedido.fecha)}
                             <button className="btnDiscreto" type="button" onClick={(e) => {
                                 e.preventDefault()
                                 const pedidos_c = [...pedidosCarrito, pedido]
@@ -334,12 +335,15 @@ const ConsultaPedidoCliente = () => {
                                 >Pagado</button>
                             </div>
                             <div className="botnCancelar" onClick={()=>{
-                                if (window.confirm("Cancelar pedido?")) {
-                                    cancelarPedido(pedido.id) 
+                                if(!pedido.Pedido.cancelado){
+                                    if (window.confirm("Cancelar pedido?")) {
+                                        cancelarPedido(pedido.id) 
+                                    }
                                 }
                                 
                             }}>
-                                <button className="bt2">Cancelar</button>
+                                <button  className= {pedido.Pedido.cancelado ? "BtDeshabilitado" : "bt2"} 
+                                >Cancelar</button>
                             </div>
                         </div>
                     </div>)}
