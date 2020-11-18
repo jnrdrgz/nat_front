@@ -69,7 +69,19 @@ const ConsultaCiclos = () => {
                     <div className="Ciclo" key={ciclo.id}>
                         <div className="Titulo">
                             <label className="NumeroCiclo">Ciclo: {ciclo.numero}</label>
-                            <label className="NumeroCiclo">{ciclo.actual ? "Ciclo Actual" : "Ciclo Pasado"}</label>
+                            <label className="NumeroCiclo">{
+                                (() => {
+                                    let today = new Date()
+                                    let cicl_date = new Date(ciclo.fechaInicio)
+                                    //console.log(cicl_date)
+                                    //console.log(today)
+                                    
+                                    if(ciclo.actual) return "Ciclo Actual"
+                                    if(today > cicl_date) return "Ciclo Pasado"
+                                    if(today < cicl_date) return "Ciclo Próximo"
+                                    
+                                })()
+                            }</label>
                            </div>
                         <div className="Contenido">
                             <div className="Fechas">
