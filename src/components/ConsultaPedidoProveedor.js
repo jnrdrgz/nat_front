@@ -21,7 +21,7 @@ const PedidoDisp = (props) => {
                                 <label className="TituloProd">{detalle.Producto.descripcion}</label>
                                 <label>Codigo: {detalle.Producto.codigo} </label>
                                 <label>Precio unitario: ${detalle.Producto.precioCosto.toFixed(2)} </label>
-                                <label>Cantidad{detalle.cantidad}</label>
+                                <label>Cantidad: {detalle.cantidad}</label>
                                 <label>Subtotal: ${detalle.subtotal.toFixed(2)}</label>
                             </div>)
                     } else {
@@ -85,13 +85,22 @@ const ConsultaPedidoProveedor = () => {
                 {pedidos.map(pedido =>
                     <div className="pedidoProveedor" key={pedido.id}>
                         <PedidoDisp pedido={pedido.Pedido} />
+                        <div style={{ textAlign:"center"}}>
+                            <label > Ptos: {pedido.puntosTotales} Ciclo: {pedido.Pedido.Ciclo.numero}</label>
+                            
+                        </div>
+                        <div style={{ textAlign:"center"}}>
+                        <label>Recibido: {pedido.recibido ? "SI" : "NO"}</label>
+                        </div>
                         <div className="Bajo">                           
                             <div className="bton">
                                 <button 
-                                onClick={() => { marcarPedidoRecibido(pedido.id) }}
-                                className= {pedido.pagado ? "BtDeshabilitado" : "bt"} >Recibido</button>
+                                onClick={() => {
+                                    if(!pedido.recibido){ 
+                                        marcarPedidoRecibido(pedido.id) }}
+                                    }
+                                className= {pedido.recibido ? "BtDeshabilitado" : "bt"} >Recibido</button>
                             </div>
-                            <label>Recibido: {pedido.recibido ? "SI" : "NO"}</label>
                         </div>
                     </div>)}
             </div>

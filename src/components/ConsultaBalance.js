@@ -85,7 +85,7 @@ const BalanceIntervalo = () => {
 }
 
 const ConsultaBalance = (props) => {
-    const [tipo, setTipo] = useState("ciclo");
+    const [tipo, setTipo] = useState("intervalo");
     
     if(tipo === "ciclo"){
         return (
@@ -100,7 +100,6 @@ const ConsultaBalance = (props) => {
         return (
             <div>
                 <div className="Ciclos-Intervalo">
-                    <button className="btnc" onClick={() => { }}>Ciclo</button>
                     <button className="btnc" onClick={() => { setTipo("intervalo") }}>Intervalo</button>
                 </div>
                 <BalanceIntervalo />

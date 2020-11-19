@@ -15,16 +15,20 @@ const HomeDiasRestantes = (props) => {
     }, [])
 
     console.log(props)
-    return (
-        <div className="Dias">
-            <h2>TIEMPO CICLO</h2>
-            <div>
-                <label>QUEDAN {dias.diasRestantes} DÍAS PARA QUE FINALICE EL CICLO</label>
-                <label>Inicio {dias.fechaInicio}</label>
-                <label>Fin {dias.fechaFin}</label>
+    if(dias.fechaInicio){
+        return (
+            <div className="Dias">
+                <h2>TIEMPO CICLO</h2>
+                <div>
+                    <label>QUEDAN {dias.diasRestantes} DÍAS PARA QUE FINALICE EL CICLO</label>
+                    <label>Inicio {dias.fechaInicio.split("T")[0]}</label><br />
+                    <label>Fin {dias.fechaFin.split("T")[0]}</label>
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return(<div>cargando...</div>)
+    }
 }
 
 export default HomeDiasRestantes;

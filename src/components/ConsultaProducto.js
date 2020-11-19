@@ -61,7 +61,8 @@ const ConsultaProducto = () => {
                         onClick={() => {
                                 const filt = (producto) => {
                                     console.log(producto.descripcion)
-                                  return producto.descripcion.toLowerCase().includes(busquedaQuery)
+                                  return producto.descripcion.toLowerCase().includes(busquedaQuery) || 
+                                  producto.codigo.toString().includes(busquedaQuery)
                                 }
                                 setFilteredProductos(productos.filter(filt))
                             }}
